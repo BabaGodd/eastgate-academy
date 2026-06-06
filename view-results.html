@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Results - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="view-results.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  
+  <section class="ea-results-container">
+    <h1>My Academic Results</h1>
+
+    <!-- Filter Section -->
+    <div class="ea-filter-group">
+      <label for="ea-term">Term:</label>
+      <select id="ea-term">
+        <option value="All">All</option>
+        <option value="Term 1">Term 1</option>
+        <option value="Term 2">Term 2</option>
+        <option value="Term 3">Term 3</option>
+      </select>
+
+      <label for="ea-subject">Subject:</label>
+      <select id="ea-subject">
+        <option value="All">All</option>
+        <option value="Math">Math</option>
+        <option value="English">English</option>
+        <option value="Science">Science</option>
+        <!-- Add more subjects -->
+      </select>
+
+      <button id="ea-export-pdf">Export PDF</button>
+    </div>
+
+    <!-- Results Table -->
+    <table class="ea-results-table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Score</th>
+          <th>Term</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="ea-results-body">
+        <!-- Results will be injected here -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- JS Script -->
+  <script src="view-results.js"></script>
+
+
+</body>
+</html>

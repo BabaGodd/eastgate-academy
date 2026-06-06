@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post Announcement - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="post-announcement.css" />
+</head>
+<body>
+  <section class="ea-ann-post">
+    <h1>Post New Announcement</h1>
+    <form id="ea-ann-form">
+      <div class="ea-ann-group">
+        <label for="ea-ann-title">Title</label>
+        <input type="text" id="ea-ann-title" required />
+      </div>
+      <div class="ea-ann-group">
+        <label for="ea-ann-body">Message</label>
+        <textarea id="ea-ann-body" required></textarea>
+      </div>
+      <button type="submit">Post Announcement</button>
+      <p id="ea-ann-success"></p>
+    </form>
+  </section>
+
+  <script src="post-announcement.js"></script>
+</body>
+</html>

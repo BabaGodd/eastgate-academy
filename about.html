@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <meta name="description" content="Learn about Eastgate Academy's story, mission, values and world class facilities in Dawenya, Tema, Ghana." />
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+<div class="ea-scroll-progress" id="ea-scroll-progress"></div>
+
+<!-- Splash Screen -->
+<div class="ea-splash" id="ea-splash">
+  <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+  <p class="ea-splash-name">Eastgate Academy</p>
+  <p class="ea-splash-tagline">Nurturing Young Minds for a Brighter Future</p>
+  <div class="ea-splash-bar-wrap">
+    <div class="ea-splash-bar"></div>
+  </div>
+</div>
+
+
+  <!-- HEADER -->
+  <header class="ea-header" id="ea-header">
+    <div class="ea-header-inner">
+      <div class="ea-header-brand">
+        <img src="eastgateLogo.webp" alt="Eastgate Academy Logo" class="ea-header-logo" />
+        <span class="ea-header-name">Eastgate Academy</span>
+      </div>
+<nav class="ea-nav" id="ea-nav">
+  <ul class="ea-nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li class="ea-nav-dropdown-wrap active">
+      <a href="about.html" class="ea-nav-dropdown-trigger">
+        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      </ul>
+    </li>
+    <li><a href="academics.html">Academics</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="admissions.html" class="ea-nav-dropdown-trigger">
+        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Dark Mode Toggle -->
+<button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+  <i class="fas fa-moon"></i>
+</button>
+
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-lock"></i> Eastgate Portal
+      </a>
+      <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="ea-page-hero">
+    <div class="ea-page-hero-overlay"></div>
+    <img src="images/classroom.jpg" alt="Eastgate Academy" class="ea-page-hero-bg" />
+    <div class="ea-page-hero-content">
+      <span class="ea-hero-tag">About Us</span>
+      <h1>Our Story, Vision & Values</h1>
+      <p>Building a legacy of learning, leadership and growth since 2010.</p>
+    </div>
+  </section>
+
+  <!-- OUR STORY & MISSION -->
+  <section class="ea-about-intro">
+    <div class="ea-container ea-about-intro-grid">
+      <div class="ea-about-intro-text">
+        <span class="ea-section-tag">Who We Are</span>
+        <h2>Our Story</h2>
+        <p>Founded in 2010, Eastgate Academy has been a cornerstone of quality primary education in Dawenya, Tema. What began as a small neighbourhood school has grown into a respected institution serving families throughout the region.</p>
+        <p>Over the years we have built a reputation for academic excellence, character development and a genuine love of learning — values that guide everything we do.</p>
+
+        <div class="ea-about-mission-box">
+          <i class="fas fa-bullseye"></i>
+          <div>
+            <h3>Our Mission</h3>
+            <p>To provide a nurturing, stimulating learning environment where children aged 5–12 can develop intellectually, socially, emotionally, and physically through a balanced curriculum and dedicated teaching staff.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ea-about-intro-image">
+        <img src="images/classroom.jpg" alt="Eastgate Academy classroom" />
+        <div class="ea-about-stat-grid">
+          <div class="ea-about-stat">
+            <span class="ea-about-stat-num">14+</span>
+            <span class="ea-about-stat-label">Years of Excellence</span>
+          </div>
+          <div class="ea-about-stat">
+            <span class="ea-about-stat-num">320+</span>
+            <span class="ea-about-stat-label">Students Enrolled</span>
+          </div>
+          <div class="ea-about-stat">
+            <span class="ea-about-stat-num">24</span>
+            <span class="ea-about-stat-label">Dedicated Staff</span>
+          </div>
+          <div class="ea-about-stat">
+            <span class="ea-about-stat-num">100%</span>
+            <span class="ea-about-stat-label">JHS Transition</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR VALUES -->
+  <section class="ea-values-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">What We Stand For</span>
+        <h2>Our Core Values</h2>
+        <p>The principles that guide every decision we make and every interaction we have.</p>
+      </div>
+      <div class="ea-values-grid">
+        <div class="ea-value-card">
+          <div class="ea-value-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Excellence</h3>
+          <p>We strive for the highest standards in all areas of school life, academics and beyond.</p>
+        </div>
+        <div class="ea-value-card">
+          <div class="ea-value-icon"><i class="fas fa-heart"></i></div>
+          <h3>Respect</h3>
+          <p>We value each individual and treat everyone with dignity, kindness and understanding.</p>
+        </div>
+        <div class="ea-value-card">
+          <div class="ea-value-icon"><i class="fas fa-handshake"></i></div>
+          <h3>Integrity</h3>
+          <p>We act honestly, transparently and take full responsibility for our actions.</p>
+        </div>
+        <div class="ea-value-card">
+          <div class="ea-value-icon"><i class="fas fa-users"></i></div>
+          <h3>Community</h3>
+          <p>We work together — students, teachers and parents — to create a supportive environment.</p>
+        </div>
+        <div class="ea-value-card">
+          <div class="ea-value-icon"><i class="fas fa-lightbulb"></i></div>
+          <h3>Innovation</h3>
+          <p>We embrace new ideas and modern teaching methods to keep learning exciting and relevant.</p>
+        </div>
+        <div class="ea-value-card">
+          <div class="ea-value-icon"><i class="fas fa-seedling"></i></div>
+          <h3>Growth</h3>
+          <p>We believe every child has unlimited potential and we nurture that growth every day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR FACILITIES -->
+  <section class="ea-facilities-section">
+    <div class="ea-container ea-facilities-grid">
+      <div class="ea-facilities-text">
+        <span class="ea-section-tag">Our Campus</span>
+        <h2>World Class Facilities</h2>
+        <p>We've invested in creating a safe, modern and inspiring environment where children love to come to school every day.</p>
+        <ul class="ea-facilities-list">
+          <li><i class="fas fa-check-circle"></i> Spacious, air-conditioned classrooms</li>
+          <li><i class="fas fa-check-circle"></i> Computer lab with up-to-date technology</li>
+          <li><i class="fas fa-check-circle"></i> Science laboratory for hands-on experiments</li>
+          <li><i class="fas fa-check-circle"></i> Library with extensive reading materials</li>
+          <li><i class="fas fa-check-circle"></i> Outdoor playground and sports field</li>
+          <li><i class="fas fa-check-circle"></i> Art and music rooms for creative expression</li>
+          <li><i class="fas fa-check-circle"></i> Dedicated ICT suite</li>
+          <li><i class="fas fa-check-circle"></i> Secure, gated campus with CCTV</li>
+        </ul>
+      </div>
+      <div class="ea-facilities-image">
+        <img src="images/classroom.jpg" alt="Eastgate Academy facilities" />
+      </div>
+    </div>
+  </section>
+
+  <!-- VIRTUAL TOUR -->
+  <section class="ea-tour-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">See It Yourself</span>
+        <h2>Take a Virtual Tour</h2>
+        <p>Can't visit us in person? Get a feel for our campus from wherever you are.</p>
+      </div>
+      <div class="ea-video-wrap">
+        <div class="ea-video-placeholder">
+          <i class="fas fa-play-circle"></i>
+          <p>Virtual Tour Coming Soon</p>
+          <span>In the meantime, <a href="contact.html">book a physical visit</a> with us.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ea-cta">
+    <div class="ea-container ea-cta-inner">
+      <div class="ea-cta-text">
+        <h2>Ready to Join The Academy?</h2>
+        <p>Schedule a visit or begin the enrollment process today.</p>
+      </div>
+      <div class="ea-cta-btns">
+        <a href="contact.html" class="ea-btn-white"><i class="fas fa-calendar-alt"></i> Book a Tour</a>
+        <a href="admissions.html" class="ea-btn-outline-white"><i class="fas fa-file-alt"></i> Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Providing quality primary education in Dawenya, Tema since 2010.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Dawenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0244 512 123</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateacademy.edu.gh</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
+      </div>
+    </div>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+  <span class="ea-whatsapp-tooltip">Chat with us</span>
+  <div class="ea-whatsapp-icon">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+</a>
+
+<!-- Back to Top Button -->
+<button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Cookie Consent Banner -->
+<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+  <div class="ea-cookie-text">
+    <span class="ea-cookie-icon">🍪</span>
+    <div class="ea-cookie-text-content">
+      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="#">Learn more</a></p>
+    </div>
+  </div>
+  <div class="ea-cookie-btns">
+    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Staff - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/LearnGrowSucceed.png" />
+  <meta name="description" content="Meet the dedicated teaching and administrative staff at Eastgate Academy, Dawenya, Tema, Ghana." />
+</head>
+<body>
+
+  <!-- Splash Screen -->
+<div class="ea-splash" id="ea-splash">
+  <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+  <p class="ea-splash-name">Eastgate Academy</p>
+  <p class="ea-splash-tagline">Nurturing Young Minds for a Brighter Future</p>
+  <div class="ea-splash-bar-wrap">
+    <div class="ea-splash-bar"></div>
+  </div>
+</div>
+
+  <!-- HEADER -->
+  <header class="ea-header" id="ea-header">
+    <div class="ea-header-inner">
+      <div class="ea-header-brand">
+        <img src="eastgateLogo.webp" alt="Eastgate Academy Logo" class="ea-header-logo" />
+        <span class="ea-header-name">Eastgate Academy</span>
+      </div>
+
+
+      <nav class="ea-nav" id="ea-nav">
+  <ul class="ea-nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li class="ea-nav-dropdown-wrap active">
+      <a href="about.html" class="ea-nav-dropdown-trigger">
+        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      </ul>
+    </li>
+    <li><a href="academics.html">Academics</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="admissions.html" class="ea-nav-dropdown-trigger">
+        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Dark Mode Toggle -->
+<button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+  <i class="fas fa-moon"></i>
+</button>
+
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-lock"></i> Eastgate Portal
+      </a>
+      <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="ea-page-hero">
+    <div class="ea-page-hero-overlay"></div>
+    <img src="images/classroom.jpg" alt="Eastgate Academy Staff" class="ea-page-hero-bg" />
+    <div class="ea-page-hero-content">
+      <span class="ea-hero-tag">Our People</span>
+      <h1>Meet the Team Behind Our Success</h1>
+      <p>Dedicated educators shaping the next generation of leaders.</p>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="ea-staff-philosophy">
+    <div class="ea-container ea-staff-philosophy-grid">
+      <div class="ea-staff-philosophy-text">
+        <span class="ea-section-tag">Our Teaching Philosophy</span>
+        <h2>Great Teachers Make the Difference</h2>
+        <p>At Eastgate Academy, we believe that great teachers are the foundation of an exceptional education. Our staff members are carefully selected for their qualifications, experience, and most importantly, their passion for teaching and nurturing young minds.</p>
+        <p>All our teachers hold relevant degrees and teaching certifications, and participate in ongoing professional development to stay current with the latest educational methodologies.</p>
+        <div class="ea-staff-philosophy-stats">
+          <div class="ea-staff-stat">
+            <span class="ea-staff-stat-num">24</span>
+            <span class="ea-staff-stat-label">Staff Members</span>
+          </div>
+          <div class="ea-staff-stat">
+            <span class="ea-staff-stat-num">12+</span>
+            <span class="ea-staff-stat-label">Avg. Years Experience</span>
+          </div>
+          <div class="ea-staff-stat">
+            <span class="ea-staff-stat-num">100%</span>
+            <span class="ea-staff-stat-label">Certified Teachers</span>
+          </div>
+        </div>
+      </div>
+      <div class="ea-staff-philosophy-image">
+        <img src="images/classroom.jpg" alt="Teachers at Eastgate Academy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMINISTRATIVE TEAM -->
+  <section class="ea-staff-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Leadership</span>
+        <h2>Administrative Team</h2>
+        <p>The dedicated leadership team that keeps Eastgate Academy running at its best.</p>
+      </div>
+      <div class="ea-staff-grid">
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher1.jpg" alt="Mrs. Akosua Mensah" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mrs. Akosua Mensah</h3>
+            <p class="ea-staff-position">Headteacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Ed Education Leadership, M.Ed School Administration</p>
+            <p class="ea-staff-bio">Leads the school with a focus on academic excellence and holistic student growth. Has over 15 years of experience in primary education leadership.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher2.jpg" alt="Mrs. Amina Asante" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mrs. Amina Asante</h3>
+            <p class="ea-staff-position">Assistant Headteacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Ed Basic Education, M.Ed School Administration</p>
+            <p class="ea-staff-bio">Specialises in curriculum development and teacher mentoring, ensuring every classroom delivers the highest quality of teaching.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher4.jpg" alt="Mrs. Lydia Asare" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mrs. Lydia Asare</h3>
+            <p class="ea-staff-position">School Secretary</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> HND Office Management</p>
+            <p class="ea-staff-bio">Manages school records, correspondence, and daily administrative operations with efficiency and care.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher5.jpg" alt="Mr. Daniel Tetteh" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mr. Daniel Tetteh</h3>
+            <p class="ea-staff-position">Accounts Officer</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Sc Accounting</p>
+            <p class="ea-staff-bio">Oversees financial records, budgeting and fee processing. Ensures full transparency and accuracy in all financial matters.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHING STAFF -->
+  <section class="ea-staff-section ea-staff-section-alt">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Classroom Leaders</span>
+        <h2>Teaching Staff</h2>
+        <p>Passionate, qualified educators committed to bringing out the best in every child.</p>
+      </div>
+      <div class="ea-staff-grid">
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher6.jpg" alt="Mr. Kwame Boateng" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mr. Kwame Boateng</h3>
+            <p class="ea-staff-position">P4–P6 Mathematics Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Ed Mathematics Education</p>
+            <p class="ea-staff-bio">Brings mathematics to life through practical problem-solving activities and real-world applications for upper primary students.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher2.jpg" alt="Ms. Abena Darko" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Ms. Abena Darko</h3>
+            <p class="ea-staff-position">P1–P3 English Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Ed English Language Education</p>
+            <p class="ea-staff-bio">Inspires a love of reading and storytelling in young learners through creative, engaging literacy programmes.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher4.jpg" alt="Mr. Kofi Amponsah" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mr. Kofi Amponsah</h3>
+            <p class="ea-staff-position">Integrated Science Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Sc Science Education</p>
+            <p class="ea-staff-bio">Makes science exciting through hands-on experiments and discovery-based learning that sparks curiosity in every student.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher5.jpg" alt="Mrs. Esi Owusu" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mrs. Esi Owusu</h3>
+            <p class="ea-staff-position">ICT Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Sc Computer Science</p>
+            <p class="ea-staff-bio">Equips students with digital literacy and coding fundamentals, preparing them confidently for the modern technology-driven world.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT STAFF -->
+  <section class="ea-staff-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Behind the Scenes</span>
+        <h2>Support Staff</h2>
+        <p>The unsung heroes who keep our school safe, clean and running smoothly every day.</p>
+      </div>
+      <div class="ea-staff-grid ea-staff-grid-support">
+
+        <div class="ea-staff-card ea-staff-card-compact">
+          <div class="ea-staff-avatar ea-staff-avatar-sm">
+            <img src="images/teacher6.jpg" alt="Mr. Isaac Nortey" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mr. Isaac Nortey</h3>
+            <p class="ea-staff-position">School Caretaker</p>
+            <p class="ea-staff-bio">Ensures the school grounds and facilities are safe, clean and well-maintained at all times.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card ea-staff-card-compact">
+          <div class="ea-staff-avatar ea-staff-avatar-sm">
+            <img src="images/teacher2.jpg" alt="Mrs. Grace Tawiah" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mrs. Grace Tawiah</h3>
+            <p class="ea-staff-position">School Nurse</p>
+            <p class="ea-staff-bio">Provides first aid, monitors student health and wellbeing, and liaises with parents on health matters.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN THE TEAM -->
+  <section class="ea-join-team">
+    <div class="ea-container ea-join-team-inner">
+      <div class="ea-join-team-text">
+        <span class="ea-section-tag">Careers</span>
+        <h2>Join Our Team</h2>
+        <p>We're always looking for passionate, qualified educators and support staff to join the Eastgate Academy family. If you share our values and love for education, we'd love to hear from you.</p>
+        <a href="contact.html" class="ea-btn-primary">
+          <i class="fas fa-paper-plane"></i> Get In Touch
+        </a>
+      </div>
+      <div class="ea-join-team-icons">
+        <div class="ea-join-icon"><i class="fas fa-heart"></i><span>Passionate Team</span></div>
+        <div class="ea-join-icon"><i class="fas fa-chart-line"></i><span>Career Growth</span></div>
+        <div class="ea-join-icon"><i class="fas fa-users"></i><span>Supportive Culture</span></div>
+        <div class="ea-join-icon"><i class="fas fa-star"></i><span>Make a Difference</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ea-cta">
+    <div class="ea-container ea-cta-inner">
+      <div class="ea-cta-text">
+        <h2>Ready to Join The Academy?</h2>
+        <p>Schedule a visit or begin the enrollment process today.</p>
+      </div>
+      <div class="ea-cta-btns">
+        <a href="contact.html" class="ea-btn-white"><i class="fas fa-calendar-alt"></i> Book a Tour</a>
+        <a href="admissions.html" class="ea-btn-outline-white"><i class="fas fa-file-alt"></i> Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Providing quality primary education in Dawenya, Tema since 2010.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Dawenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0244 512 123</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateacademy.edu.gh</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
+      </div>
+    </div>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+  <span class="ea-whatsapp-tooltip">Chat with us</span>
+  <div class="ea-whatsapp-icon">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+</a>
+
+<!-- Back to Top Button -->
+<button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Cookie Consent Banner -->
+<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+  <div class="ea-cookie-text">
+    <span class="ea-cookie-icon">🍪</span>
+    <div class="ea-cookie-text-content">
+      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="#">Learn more</a></p>
+    </div>
+  </div>
+  <div class="ea-cookie-btns">
+    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admissions - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/LearnGrowSucceed.png" />
+  <meta name="description" content="Apply to Eastgate Academy in Dawenya, Tema. Learn about our admissions process, requirements and how to enroll your child." />
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+<div class="ea-scroll-progress" id="ea-scroll-progress"></div>
+
+  <!-- Splash Screen -->
+<div class="ea-splash" id="ea-splash">
+  <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+  <p class="ea-splash-name">Eastgate Academy</p>
+  <p class="ea-splash-tagline">Nurturing Young Minds for a Brighter Future</p>
+  <div class="ea-splash-bar-wrap">
+    <div class="ea-splash-bar"></div>
+  </div>
+</div>
+
+  <!-- HEADER -->
+  <header class="ea-header" id="ea-header">
+    <div class="ea-header-inner">
+      <div class="ea-header-brand">
+        <img src="eastgateLogo.webp" alt="Eastgate Academy Logo" class="ea-header-logo" />
+        <span class="ea-header-name">Eastgate Academy</span>
+      </div>
+
+
+ <nav class="ea-nav" id="ea-nav">
+  <ul class="ea-nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="about.html" class="ea-nav-dropdown-trigger">
+        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      </ul>
+    </li>
+    <li><a href="academics.html">Academics</a></li>
+    <li class="ea-nav-dropdown-wrap active">
+      <a href="admissions.html" class="ea-nav-dropdown-trigger">
+        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+      <!-- Dark Mode Toggle -->
+<button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+  <i class="fas fa-moon"></i>
+</button>
+
+
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-lock"></i> Eastgate Portal
+      </a>
+      <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="ea-page-hero">
+    <div class="ea-page-hero-overlay"></div>
+    <img src="images/classroom.jpg" alt="Admissions at Eastgate Academy" class="ea-page-hero-bg" />
+    <div class="ea-page-hero-content">
+      <span class="ea-hero-tag">Admissions</span>
+      <h1>Join the Eastgate Family</h1>
+      <p>Simple steps to enroll and become part of something great.</p>
+    </div>
+  </section>
+
+  <!-- HOW TO APPLY -->
+  <section class="ea-adm-steps-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Enrollment Process</span>
+        <h2>How to Apply</h2>
+        <p>We're delighted you're considering Eastgate Academy. Follow these simple steps to begin.</p>
+      </div>
+      <div class="ea-adm-steps-grid">
+        <div class="ea-adm-step-card">
+          <div class="ea-adm-step-num">1</div>
+          <h3>Inquiry</h3>
+          <p>Contact our admissions office to request information or schedule a school tour.</p>
+        </div>
+        <div class="ea-adm-step-card">
+          <div class="ea-adm-step-num">2</div>
+          <h3>Application</h3>
+          <p>Complete and submit the application form along with all required documents.</p>
+        </div>
+        <div class="ea-adm-step-card">
+          <div class="ea-adm-step-num">3</div>
+          <h3>Assessment</h3>
+          <p>Your child will participate in a brief age-appropriate assessment.</p>
+        </div>
+        <div class="ea-adm-step-card">
+          <div class="ea-adm-step-num">4</div>
+          <h3>Interview</h3>
+          <p>Parents meet with the headteacher to discuss expectations and your child's needs.</p>
+        </div>
+        <div class="ea-adm-step-card">
+          <div class="ea-adm-step-num">5</div>
+          <h3>Acceptance</h3>
+          <p>Receive your acceptance notification and full enrollment package.</p>
+        </div>
+        <div class="ea-adm-step-card">
+          <div class="ea-adm-step-num">6</div>
+          <h3>Registration</h3>
+          <p>Complete registration by submitting all forms and paying the required fees.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REQUIREMENTS -->
+  <section class="ea-adm-req-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">What You'll Need</span>
+        <h2>Admissions Requirements</h2>
+        <p>Please ensure you have the following documents ready before applying.</p>
+      </div>
+      <div class="ea-adm-req-grid">
+        <div class="ea-adm-req-card">
+          <div class="ea-adm-req-header">
+            <i class="fas fa-star"></i>
+            <h3>Kindergarten</h3>
+          </div>
+          <ul class="ea-adm-req-list">
+            <li><i class="fas fa-check"></i> Child must be 5 years old by September 1st</li>
+            <li><i class="fas fa-check"></i> Completed application form</li>
+            <li><i class="fas fa-check"></i> Copy of birth certificate</li>
+            <li><i class="fas fa-check"></i> Immunization records</li>
+            <li><i class="fas fa-check"></i> 2 passport-sized photographs</li>
+          </ul>
+        </div>
+        <div class="ea-adm-req-card">
+          <div class="ea-adm-req-header">
+            <i class="fas fa-book"></i>
+            <h3>Primary (P1–P3)</h3>
+          </div>
+          <ul class="ea-adm-req-list">
+            <li><i class="fas fa-check"></i> Completed application form</li>
+            <li><i class="fas fa-check"></i> Copy of birth certificate</li>
+            <li><i class="fas fa-check"></i> Immunization records</li>
+            <li><i class="fas fa-check"></i> Previous school report cards</li>
+            <li><i class="fas fa-check"></i> 2 passport-sized photographs</li>
+            <li><i class="fas fa-check"></i> Transfer certificate (if applicable)</li>
+          </ul>
+        </div>
+        <div class="ea-adm-req-card">
+          <div class="ea-adm-req-header">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Primary (P4–P6)</h3>
+          </div>
+          <ul class="ea-adm-req-list">
+            <li><i class="fas fa-check"></i> Completed application form</li>
+            <li><i class="fas fa-check"></i> Copy of birth certificate</li>
+            <li><i class="fas fa-check"></i> Immunization records</li>
+            <li><i class="fas fa-check"></i> Report cards from previous 2 years</li>
+            <li><i class="fas fa-check"></i> 2 passport-sized photographs</li>
+            <li><i class="fas fa-check"></i> Transfer certificate</li>
+            <li><i class="fas fa-check"></i> Entrance assessment in English & Math</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS & SCHEDULE -->
+  <section class="ea-adm-focus-section">
+    <div class="ea-container ea-adm-focus-grid">
+      <div class="ea-adm-focus-card">
+        <span class="ea-section-tag">Kindergarten</span>
+        <h2>Key Focus Areas</h2>
+        <ul class="ea-adm-focus-list">
+          <li><i class="fas fa-check-circle"></i> Phonics and early reading skills</li>
+          <li><i class="fas fa-check-circle"></i> Number recognition and basic math</li>
+          <li><i class="fas fa-check-circle"></i> Fine and gross motor skill development</li>
+          <li><i class="fas fa-check-circle"></i> Social skills and emotional intelligence</li>
+          <li><i class="fas fa-check-circle"></i> Creative expression through art and music</li>
+        </ul>
+      </div>
+      <div class="ea-adm-focus-card">
+        <span class="ea-section-tag">Daily Routine</span>
+        <h2>Sample Daily Schedule</h2>
+        <ul class="ea-adm-schedule-list">
+          <li><span class="ea-adm-time">7:30–8:00</span> Arrival & Free Play</li>
+          <li><span class="ea-adm-time">8:00–8:30</span> Morning Circle Time</li>
+          <li><span class="ea-adm-time">8:30–9:15</span> Literacy Activities</li>
+          <li><span class="ea-adm-time">9:15–9:45</span> Snack & Outdoor Play</li>
+          <li><span class="ea-adm-time">9:45–10:30</span> Math Activities</li>
+          <li><span class="ea-adm-time">10:30–11:15</span> Theme-Based Learning</li>
+          <li><span class="ea-adm-time">11:15–12:00</span> Creative Arts</li>
+          <li><span class="ea-adm-time">12:00–12:30</span> Lunch</li>
+          <li><span class="ea-adm-time">12:30–1:30</span> Quiet Time</li>
+          <li><span class="ea-adm-time">1:30–2:15</span> Physical Education</li>
+          <li><span class="ea-adm-time">2:15–3:00</span> Story Time & Dismissal</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY SUBJECTS -->
+  <section class="ea-adm-subjects-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">What We Teach</span>
+        <h2>Key Subjects</h2>
+        <p>A comprehensive curriculum designed to develop well-rounded, capable learners.</p>
+      </div>
+      <div class="ea-adm-subjects-grid">
+        <div class="ea-adm-subject-card">
+          <div class="ea-adm-subject-icon"><i class="fas fa-book-open"></i></div>
+          <h3>English Language</h3>
+          <p>Reading comprehension, writing, grammar and spelling skills.</p>
+        </div>
+        <div class="ea-adm-subject-card">
+          <div class="ea-adm-subject-icon"><i class="fas fa-calculator"></i></div>
+          <h3>Mathematics</h3>
+          <p>Number operations, measurement, geometry and problem-solving.</p>
+        </div>
+        <div class="ea-adm-subject-card">
+          <div class="ea-adm-subject-icon"><i class="fas fa-flask"></i></div>
+          <h3>Science</h3>
+          <p>Scientific concepts, environmental awareness and experiments.</p>
+        </div>
+        <div class="ea-adm-subject-card">
+          <div class="ea-adm-subject-icon"><i class="fas fa-globe-africa"></i></div>
+          <h3>Social Studies</h3>
+          <p>Community, culture, history and basic geography of Ghana.</p>
+        </div>
+        <div class="ea-adm-subject-card">
+          <div class="ea-adm-subject-icon"><i class="fas fa-laptop-code"></i></div>
+          <h3>ICT</h3>
+          <p>Computer basics, typing skills and an introduction to coding.</p>
+        </div>
+        <div class="ea-adm-subject-card">
+          <div class="ea-adm-subject-icon"><i class="fas fa-paint-brush"></i></div>
+          <h3>Creative Arts</h3>
+          <p>Music, dance, drama and visual arts for creative development.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY NOW -->
+  <section class="ea-adm-apply-section">
+    <div class="ea-container ea-adm-apply-grid">
+      <div class="ea-adm-apply-text">
+        <span class="ea-section-tag">Get Started</span>
+        <h2>Ready to Apply?</h2>
+        <p>Begin your child's educational journey at Eastgate Academy today. Download our application form or contact our admissions team directly.</p>
+        <div class="ea-adm-apply-btns">
+          <a href="downloads/application-form.pdf" class="ea-btn-primary" download>
+            <i class="fas fa-download"></i> Download Application Form
+          </a>
+          <a href="contact.html" class="ea-btn-secondary">
+            <i class="fas fa-phone"></i> Contact Admissions
+          </a>
+        </div>
+      </div>
+      <div class="ea-adm-apply-image">
+        <img src="images/hero.jpg" alt="Happy students at Eastgate Academy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="ea-adm-faq-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Got Questions?</span>
+        <h2>Frequently Asked Questions</h2>
+        <p>Answers to the most common questions from prospective parents.</p>
+      </div>
+      <div class="ea-adm-faq-list">
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            What is the application deadline?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>We accept applications year-round, but for guaranteed consideration for the upcoming academic year, applications should be submitted by May 31st. Late applications will be considered if spaces remain available.</p>
+          </div>
+        </div>
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            Do you offer after-school care?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>Yes, we offer supervised after-school care until 5:30pm for an additional fee. Students can complete homework, participate in extracurricular activities, or engage in supervised play.</p>
+          </div>
+        </div>
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            What is the student-teacher ratio?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>We maintain a maximum student-teacher ratio of 20:1 in all classes, with many classes having even smaller ratios to ensure individual attention for every child.</p>
+          </div>
+        </div>
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            Do you provide transportation?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>We have partnered with a reliable transportation service that offers routes throughout Dawenya and surrounding areas. Transportation fees are separate from tuition.</p>
+          </div>
+        </div>
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            What languages are taught?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>English is our primary language of instruction. We also offer Twi language classes twice weekly as part of our cultural studies programme.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ea-cta">
+    <div class="ea-container ea-cta-inner">
+      <div class="ea-cta-text">
+        <h2>Ready to Join The Academy?</h2>
+        <p>Schedule a visit or begin the enrollment process today.</p>
+      </div>
+      <div class="ea-cta-btns">
+        <a href="contact.html" class="ea-btn-white"><i class="fas fa-calendar-alt"></i> Book a Tour</a>
+        <a href="admissions.html" class="ea-btn-outline-white"><i class="fas fa-file-alt"></i> Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Providing quality primary education in Dawenya, Tema since 2010.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Dawenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0244 512 123</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateacademy.edu.gh</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
+      </div>
+    </div>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+  <span class="ea-whatsapp-tooltip">Chat with us</span>
+  <div class="ea-whatsapp-icon">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+</a>
+
+<!-- Back to Top Button -->
+<button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+
+<!-- Cookie Consent Banner -->
+<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+  <div class="ea-cookie-text">
+    <span class="ea-cookie-icon">🍪</span>
+    <div class="ea-cookie-text-content">
+      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="#">Learn more</a></p>
+    </div>
+  </div>
+  <div class="ea-cookie-btns">
+    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

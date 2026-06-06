@@ -1,0 +1,73 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #eef3fa;
+  margin: 0;
+  padding: 2rem;
+}
+
+.ea-messaging-section {
+  max-width: 700px;
+  margin: auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.ea-messaging-section h1 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 1.5rem;
+}
+
+.ea-chat-box {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: #f9fcff;
+  border-radius: 8px;
+}
+
+.ea-message {
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 8px;
+  max-width: 75%;
+}
+
+.ea-message.teacher {
+  background-color: #003366;
+  color: white;
+  align-self: flex-start;
+}
+
+.ea-message.parent {
+  background-color: #cce6ff;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.ea-form-group {
+  margin-bottom: 1rem;
+}
+
+textarea, select {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}

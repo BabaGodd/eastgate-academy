@@ -1,0 +1,620 @@
+// ---- Check Auth & Load User ----
+async function checkParentAuth() {
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  const { data: userData } = await supabaseClient
+    .from('users')
+    .select('full_name, role, id')
+    .eq('email', user.email)
+    .single();
+
+  if (!userData || userData.role !== 'parent') {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // Update UI with real user name
+  const pageTitle = document.getElementById('ea-parent-page-title');
+  const userName = document.querySelector('.ea-user-name');
+  const userAvatar = document.querySelector('.ea-user-avatar');
+  const firstName = userData.full_name.split(' ')[0];
+
+  if (pageTitle) pageTitle.textContent = `Welcome, ${firstName}`;
+  if (userName) userName.textContent = userData.full_name;
+  if (userAvatar) userAvatar.textContent = userData.full_name.charAt(0).toUpperCase();
+
+  localStorage.setItem('ea-user-name', userData.full_name);
+  localStorage.setItem('ea-user-role', userData.role);
+  localStorage.setItem('ea-user-email', user.email);
+
+  // Load parent specific data
+  loadParentData(userData.id);
+}
+
+checkParentAuth();
+
+// ---- Load Parent Data ----
+async function loadParentData(parentId) {
+  // Get child linked to this parent
+  const { data: child } = await supabaseClient
+    .from('students')
+    .select(`
+      *,
+      classes (name, teacher_id,
+        users (full_name)
+      )
+    `)
+    .eq('parent_id', parentId)
+    .single();
+
+  if (!child) return;
+
+  // Update child overview card
+  const childName = document.querySelector('.ea-p-child-name');
+  const childDetails = document.querySelectorAll('.ea-p-child-detail');
+  const childAvatar = document.querySelector('.ea-p-child-avatar');
+
+  if (childName) childName.textContent = child.full_name;
+  if (childAvatar) childAvatar.textContent = child.full_name.split(' ').map(n => n[0]).join('').toUpperCase();
+  if (childDetails[0]) childDetails[0].innerHTML = `${child.classes?.name || 'N/A'} &nbsp;|&nbsp; Student ID: ${child.student_code || 'N/A'}`;
+  if (childDetails[1]) childDetails[1].textContent = `Class Teacher: ${child.classes?.users?.full_name || 'N/A'}`;
+
+  // Update stat cards
+  const statValues = document.querySelectorAll('.ea-p-stat-value');
+  if (statValues[0]) statValues[0].textContent = child.classes?.name || 'N/A';
+
+  // Load child results
+  loadChildResults(child.id);
+
+  // Load child attendance
+  loadChildAttendance(child.id, child.class_id);
+
+  // Load fees
+  loadChildFees(child.id);
+
+  // Load messages
+  loadParentMessages(parentId);
+
+  // Load announcements
+  loadParentAnnouncements();
+}
+
+// ---- Load Child Results ----
+async function loadChildResults(studentId) {
+  const { data: results } = await supabaseClient
+    .from('results')
+    .select(`*, subjects (name)`)
+    .eq('student_id', studentId)
+    .order('created_at', { ascending: false });
+
+  const tbody = document.getElementById('ea-p-results-tbody');
+  if (!tbody || !results) return;
+
+  if (results.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center; padding:2rem; color:#aaa;">
+          No results available yet.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  // Calculate average grade
+  const scores = results.map(r => r.score).filter(Boolean);
+  const avg = scores.length > 0 ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : 0;
+  const avgGrade = avg >= 80 ? 'A' : avg >= 70 ? 'B' : avg >= 60 ? 'C' : 'D';
+  const avgDisplay = avg >= 80 ? 'A' : avg >= 70 ? 'B+' : avg >= 60 ? 'B' : 'C';
+
+  const statValues = document.querySelectorAll('.ea-p-stat-value');
+  if (statValues[1]) statValues[1].textContent = avgDisplay;
+
+  tbody.innerHTML = results.map(r => {
+    const gradeClass = r.grade === 'A' ? 'ea-p-grade-a'
+      : r.grade === 'B' ? 'ea-p-grade-b'
+      : r.grade === 'C' ? 'ea-p-grade-c'
+      : 'ea-p-grade-d';
+
+    return `
+      <tr data-term="${r.term || ''}">
+        <td>${r.subjects?.name || 'N/A'}</td>
+        <td>${r.score}/100</td>
+        <td><span class="ea-p-grade ${gradeClass}">${r.grade}</span></td>
+        <td>${r.term}</td>
+        <td>${r.remark || 'N/A'}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// ---- Load Child Attendance ----
+async function loadChildAttendance(studentId, classId) {
+  const { data: attendance } = await supabaseClient
+    .from('attendance')
+    .select('*')
+    .eq('student_id', studentId)
+    .order('date', { ascending: false });
+
+  if (!attendance) return;
+
+  const present = attendance.filter(a => a.status === 'Present').length;
+  const absent = attendance.filter(a => a.status === 'Absent').length;
+  const late = attendance.filter(a => a.status === 'Late').length;
+  const total = attendance.length;
+
+  // Update attendance summary cards
+  const attCounts = document.querySelectorAll('.ea-p-att-count');
+  if (attCounts[0]) attCounts[0].textContent = present;
+  if (attCounts[1]) attCounts[1].textContent = absent;
+  if (attCounts[2]) attCounts[2].textContent = late;
+
+  // Update attendance rate stat
+  const statValues = document.querySelectorAll('.ea-p-stat-value');
+  const rate = total > 0 ? Math.round((present / total) * 100) : 0;
+  if (statValues[2]) statValues[2].textContent = rate + '%';
+
+  // Update attendance table
+  const tbody = document.querySelector('.ea-p-table-wrap table tbody');
+  const tables = document.querySelectorAll('.ea-p-table');
+  if (tables.length < 1) return;
+
+  const attTable = tables[0].querySelector('tbody');
+  if (!attTable) return;
+
+  if (attendance.length === 0) {
+    attTable.innerHTML = `
+      <tr>
+        <td colspan="2" style="text-align:center; padding:2rem; color:#aaa;">
+          No attendance records yet.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  attTable.innerHTML = attendance.slice(0, 10).map(a => {
+    const statusClass = a.status === 'Present' ? 'ea-p-att-p'
+      : a.status === 'Absent' ? 'ea-p-att-a'
+      : 'ea-p-att-l';
+    const date = new Date(a.date).toLocaleDateString('en-GB', {
+      day: 'numeric', month: 'short', year: 'numeric'
+    });
+
+    return `
+      <tr>
+        <td>${date}</td>
+        <td><span class="ea-p-att-status ${statusClass}">${a.status}</span></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// ---- Load Fees ----
+async function loadChildFees(studentId) {
+  const { data: fees } = await supabaseClient
+    .from('fees')
+    .select('*')
+    .eq('student_id', studentId)
+    .order('created_at', { ascending: false });
+
+  if (!fees) return;
+
+  // Update fees status stat card
+  const statValues = document.querySelectorAll('.ea-p-stat-value');
+  const latestFee = fees[0];
+  if (latestFee && statValues[3]) {
+    const feeStatus = document.querySelector('.ea-p-fees-due');
+    if (feeStatus) {
+      feeStatus.textContent = latestFee.status;
+      if (latestFee.status === 'Paid') {
+        feeStatus.style.color = '#388E3C';
+        feeStatus.classList.remove('ea-p-fees-due');
+      }
+    }
+  }
+
+  // Update payment history table
+  const payHistoryTbody = document.getElementById('ea-p-payment-history');
+  if (!payHistoryTbody || fees.length === 0) return;
+
+  payHistoryTbody.innerHTML = fees.map(f => {
+    const date = f.paid_at
+      ? new Date(f.paid_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      : 'Pending';
+    const statusClass = f.status === 'Paid' ? 'ea-p-pay-success' : 'ea-p-pay-pending';
+
+    return `
+      <tr>
+        <td>${date}</td>
+        <td>${f.term} ${f.academic_year}</td>
+        <td>GHS ${parseFloat(f.amount).toFixed(2)}</td>
+        <td>${f.payment_method || 'N/A'}</td>
+        <td>${f.payment_reference || 'N/A'}</td>
+        <td><span class="ea-p-pay-status ${statusClass}">${f.status}</span></td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// ---- Load Parent Messages ----
+async function loadParentMessages(parentId) {
+  const { data: messages } = await supabaseClient
+    .from('messages')
+    .select(`*, sender:sender_id (full_name)`)
+    .eq('receiver_id', parentId)
+    .order('created_at', { ascending: false });
+
+  const messagesList = document.querySelector('.ea-p-messages-list');
+  if (!messagesList || !messages) return;
+
+  if (messages.length === 0) {
+    messagesList.innerHTML = `
+      <div style="text-align:center; padding:2rem; color:#aaa;">
+        <i class="fas fa-envelope" style="font-size:2rem; display:block; margin-bottom:0.5rem;"></i>
+        No messages yet.
+      </div>`;
+    return;
+  }
+
+  messagesList.innerHTML = messages.map(m => {
+    const date = new Date(m.created_at).toLocaleDateString('en-GB', {
+      day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+    });
+    const unreadClass = !m.is_read ? 'ea-p-msg-unread' : '';
+    const badgeClass = !m.is_read ? 'ea-p-badge-unread' : 'ea-p-badge-read';
+    const badgeText = !m.is_read ? 'Unread' : 'Read';
+
+    return `
+      <div class="ea-p-message-card ${unreadClass}">
+        <div class="ea-p-msg-top">
+          <span class="ea-p-msg-sender">${m.sender?.full_name || 'Unknown'}</span>
+          <span class="ea-p-msg-time">${date}</span>
+        </div>
+        <p class="ea-p-msg-body">${m.body}</p>
+        <span class="ea-p-msg-badge ${badgeClass}">${badgeText}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+// ---- Load Announcements ----
+async function loadParentAnnouncements() {
+  const { data: announcements } = await supabaseClient
+    .from('announcements')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(3);
+
+  const annList = document.querySelector('.ea-p-announcements-list');
+  if (!annList || !announcements) return;
+
+  if (announcements.length === 0) {
+    annList.innerHTML = `
+      <div style="text-align:center; padding:1rem; color:#aaa;">
+        No announcements yet.
+      </div>`;
+    return;
+  }
+
+  annList.innerHTML = announcements.map(a => {
+    const date = new Date(a.created_at).toLocaleDateString('en-GB', {
+      day: 'numeric', month: 'short', year: 'numeric'
+    });
+    return `
+      <div class="ea-p-announcement-card">
+        <div class="ea-p-ann-top">
+          <p class="ea-p-ann-title">${a.title}</p>
+          <span class="ea-p-ann-date">${date}</span>
+        </div>
+        <p class="ea-p-ann-body">${a.body}</p>
+      </div>
+    `;
+  }).join('');
+}
+
+// ---- Sidebar Navigation ----
+const parentLinks = document.querySelectorAll('.ea-parent-link');
+const parentSections = document.querySelectorAll('.ea-parent-section');
+const parentPageTitle = document.getElementById('ea-parent-page-title');
+
+parentLinks.forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    parentLinks.forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+    const title = this.getAttribute('data-title');
+    if (title) parentPageTitle.textContent = title;
+    const target = this.getAttribute('data-section');
+    parentSections.forEach(section => {
+      section.style.display = section.id === 'section-' + target ? 'block' : 'none';
+    });
+  });
+});
+
+// ---- Logout ----
+document.getElementById('ea-parent-logout').addEventListener('click', async function (e) {
+  e.preventDefault();
+  await supabaseClient.auth.signOut();
+  localStorage.clear();
+  window.location.href = 'login.html';
+});
+
+// ---- Results Filter ----
+const parentResultsTerm = document.getElementById('ea-p-results-term');
+if (parentResultsTerm) {
+  parentResultsTerm.addEventListener('change', function () {
+    const term = this.value;
+    document.querySelectorAll('#ea-p-results-tbody tr').forEach(row => {
+      row.style.display = !term || row.dataset.term === term ? '' : 'none';
+    });
+  });
+}
+
+// ---- Mobile Money Payment ----
+let selectedNetwork = '';
+
+document.querySelectorAll('.ea-p-network-card').forEach(card => {
+  card.addEventListener('click', function () {
+    document.querySelectorAll('.ea-p-network-card').forEach(c => c.classList.remove('selected'));
+    this.classList.add('selected');
+    selectedNetwork = this.getAttribute('data-network');
+    document.getElementById('ea-p-selected-network').value = selectedNetwork + ' Mobile Money';
+    document.getElementById('ea-p-payment-form').style.display = 'block';
+    document.getElementById('ea-p-payment-form').scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+document.getElementById('ea-p-cancel-payment').addEventListener('click', function () {
+  document.getElementById('ea-p-payment-form').style.display = 'none';
+  document.querySelectorAll('.ea-p-network-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('ea-p-momo-number').value = '';
+  document.getElementById('ea-p-momo-name').value = '';
+  selectedNetwork = '';
+});
+
+document.getElementById('ea-p-pay-btn').addEventListener('click', async function () {
+  const number = document.getElementById('ea-p-momo-number').value.trim();
+  const name = document.getElementById('ea-p-momo-name').value.trim();
+
+  if (!number || number.length < 10) {
+    alert('Please enter a valid 10-digit mobile money number.');
+    return;
+  }
+
+  if (!name) {
+    alert('Please enter the account name.');
+    return;
+  }
+
+  this.textContent = 'Processing...';
+  this.disabled = true;
+
+  const ref = 'EA-TXN-' + Math.floor(Math.random() * 90000 + 10000);
+  const today = new Date();
+
+  // Save payment to Supabase
+  const studentId = localStorage.getItem('ea-student-id');
+  if (studentId) {
+    await supabaseClient.from('fees').insert({
+      student_id: studentId,
+      term: 'Term 2',
+      academic_year: '2026',
+      amount: 850.00,
+      status: 'Paid',
+      payment_method: selectedNetwork + ' MoMo',
+      payment_reference: ref,
+      paid_at: today.toISOString()
+    });
+  }
+
+  setTimeout(() => {
+    const tbody = document.getElementById('ea-p-payment-history');
+    const dateStr = today.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${dateStr}</td>
+      <td>Term 2 2026</td>
+      <td>GHS 850.00</td>
+      <td>${selectedNetwork} MoMo</td>
+      <td>${ref}</td>
+      <td><span class="ea-p-pay-status ea-p-pay-success">Paid</span></td>
+    `;
+    tbody.insertBefore(row, tbody.firstChild);
+
+    const feesDue = document.querySelector('.ea-p-fees-due');
+    if (feesDue) {
+      feesDue.textContent = 'Paid';
+      feesDue.classList.remove('ea-p-fees-due');
+      feesDue.style.color = '#388E3C';
+    }
+
+    const unpaidBadge = document.querySelector('.ea-p-fees-unpaid');
+    if (unpaidBadge) {
+      unpaidBadge.textContent = 'Paid';
+      unpaidBadge.classList.remove('ea-p-fees-unpaid');
+      unpaidBadge.classList.add('ea-p-fees-paid');
+    }
+
+    document.getElementById('ea-p-payment-form').style.display = 'none';
+    document.querySelectorAll('.ea-p-network-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('ea-p-momo-number').value = '';
+    document.getElementById('ea-p-momo-name').value = '';
+    this.textContent = 'Confirm & Pay GHS 850.00';
+    this.disabled = false;
+    selectedNetwork = '';
+
+    alert(`✅ Payment Successful!\n\nGHS 850.00 paid via ${selectedNetwork} Mobile Money.\nReference: ${ref}\n\nThank you!`);
+  }, 2500);
+});
+
+// ---- Parent Notification Bell ----
+const pNotifBtn = document.getElementById('ea-p-notif-btn');
+const pNotifDropdown = document.getElementById('ea-p-notif-dropdown');
+const pNotifBadge = document.getElementById('ea-p-notif-badge');
+const pNotifMarkAll = document.getElementById('ea-p-notif-mark-all');
+const pUserChip = document.getElementById('ea-p-user-chip');
+
+if (pNotifBtn) {
+  pNotifBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    pNotifDropdown.classList.toggle('open');
+    pNotifBtn.classList.toggle('active');
+    if (pUserChip) pUserChip.classList.remove('open');
+  });
+}
+
+if (pNotifMarkAll) {
+  pNotifMarkAll.addEventListener('click', function () {
+    pNotifDropdown.querySelectorAll('.ea-notif-unread').forEach(item => {
+      item.classList.remove('ea-notif-unread');
+    });
+    pNotifDropdown.querySelectorAll('.ea-notif-dot').forEach(dot => {
+      dot.style.display = 'none';
+    });
+    pNotifBadge.classList.add('hidden');
+  });
+}
+
+pNotifDropdown && pNotifDropdown.querySelectorAll('.ea-notif-item').forEach(item => {
+  item.addEventListener('click', function () {
+    this.classList.remove('ea-notif-unread');
+    const dot = this.querySelector('.ea-notif-dot');
+    if (dot) dot.style.display = 'none';
+    const unreadCount = pNotifDropdown.querySelectorAll('.ea-notif-unread').length;
+    pNotifBadge.textContent = unreadCount;
+    if (unreadCount === 0) pNotifBadge.classList.add('hidden');
+  });
+});
+
+// ---- Parent User Chip ----
+if (pUserChip) {
+  pUserChip.addEventListener('click', function (e) {
+    e.stopPropagation();
+    this.classList.toggle('open');
+    if (pNotifDropdown) pNotifDropdown.classList.remove('open');
+    if (pNotifBtn) pNotifBtn.classList.remove('active');
+  });
+}
+
+const pLogoutChip = document.getElementById('ea-parent-logout-chip');
+if (pLogoutChip) {
+  pLogoutChip.addEventListener('click', async function (e) {
+    e.preventDefault();
+    await supabaseClient.auth.signOut();
+    localStorage.clear();
+    window.location.href = 'login.html';
+  });
+}
+
+// ---- Parent Mobile Sidebar ----
+const parentHamburger = document.getElementById('ea-parent-hamburger');
+const parentSidebar = document.querySelector('.ea-parent-sidebar');
+const parentOverlay = document.getElementById('ea-parent-sidebar-overlay');
+
+function openParentSidebar() {
+  parentSidebar.classList.add('open');
+  parentOverlay.classList.add('show');
+  parentHamburger.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeParentSidebar() {
+  parentSidebar.classList.remove('open');
+  parentOverlay.classList.remove('show');
+  parentHamburger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+if (parentHamburger) {
+  parentHamburger.addEventListener('click', function () {
+    parentSidebar.classList.contains('open') ? closeParentSidebar() : openParentSidebar();
+  });
+}
+
+if (parentOverlay) {
+  parentOverlay.addEventListener('click', closeParentSidebar);
+}
+
+document.querySelectorAll('.ea-parent-link').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 768) closeParentSidebar();
+  });
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) closeParentSidebar();
+});
+
+document.addEventListener('click', function () {
+  if (pNotifDropdown) pNotifDropdown.classList.remove('open');
+  if (pNotifBtn) pNotifBtn.classList.remove('active');
+  if (pUserChip) pUserChip.classList.remove('open');
+});
+
+// ---- Session Timeout Warning ----
+(function () {
+  const INACTIVE_LIMIT = 10 * 60 * 1000;
+  const COUNTDOWN_START = 60;
+
+  const overlay = document.getElementById('ea-timeout-overlay');
+  const countdownEl = document.getElementById('ea-timeout-countdown');
+  const stayBtn = document.getElementById('ea-timeout-stay');
+  const logoutBtn = document.getElementById('ea-timeout-logout');
+
+  if (!overlay) return;
+
+  let inactivityTimer;
+  let countdownTimer;
+  let secondsLeft = COUNTDOWN_START;
+
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(showTimeoutWarning, INACTIVE_LIMIT);
+  }
+
+  function showTimeoutWarning() {
+    secondsLeft = COUNTDOWN_START;
+    countdownEl.textContent = secondsLeft;
+    overlay.classList.add('show');
+    startCountdown();
+  }
+
+  function startCountdown() {
+    clearInterval(countdownTimer);
+    countdownTimer = setInterval(() => {
+      secondsLeft--;
+      countdownEl.textContent = secondsLeft;
+      if (secondsLeft <= 0) {
+        clearInterval(countdownTimer);
+        logoutUser();
+      }
+    }, 1000);
+  }
+
+  function dismissWarning() {
+    overlay.classList.remove('show');
+    clearInterval(countdownTimer);
+    resetInactivityTimer();
+  }
+
+  async function logoutUser() {
+    overlay.classList.remove('show');
+    await supabaseClient.auth.signOut();
+    localStorage.clear();
+    window.location.href = 'login.html';
+  }
+
+  if (stayBtn) stayBtn.addEventListener('click', dismissWarning);
+  if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
+
+  ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(event => {
+    document.addEventListener(event, resetInactivityTimer, { passive: true });
+  });
+
+  resetInactivityTimer();
+})();

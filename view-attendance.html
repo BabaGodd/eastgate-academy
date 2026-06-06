@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attendance Viewer - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="view-attendance.css" />
+</head>
+<body>
+  <section class="ea-att-view">
+    <h1>My Attendance History</h1>
+    <div id="ea-att-stats"></div>
+    <table class="ea-att-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="ea-att-body">
+        <!-- Data inserted here -->
+      </tbody>
+    </table>
+  </section>
+  <script src="view-attendance.js"></script>
+</body>
+</html>

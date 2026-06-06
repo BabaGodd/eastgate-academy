@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard - Eastgate Portal</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-student.css" />
+</head>
+<body>
+  <div class="ea-sidebar-overlay" id="ea-student-sidebar-overlay"></div>
+  <div class="ea-student-wrapper">
+    <aside class="ea-student-sidebar">
+      <h2 class="ea-student-logo">Eastgate Student Portal</h2>
+      <nav>
+        <ul class="ea-student-nav">
+          <li><a href="#" class="ea-student-link active" data-section="dashboard" data-title="Welcome, Student">Dashboard</a></li>
+          <li><a href="#" class="ea-student-link" data-section="assignments" data-title="My Assignments">Assignments</a></li>
+          <li><a href="#" class="ea-student-link" data-section="results" data-title="My Results">Results</a></li>
+          <li><a href="#" class="ea-student-link" data-section="attendance" data-title="My Attendance">Attendance</a></li>
+          <li><a href="#" class="ea-student-link" data-section="messages" data-title="Messages">Messages</a></li>
+          <li><a href="#" id="ea-student-logout">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="ea-student-main">
+
+
+     <header class="ea-student-header">
+  <div style="display:flex; align-items:center; gap:1rem;">
+    <button class="ea-student-hamburger" id="ea-student-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <h1 id="ea-student-page-title">Welcome, Student</h1>
+  </div>
+  <div class="ea-header-actions">
+
+    <!-- Notification Bell -->
+    <div class="ea-notif-wrap" id="ea-s-notif-wrap">
+      <button class="ea-notif-btn ea-s-notif-btn" id="ea-s-notif-btn" aria-label="Notifications">
+        <i class="fas fa-bell"></i>
+        <span class="ea-notif-badge" id="ea-s-notif-badge">3</span>
+      </button>
+      <div class="ea-notif-dropdown" id="ea-s-notif-dropdown">
+        <div class="ea-notif-dropdown-header">
+          <h3>Notifications</h3>
+          <button class="ea-notif-mark-all" id="ea-s-notif-mark-all">Mark all read</button>
+        </div>
+        <div class="ea-notif-list">
+          <div class="ea-notif-item ea-notif-unread" data-id="1">
+            <div class="ea-notif-icon ea-notif-icon-blue"><i class="fas fa-envelope"></i></div>
+            <div class="ea-notif-content">
+              <p class="ea-notif-text">New message from Mr. Kwame Mensah</p>
+              <span class="ea-notif-time">Today, 10:30am</span>
+            </div>
+            <span class="ea-notif-dot"></span>
+          </div>
+          <div class="ea-notif-item ea-notif-unread" data-id="2">
+            <div class="ea-notif-icon ea-notif-icon-orange"><i class="fas fa-clock"></i></div>
+            <div class="ea-notif-content">
+              <p class="ea-notif-text">Assignment due soon: English Essay — My Hero</p>
+              <span class="ea-notif-time">Due 8 May 2026</span>
+            </div>
+            <span class="ea-notif-dot"></span>
+          </div>
+          <div class="ea-notif-item ea-notif-unread" data-id="3">
+            <div class="ea-notif-icon ea-notif-icon-green"><i class="fas fa-bullhorn"></i></div>
+            <div class="ea-notif-content">
+              <p class="ea-notif-text">New announcement: Sports Day — Friday 9th May</p>
+              <span class="ea-notif-time">1 May 2026</span>
+            </div>
+            <span class="ea-notif-dot"></span>
+          </div>
+          <div class="ea-notif-item" data-id="4">
+            <div class="ea-notif-icon ea-notif-icon-teal"><i class="fas fa-chart-bar"></i></div>
+            <div class="ea-notif-content">
+              <p class="ea-notif-text">Your Term 1 results are now available</p>
+              <span class="ea-notif-time">2 days ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="ea-notif-footer">
+          <a href="#">View all notifications</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Profile Chip -->
+    <div class="ea-user-chip ea-s-user-chip" id="ea-s-user-chip">
+      <div class="ea-user-avatar ea-s-user-avatar">A</div>
+      <div class="ea-user-info">
+        <span class="ea-user-name">Amy Osei</span>
+        <span class="ea-user-role">Student</span>
+      </div>
+      <i class="fas fa-chevron-down ea-user-chevron"></i>
+      <div class="ea-user-dropdown" id="ea-s-user-dropdown">
+        <a href="#"><i class="fas fa-user"></i> My Profile</a>
+        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+        <div class="ea-user-dropdown-divider"></div>
+        <a href="#" id="ea-student-logout-chip"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+      <!-- DASHBOARD OVERVIEW -->
+      <section class="ea-student-content ea-student-section" id="section-dashboard">
+        <div class="ea-s-stats-grid">
+          <div class="ea-s-stat-card ea-s-teal">
+            <p class="ea-s-stat-label">My Class</p>
+            <p class="ea-s-stat-value">4B</p>
+          </div>
+          <div class="ea-s-stat-card ea-s-blue">
+            <p class="ea-s-stat-label">Assignments Due</p>
+            <p class="ea-s-stat-value">3</p>
+          </div>
+          <div class="ea-s-stat-card ea-s-green">
+            <p class="ea-s-stat-label">Average Grade</p>
+            <p class="ea-s-stat-value">B+</p>
+          </div>
+          <div class="ea-s-stat-card ea-s-orange">
+            <p class="ea-s-stat-label">Attendance Rate</p>
+            <p class="ea-s-stat-value">92%</p>
+          </div>
+        </div>
+
+        <h3 class="ea-s-section-title">Latest Announcements</h3>
+        <div class="ea-s-announcements-list">
+          <div class="ea-s-announcement-card">
+            <div class="ea-s-ann-top">
+              <p class="ea-s-ann-title">Sports Day — Friday 9th May</p>
+              <span class="ea-s-ann-date">1 May 2026</span>
+            </div>
+            <p class="ea-s-ann-body">All students are required to wear their PE kit on Friday. Parents are welcome to attend from 10am. Please bring water and sunscreen.</p>
+          </div>
+          <div class="ea-s-announcement-card">
+            <div class="ea-s-ann-top">
+              <p class="ea-s-ann-title">End of Term Dates</p>
+              <span class="ea-s-ann-date">28 Apr 2026</span>
+            </div>
+            <p class="ea-s-ann-body">The school term ends on Friday 23rd May. Students will resume on Monday 9th June. Report cards will be sent home on the last day.</p>
+          </div>
+          <div class="ea-s-announcement-card">
+            <div class="ea-s-ann-top">
+              <p class="ea-s-ann-title">New Library Books Available</p>
+              <span class="ea-s-ann-date">25 Apr 2026</span>
+            </div>
+            <p class="ea-s-ann-body">The school library has received a fresh batch of books. Students may borrow up to 2 books per week.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ASSIGNMENTS -->
+      <section class="ea-student-content ea-student-section" id="section-assignments" style="display:none;">
+        <div class="ea-s-top-bar">
+          <h2>My Assignments</h2>
+        </div>
+
+        <div class="ea-s-filter-bar">
+          <select class="ea-s-select" id="ea-s-assign-subject">
+            <option value="">All Subjects</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="English">English</option>
+            <option value="Science">Science</option>
+          </select>
+          <select class="ea-s-select" id="ea-s-assign-status">
+            <option value="">All Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Submitted">Submitted</option>
+            <option value="Due Soon">Due Soon</option>
+          </select>
+        </div>
+
+        <div class="ea-s-table-wrap">
+          <table class="ea-s-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Subject</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="ea-s-assign-tbody">
+              <tr data-subject="Mathematics" data-status="Pending">
+                <td>Math Week 3 Worksheet</td>
+                <td>Mathematics</td>
+                <td>10 May 2026</td>
+                <td><span class="ea-s-status ea-s-status-pending">Pending</span></td>
+                <td><a href="view-assignment.html" class="ea-s-view-btn">View</a></td>
+              </tr>
+              <tr data-subject="English" data-status="Due Soon">
+                <td>English Essay — My Hero</td>
+                <td>English</td>
+                <td>8 May 2026</td>
+                <td><span class="ea-s-status ea-s-status-due">Due Soon</span></td>
+                <td><a href="view-assignment.html" class="ea-s-view-btn">View</a></td>
+              </tr>
+              <tr data-subject="Science" data-status="Submitted">
+                <td>Science Diagram — Plants</td>
+                <td>Science</td>
+                <td>1 May 2026</td>
+                <td><span class="ea-s-status ea-s-status-submitted">Submitted</span></td>
+                <td><a href="view-assignment.html" class="ea-s-view-btn">View</a></td>
+              </tr>
+              <tr data-subject="Mathematics" data-status="Submitted">
+                <td>Fractions Practice Sheet</td>
+                <td>Mathematics</td>
+                <td>25 Apr 2026</td>
+                <td><span class="ea-s-status ea-s-status-submitted">Submitted</span></td>
+                <td><a href="view-assignment.html" class="ea-s-view-btn">View</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+      <section class="ea-student-content ea-student-section" id="section-results" style="display:none;">
+        <div class="ea-s-top-bar">
+          <h2>My Results</h2>
+        </div>
+
+        <div class="ea-s-filter-bar">
+          <select class="ea-s-select" id="ea-s-results-term">
+            <option value="">All Terms</option>
+            <option value="Term 1">Term 1</option>
+            <option value="Term 2">Term 2</option>
+            <option value="Term 3">Term 3</option>
+          </select>
+        </div>
+
+        <div class="ea-s-table-wrap">
+          <table class="ea-s-table">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Score</th>
+                <th>Grade</th>
+                <th>Term</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody id="ea-s-results-tbody">
+              <tr data-term="Term 1">
+                <td>Mathematics</td>
+                <td>87/100</td>
+                <td><span class="ea-s-grade ea-s-grade-a">A</span></td>
+                <td>Term 1</td>
+                <td>Excellent</td>
+              </tr>
+              <tr data-term="Term 1">
+                <td>English</td>
+                <td>74/100</td>
+                <td><span class="ea-s-grade ea-s-grade-b">B</span></td>
+                <td>Term 1</td>
+                <td>Good</td>
+              </tr>
+              <tr data-term="Term 1">
+                <td>Science</td>
+                <td>61/100</td>
+                <td><span class="ea-s-grade ea-s-grade-c">C</span></td>
+                <td>Term 1</td>
+                <td>Satisfactory</td>
+              </tr>
+              <tr data-term="Term 2">
+                <td>Mathematics</td>
+                <td>91/100</td>
+                <td><span class="ea-s-grade ea-s-grade-a">A</span></td>
+                <td>Term 2</td>
+                <td>Excellent</td>
+              </tr>
+              <tr data-term="Term 2">
+                <td>English</td>
+                <td>80/100</td>
+                <td><span class="ea-s-grade ea-s-grade-b">B</span></td>
+                <td>Term 2</td>
+                <td>Very Good</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ATTENDANCE -->
+      <section class="ea-student-content ea-student-section" id="section-attendance" style="display:none;">
+        <div class="ea-s-top-bar">
+          <h2>My Attendance</h2>
+        </div>
+
+        <div class="ea-s-att-summary">
+          <div class="ea-s-att-card ea-s-att-present">
+            <p class="ea-s-att-count">18</p>
+            <p class="ea-s-att-label">Days Present</p>
+          </div>
+          <div class="ea-s-att-card ea-s-att-absent">
+            <p class="ea-s-att-count">2</p>
+            <p class="ea-s-att-label">Days Absent</p>
+          </div>
+          <div class="ea-s-att-card ea-s-att-late">
+            <p class="ea-s-att-count">1</p>
+            <p class="ea-s-att-label">Days Late</p>
+          </div>
+        </div>
+
+        <div class="ea-s-table-wrap" style="margin-top: 1.5rem;">
+          <table class="ea-s-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2 May 2026</td><td><span class="ea-s-att-status ea-s-att-p">Present</span></td></tr>
+              <tr><td>1 May 2026</td><td><span class="ea-s-att-status ea-s-att-p">Present</span></td></tr>
+              <tr><td>30 Apr 2026</td><td><span class="ea-s-att-status ea-s-att-a">Absent</span></td></tr>
+              <tr><td>29 Apr 2026</td><td><span class="ea-s-att-status ea-s-att-l">Late</span></td></tr>
+              <tr><td>28 Apr 2026</td><td><span class="ea-s-att-status ea-s-att-p">Present</span></td></tr>
+              <tr><td>25 Apr 2026</td><td><span class="ea-s-att-status ea-s-att-p">Present</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MESSAGES -->
+      <section class="ea-student-content ea-student-section" id="section-messages" style="display:none;">
+        <div class="ea-s-top-bar">
+          <h2>Messages</h2>
+          <a href="messaging.html" class="ea-s-primary-btn">+ New Message</a>
+        </div>
+
+        <div class="ea-s-messages-list">
+          <div class="ea-s-message-card ea-s-msg-unread">
+            <div class="ea-s-msg-top">
+              <span class="ea-s-msg-sender">Mr. Kwame Mensah — Mathematics</span>
+              <span class="ea-s-msg-time">Today, 10:30am</span>
+            </div>
+            <p class="ea-s-msg-body">Well done on your recent test! Keep up the great work. Please make sure to submit the Week 3 worksheet before Friday.</p>
+            <span class="ea-s-msg-badge ea-s-badge-unread">Unread</span>
+          </div>
+          <div class="ea-s-message-card">
+            <div class="ea-s-msg-top">
+              <span class="ea-s-msg-sender">Admin — Eastgate Academy</span>
+              <span class="ea-s-msg-time">Yesterday, 2:00pm</span>
+            </div>
+            <p class="ea-s-msg-body">Reminder: Sports Day is on Friday 9th May. Please wear your PE kit and arrive at school by 8:00am.</p>
+            <span class="ea-s-msg-badge ea-s-badge-read">Read</span>
+          </div>
+          <div class="ea-s-message-card">
+            <div class="ea-s-msg-top">
+              <span class="ea-s-msg-sender">Ms. Abena Darko — English</span>
+              <span class="ea-s-msg-time">28 Apr 2026, 9:15am</span>
+            </div>
+            <p class="ea-s-msg-body">Your essay topic for this term is "My Hero". Please submit by 8th May. Come see me if you need any help with the structure.</p>
+            <span class="ea-s-msg-badge ea-s-badge-read">Read</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="dashboard-student.js"></script>
+</body>
+</html>

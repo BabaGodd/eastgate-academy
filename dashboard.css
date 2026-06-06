@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafc;
+}
+
+.ea-dashboard-wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.ea-dashboard-sidebar {
+  background-color: #003366;
+  color: white;
+  width: 220px;
+  padding: 2rem 1rem;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.ea-dashboard-logo {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.ea-dashboard-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.ea-dashboard-nav li {
+  margin: 1rem 0;
+}
+
+.ea-dashboard-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.ea-dashboard-nav a:hover {
+  background-color: #0055aa;
+}
+
+.ea-dashboard-main {
+  flex-grow: 1;
+  padding: 2rem;
+}
+
+.ea-dashboard-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #003366;
+}
+
+.ea-dashboard-content {
+  margin-top: 2rem;
+}
+
+.ea-dash-attendance {
+  background: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+.ea-dash-attendance ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ea-dash-attendance li {
+  padding: 0.3rem 0;
+}

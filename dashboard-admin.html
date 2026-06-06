@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-admin.css" />
+</head>
+<body>
+  <div class="ea-sidebar-overlay" id="ea-sidebar-overlay"></div>
+  <div class="ea-admin-wrapper">
+    <aside class="ea-admin-sidebar">
+      <h2 class="ea-admin-logo">Eastgate Academy Admin</h2>
+      <nav>
+
+       <ul class="ea-admin-nav">
+  <li><a href="#" class="ea-nav-link active" data-section="dashboard" data-title="Welcome, Admin">Dashboard</a></li>
+  <li><a href="#" class="ea-nav-link" data-section="users" data-title="Manage Users">Manage Users</a></li>
+  <li><a href="#" class="ea-nav-link" data-section="assignments" data-title="Manage Assignments">Manage Assignments</a></li>
+  <li><a href="#" class="ea-nav-link" data-section="results" data-title="View Results">View Results</a></li>
+  <li><a href="#" class="ea-nav-link" data-section="announcements" data-title="Announcements">Announcements</a></li>
+  <li><a href="#" class="ea-nav-link" data-section="teachers" data-title="Manage Teachers">Manage Teachers</a></li>
+  <li><a href="#" id="ea-admin-logout">Logout</a></li>
+</ul>
+
+      </nav>
+    </aside>
+
+    <main class="ea-admin-main">
+
+  
+      <header class="ea-admin-header">
+  <div style="display:flex; align-items:center; gap:1rem;">
+    <button class="ea-admin-hamburger" id="ea-admin-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <h1 id="ea-page-title">Welcome, Admin</h1>
+  </div>
+
+  <div class="ea-header-actions">
+
+  <!-- Search Bar -->
+  <div class="ea-search-wrap" id="ea-search-wrap">
+    <button class="ea-search-toggle" id="ea-search-toggle" aria-label="Search">
+      <i class="fas fa-search"></i>
+    </button>
+    <div class="ea-search-box" id="ea-search-box">
+      <i class="fas fa-search ea-search-icon"></i>
+      <input type="text" id="ea-search-input" class="ea-search-input" placeholder="Search users, results, assignments..." />
+      <button class="ea-search-clear" id="ea-search-clear">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+
+
+  <!-- DASHBOARD OVERVIEW -->
+  <section class="ea-admin-content ea-section" id="section-dashboard">
+    <h2>System Overview</h2>
+    <div class="ea-stats-grid">
+      <div class="ea-stat-card ea-stat-green">
+        <p class="ea-stat-label">Total Students</p>
+        <p class="ea-stat-value">320</p>
+      </div>
+      <div class="ea-stat-card ea-stat-blue">
+        <p class="ea-stat-label">Total Teachers</p>
+        <p class="ea-stat-value">24</p>
+      </div>
+      <div class="ea-stat-card ea-stat-orange">
+        <p class="ea-stat-label">Total Classes</p>
+        <p class="ea-stat-value">12</p>
+      </div>
+      <div class="ea-stat-card ea-stat-purple">
+        <p class="ea-stat-label">Announcements</p>
+        <p class="ea-stat-value">8</p>
+      </div>
+    </div>
+
+<!-- Charts Row -->
+<div class="ea-charts-row">
+  <div class="ea-chart-card">
+    <h3 class="ea-chart-title">Monthly Attendance</h3>
+    <canvas id="ea-attendance-chart"></canvas>
+  </div>
+  <div class="ea-chart-card">
+    <h3 class="ea-chart-title">Grade Distribution</h3>
+    <canvas id="ea-grades-chart"></canvas>
+  </div>
+</div>
+
+
+    <h3 class="ea-recent-title">Recent Activity</h3>
+    <div class="ea-recent-box">
+      <div class="ea-recent-item"><span>New student registered: Amy Osei</span><span class="ea-badge ea-badge-green">New</span></div>
+      <div class="ea-recent-item"><span>Results uploaded for Class 4B</span><span class="ea-badge ea-badge-blue">Results</span></div>
+      <div class="ea-recent-item"><span>Announcement posted: Sports Day</span><span class="ea-badge ea-badge-green">Post</span></div>
+      <div class="ea-recent-item"><span>Assignment uploaded: Math Week 3</span><span class="ea-badge ea-badge-blue">Upload</span></div>
+    </div>
+  </section>
+
+  <!-- MANAGE USERS -->
+  <!-- MANAGE USERS -->
+<section class="ea-admin-content ea-section" id="section-users" style="display:none;">
+  <div class="ea-users-top">
+    <h2>Manage Users</h2>
+    <button class="ea-add-user-btn" id="ea-add-user-btn">+ Add User</button>
+  </div>
+
+  <!-- Add User Form (hidden by default) -->
+  <div class="ea-add-user-form" id="ea-add-user-form" style="display:none;">
+    <h3>Add New User</h3>
+    <div class="ea-form-row">
+      <input type="text" id="new-name" placeholder="Full Name" class="ea-input" />
+      <select id="new-role" class="ea-input">
+        <option value="">Select Role</option>
+        <option value="Student">Student</option>
+        <option value="Teacher">Teacher</option>
+      </select>
+      <input type="email" id="new-email" placeholder="Email" class="ea-input" />
+      <input type="text" id="new-class" placeholder="Class (e.g. Class 4B)" class="ea-input" />
+      <button class="ea-add-user-btn" id="ea-submit-user">Add User</button>
+      <button class="ea-cancel-btn" id="ea-cancel-user">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="ea-filter-bar">
+    <button class="ea-filter-btn active" data-filter="All">All</button>
+    <button class="ea-filter-btn" data-filter="Student">Students</button>
+    <button class="ea-filter-btn" data-filter="Teacher">Teachers</button>
+  </div>
+
+  <!-- Users Table -->
+  <div class="ea-table-wrap">
+    <table class="ea-table" id="ea-users-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Email</th>
+          <th>Class</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="ea-users-tbody">
+        <tr data-role="Student">
+          <td>Amy Osei</td>
+          <td><span class="ea-role-badge ea-role-student">Student</span></td>
+          <td>amy.osei@eastgate.ac</td>
+          <td>Class 4B</td>
+          <td><button class="ea-del-btn">Delete</button></td>
+        </tr>
+        <tr data-role="Teacher">
+          <td>Mr. Kwame Mensah</td>
+          <td><span class="ea-role-badge ea-role-teacher">Teacher</span></td>
+          <td>k.mensah@eastgate.ac</td>
+          <td>Class 5A</td>
+          <td><button class="ea-del-btn">Delete</button></td>
+        </tr>
+        <tr data-role="Student">
+          <td>Esi Boateng</td>
+          <td><span class="ea-role-badge ea-role-student">Student</span></td>
+          <td>esi.boateng@eastgate.ac</td>
+          <td>Class 3A</td>
+          <td><button class="ea-del-btn">Delete</button></td>
+        </tr>
+        <tr data-role="Teacher">
+          <td>Ms. Abena Darko</td>
+          <td><span class="ea-role-badge ea-role-teacher">Teacher</span></td>
+          <td>a.darko@eastgate.ac</td>
+          <td>Class 2B</td>
+          <td><button class="ea-del-btn">Delete</button></td>
+        </tr>
+        <tr data-role="Student">
+          <td>Kofi Asante</td>
+          <td><span class="ea-role-badge ea-role-student">Student</span></td>
+          <td>kofi.asante@eastgate.ac</td>
+          <td>Class 6A</td>
+          <td><button class="ea-del-btn">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <!-- MANAGE ASSIGNMENTS -->
+ <!-- MANAGE ASSIGNMENTS -->
+<section class="ea-admin-content ea-section" id="section-assignments" style="display:none;">
+  <div class="ea-users-top">
+    <h2>Manage Assignments</h2>
+    <a href="upload-assignment.html" class="ea-add-user-btn">+ Upload Assignment</a>
+  </div>
+
+  <div class="ea-filter-bar">
+    <select class="ea-filter-select" id="ea-assign-class">
+      <option value="">All Classes</option>
+      <option value="Class 3A">Class 3A</option>
+      <option value="Class 4B">Class 4B</option>
+      <option value="Class 5A">Class 5A</option>
+    </select>
+    <select class="ea-filter-select" id="ea-assign-subject">
+      <option value="">All Subjects</option>
+      <option value="Mathematics">Mathematics</option>
+      <option value="English">English</option>
+      <option value="Science">Science</option>
+    </select>
+  </div>
+
+  <div class="ea-table-wrap">
+    <table class="ea-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Due Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="ea-assign-tbody">
+        <tr data-class="Class 4B" data-subject="Mathematics">
+          <td>Math Week 3 Worksheet</td><td>Class 4B</td><td>Mathematics</td>
+          <td>10 May 2026</td>
+          <td><span class="ea-assign-status ea-status-active">Active</span></td>
+          <td>
+            <a href="view-assignment.html" class="ea-view-btn">View</a>
+            <button class="ea-del-btn ea-assign-del">Delete</button>
+          </td>
+        </tr>
+        <tr data-class="Class 5A" data-subject="English">
+          <td>English Essay — My Hero</td><td>Class 5A</td><td>English</td>
+          <td>8 May 2026</td>
+          <td><span class="ea-assign-status ea-status-due">Due Soon</span></td>
+          <td>
+            <a href="view-assignment.html" class="ea-view-btn">View</a>
+            <button class="ea-del-btn ea-assign-del">Delete</button>
+          </td>
+        </tr>
+        <tr data-class="Class 3A" data-subject="Science">
+          <td>Science Diagram — Plants</td><td>Class 3A</td><td>Science</td>
+          <td>15 May 2026</td>
+          <td><span class="ea-assign-status ea-status-active">Active</span></td>
+          <td>
+            <a href="view-assignment.html" class="ea-view-btn">View</a>
+            <button class="ea-del-btn ea-assign-del">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <!-- VIEW RESULTS -->
+  <!-- VIEW RESULTS -->
+<section class="ea-admin-content ea-section" id="section-results" style="display:none;">
+  <div class="ea-users-top">
+    <h2>View Results</h2>
+    <a href="enter-results.html" class="ea-add-user-btn">+ Enter Results</a>
+  </div>
+
+  <div class="ea-filter-bar">
+    <select class="ea-filter-select" id="ea-results-class">
+      <option value="">All Classes</option>
+      <option value="Class 2B">Class 2B</option>
+      <option value="Class 3A">Class 3A</option>
+      <option value="Class 4B">Class 4B</option>
+      <option value="Class 5A">Class 5A</option>
+      <option value="Class 6A">Class 6A</option>
+    </select>
+    <select class="ea-filter-select" id="ea-results-subject">
+      <option value="">All Subjects</option>
+      <option value="Mathematics">Mathematics</option>
+      <option value="English">English</option>
+      <option value="Science">Science</option>
+    </select>
+    <select class="ea-filter-select" id="ea-results-term">
+      <option value="">All Terms</option>
+      <option value="Term 1">Term 1</option>
+      <option value="Term 2">Term 2</option>
+      <option value="Term 3">Term 3</option>
+    </select>
+  </div>
+
+  <div class="ea-table-wrap">
+    <table class="ea-table">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Score</th>
+          <th>Grade</th>
+          <th>Term</th>
+        </tr>
+      </thead>
+      <tbody id="ea-results-tbody">
+        <tr data-class="Class 4B" data-subject="Mathematics" data-term="Term 1">
+          <td>Amy Osei</td><td>Class 4B</td><td>Mathematics</td><td>87/100</td>
+          <td><span class="ea-grade ea-grade-a">A</span></td><td>Term 1</td>
+        </tr>
+        <tr data-class="Class 6A" data-subject="English" data-term="Term 1">
+          <td>Kofi Asante</td><td>Class 6A</td><td>English</td><td>74/100</td>
+          <td><span class="ea-grade ea-grade-b">B</span></td><td>Term 1</td>
+        </tr>
+        <tr data-class="Class 3A" data-subject="Science" data-term="Term 1">
+          <td>Esi Boateng</td><td>Class 3A</td><td>Science</td><td>61/100</td>
+          <td><span class="ea-grade ea-grade-c">C</span></td><td>Term 1</td>
+        </tr>
+        <tr data-class="Class 5A" data-subject="Mathematics" data-term="Term 1">
+          <td>James Mensah</td><td>Class 5A</td><td>Mathematics</td><td>92/100</td>
+          <td><span class="ea-grade ea-grade-a">A</span></td><td>Term 1</td>
+        </tr>
+        <tr data-class="Class 2B" data-subject="English" data-term="Term 1">
+          <td>Abena Darko</td><td>Class 2B</td><td>English</td><td>55/100</td>
+          <td><span class="ea-grade ea-grade-d">D</span></td><td>Term 1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <!-- ANNOUNCEMENTS -->
+ <!-- ANNOUNCEMENTS -->
+<section class="ea-admin-content ea-section" id="section-announcements" style="display:none;">
+  <div class="ea-users-top">
+    <h2>Announcements</h2>
+    <a href="post-announcement.html" class="ea-add-user-btn">+ Post New Announcement</a>
+  </div>
+
+  <div class="ea-an-list" id="ea-an-list">
+
+    <div class="ea-an-card">
+      <div class="ea-an-card-top">
+        <div>
+          <p class="ea-an-title">Sports Day — Friday 9th May</p>
+          <p class="ea-an-date">Posted: 1 May 2026</p>
+          <p class="ea-an-body">All students are required to wear their PE kit on Friday. Parents are welcome to attend from 10am. Please bring water and sunscreen.</p>
+        </div>
+        <button class="ea-del-btn ea-an-del">Delete</button>
+      </div>
+    </div>
+
+    <div class="ea-an-card">
+      <div class="ea-an-card-top">
+        <div>
+          <p class="ea-an-title">End of Term Dates</p>
+          <p class="ea-an-date">Posted: 28 April 2026</p>
+          <p class="ea-an-body">The school term ends on Friday 23rd May. Students will resume on Monday 9th June. Report cards will be sent home on the last day.</p>
+        </div>
+        <button class="ea-del-btn ea-an-del">Delete</button>
+      </div>
+    </div>
+
+    <div class="ea-an-card">
+      <div class="ea-an-card-top">
+        <div>
+          <p class="ea-an-title">New Library Books Available</p>
+          <p class="ea-an-date">Posted: 25 April 2026</p>
+          <p class="ea-an-body">The school library has received a fresh batch of books across all reading levels. Students may borrow up to 2 books per week.</p>
+        </div>
+        <button class="ea-del-btn ea-an-del">Delete</button>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="ea-an-empty" id="ea-an-empty" style="display:none;">No announcements posted yet.</p>
+</section>
+
+<!-- MANAGE TEACHERS -->
+<section class="ea-admin-content ea-section" id="section-teachers" style="display:none;">
+  <div class="ea-users-top">
+    <h2>Manage Teachers</h2>
+  </div>
+
+  <div class="ea-table-wrap">
+    <table class="ea-table" id="ea-teachers-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Staff ID</th>
+          <th>Email</th>
+          <th>Current Password</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="ea-teachers-tbody">
+        <tr>
+          <td colspan="5" style="text-align:center; padding:2rem; color:#aaa;">
+            Loading teachers...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Reset Password Modal -->
+  <div class="ea-modal-overlay" id="ea-password-modal" style="display:none;">
+    <div class="ea-modal-box">
+      <div class="ea-modal-header">
+        <h3>Set Teacher Password</h3>
+        <button class="ea-modal-close" id="ea-modal-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="ea-modal-body">
+        <p id="ea-modal-teacher-name" style="font-weight:700; margin-bottom:1rem; color:#333;"></p>
+        <div class="ea-form-group-modal">
+          <label>New Password</label>
+          <input type="text" id="ea-new-teacher-password" class="ea-input" placeholder="Enter new password" />
+        </div>
+        <div class="ea-modal-btns">
+          <button class="ea-add-user-btn" id="ea-save-password-btn">Save Password</button>
+          <button class="ea-cancel-btn" id="ea-modal-cancel">Cancel</button>
+        </div>
+        <p class="ea-modal-success" id="ea-modal-success" style="display:none; color:#388E3C; font-weight:700; margin-top:1rem;">
+          <i class="fas fa-check-circle"></i> Password updated successfully!
+        </p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+</main>
+
+  </div>
+
+  <script src="dashboard-admin.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="dashboard-admin.js"></script>
+</body>
+</html>

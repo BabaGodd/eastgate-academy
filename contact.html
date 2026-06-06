@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/LearnGrowSucceed.png" />
+  <meta name="description" content="Contact Eastgate Academy in Dawenya, Tema. Call us, send a message or book a school tour today." />
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+<div class="ea-scroll-progress" id="ea-scroll-progress"></div>
+
+  <!-- Splash Screen -->
+<div class="ea-splash" id="ea-splash">
+  <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+  <p class="ea-splash-name">Eastgate Academy</p>
+  <p class="ea-splash-tagline">Nurturing Young Minds for a Brighter Future</p>
+  <div class="ea-splash-bar-wrap">
+    <div class="ea-splash-bar"></div>
+  </div>
+</div>
+
+  <!-- HEADER -->
+  <header class="ea-header" id="ea-header">
+    <div class="ea-header-inner">
+      <div class="ea-header-brand">
+        <img src="eastgateLogo.webp" alt="Eastgate Academy Logo" class="ea-header-logo" />
+        <span class="ea-header-name">Eastgate Academy</span>
+      </div>
+
+
+   <nav class="ea-nav" id="ea-nav">
+  <ul class="ea-nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="about.html" class="ea-nav-dropdown-trigger">
+        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      </ul>
+    </li>
+    <li><a href="academics.html">Academics</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="admissions.html" class="ea-nav-dropdown-trigger">
+        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+      </ul>
+    </li>
+    <li class="active"><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Dark Mode Toggle -->
+<button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+  <i class="fas fa-moon"></i>
+</button>
+
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-lock"></i> Eastgate Portal
+      </a>
+      <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="ea-page-hero">
+    <div class="ea-page-hero-overlay"></div>
+    <img src="images/classroom.jpg" alt="Contact Eastgate Academy" class="ea-page-hero-bg" />
+    <div class="ea-page-hero-content">
+      <span class="ea-hero-tag">Contact Us</span>
+      <h1>We're Here to Help</h1>
+      <p>Our doors and lines are always open to you.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT INFO + FORM -->
+  <section class="ea-contact-section">
+    <div class="ea-container ea-contact-grid">
+
+      <!-- Left: Info -->
+      <div class="ea-contact-info">
+        <span class="ea-section-tag">Find Us</span>
+        <h2>Get in Touch</h2>
+        <p>Have questions about our programmes or admissions? Reach out anytime — we'd love to hear from you.</p>
+
+        <div class="ea-contact-info-cards">
+          <div class="ea-contact-info-card">
+            <div class="ea-contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h3>Address</h3>
+              <p>123 Education Street, Dawenya, Tema, Greater Accra</p>
+            </div>
+          </div>
+          <div class="ea-contact-info-card">
+            <div class="ea-contact-info-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <h3>Phone</h3>
+              <p>Main: 0244 512 123</p>
+              <p>Admissions: 0244 512 124</p>
+            </div>
+          </div>
+          <div class="ea-contact-info-card">
+            <div class="ea-contact-info-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h3>Email</h3>
+              <p>info@eastgateacademy.edu.gh</p>
+              <p>admissions@eastgateacademy.edu.gh</p>
+            </div>
+          </div>
+          <div class="ea-contact-info-card">
+            <div class="ea-contact-info-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <h3>Office Hours</h3>
+              <p>Mon–Fri: 7:30am – 4:00pm</p>
+              <p>Saturday: 9:00am – 12:00pm</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ea-contact-social">
+          <h3>Follow Us</h3>
+          <div class="ea-social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="ea-contact-form-box">
+        <h2>Send Us a Message</h2>
+        <p>Fill in the form below and we'll get back to you within 24–48 hours.</p>
+        <form id="ea-contact-form" class="ea-contact-form" novalidate>
+          <div class="ea-form-row">
+            <div class="ea-form-group">
+              <label for="ea-name">Full Name</label>
+              <input type="text" id="ea-name" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="ea-form-group">
+              <label for="ea-email">Email Address</label>
+              <input type="email" id="ea-email" name="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+          <div class="ea-form-row">
+            <div class="ea-form-group">
+              <label for="ea-phone">Phone Number</label>
+              <input type="tel" id="ea-phone" name="phone" placeholder="e.g. 0244 512 123" />
+            </div>
+            <div class="ea-form-group">
+              <label for="ea-subject">Subject</label>
+              <select id="ea-subject" name="subject" required>
+                <option value="">Select a subject</option>
+                <option value="admissions">Admissions Inquiry</option>
+                <option value="general">General Information</option>
+                <option value="tour">Schedule a Tour</option>
+                <option value="feedback">Feedback / Suggestions</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="ea-form-group ea-form-group-full">
+            <label for="ea-message">Your Message</label>
+            <textarea id="ea-message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="ea-btn-primary ea-form-submit">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+          <p class="ea-form-success" id="ea-form-success" style="display:none;">
+            <i class="fas fa-check-circle"></i> Thank you! We'll respond within 24–48 hours.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VISIT US -->
+  <section class="ea-visit-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Come See Us</span>
+        <h2>Visit Our Campus</h2>
+        <p>Experience Eastgate Academy in person — schedule a personalised tour or join our next open house.</p>
+      </div>
+
+      <div class="ea-visit-tour-grid">
+        <div class="ea-visit-tour-card">
+          <div class="ea-visit-tour-icon"><i class="fas fa-users"></i></div>
+          <h3>Family Tour</h3>
+          <p>Book a personalised tour at your convenience. Meet our teachers and explore the campus at your own pace.</p>
+          <a href="#ea-contact-form" class="ea-btn-primary" id="ea-tour-btn">Schedule a Tour</a>
+        </div>
+        <div class="ea-visit-tour-card">
+          <div class="ea-visit-tour-icon"><i class="fas fa-calendar-alt"></i></div>
+          <h3>Open House</h3>
+          <p>Join our monthly open house — a relaxed, welcoming event for all prospective families to explore the school.</p>
+          <p class="ea-next-date"><i class="fas fa-clock"></i> Next: 14 June 2026</p>
+          <a href="#ea-contact-form" class="ea-btn-primary" id="ea-openhouse-btn">RSVP Now</a>
+        </div>
+        <div class="ea-visit-tour-card">
+          <div class="ea-visit-tour-icon"><i class="fas fa-phone-alt"></i></div>
+          <h3>Quick Call</h3>
+          <p>Prefer to talk? Call our admissions team directly and we'll answer all your questions right away.</p>
+          <a href="tel:+233244512124" class="ea-btn-primary">
+            <i class="fas fa-phone"></i> Call Admissions
+          </a>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="ea-map-wrap">
+        <div class="ea-map-placeholder">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>123 Education Street, Dawenya, Tema</p>
+          <span>Google Maps integration coming soon</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ea-cta">
+    <div class="ea-container ea-cta-inner">
+      <div class="ea-cta-text">
+        <h2>Ready to Join The Academy?</h2>
+        <p>Schedule a visit or begin the enrollment process today.</p>
+      </div>
+      <div class="ea-cta-btns">
+        <a href="tel:+233244512123" class="ea-btn-white"><i class="fas fa-phone"></i> Call Us Now</a>
+        <a href="admissions.html" class="ea-btn-outline-white"><i class="fas fa-file-alt"></i> Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Providing quality primary education in Dawenya, Tema since 2010.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Dawenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0244 512 123</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateacademy.edu.gh</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
+      </div>
+    </div>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+  <span class="ea-whatsapp-tooltip">Chat with us</span>
+  <div class="ea-whatsapp-icon">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+</a>
+
+<!-- Back to Top Button -->
+<button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+
+<!-- Cookie Consent Banner -->
+<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+  <div class="ea-cookie-text">
+    <span class="ea-cookie-icon">🍪</span>
+    <div class="ea-cookie-text-content">
+      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="#">Learn more</a></p>
+    </div>
+  </div>
+  <div class="ea-cookie-btns">
+    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

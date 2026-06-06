@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Fees - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/LearnGrowSucceed.png" />
+  <meta name="description" content="View Eastgate Academy's school fees structure, payment methods and financial aid options for the 2026 academic year." />
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+<div class="ea-scroll-progress" id="ea-scroll-progress"></div>
+
+  <!-- Splash Screen -->
+  <div class="ea-splash" id="ea-splash">
+    <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+    <p class="ea-splash-name">Eastgate Academy</p>
+    <p class="ea-splash-tagline">Nurturing Young Minds for a Brighter Future</p>
+    <div class="ea-splash-bar-wrap">
+      <div class="ea-splash-bar"></div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="ea-header" id="ea-header">
+    <div class="ea-header-inner">
+      <div class="ea-header-brand">
+        <img src="eastgateLogo.webp" alt="Eastgate Academy Logo" class="ea-header-logo" />
+        <span class="ea-header-name">Eastgate Academy</span>
+      </div>
+
+<nav class="ea-nav" id="ea-nav">
+  <ul class="ea-nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="about.html" class="ea-nav-dropdown-trigger">
+        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      </ul>
+    </li>
+    <li><a href="academics.html">Academics</a></li>
+    <li class="ea-nav-dropdown-wrap active">
+      <a href="admissions.html" class="ea-nav-dropdown-trigger">
+        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+      <button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-lock"></i> Eastgate Portal
+      </a>
+      <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="ea-page-hero">
+    <div class="ea-page-hero-overlay"></div>
+    <img src="images/classroom.jpg" alt="Eastgate Academy Fees" class="ea-page-hero-bg" />
+    <div class="ea-page-hero-content">
+      <span class="ea-hero-tag">Fees & Payments</span>
+      <h1>School Fees Structure</h1>
+      <p>Transparent, fair and affordable quality education for every family.</p>
+    </div>
+  </section>
+
+  <!-- SECURITY NOTICE -->
+  <section class="ea-fees-security">
+    <div class="ea-container">
+      <div class="ea-fees-security-inner">
+        <div class="ea-fees-security-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="ea-fees-security-text">
+          <p class="ea-fees-security-title">⚠️ Official Payment Security Notice</p>
+          <p class="ea-fees-security-msg">Eastgate Academy will <strong>NEVER</strong> request school fees via WhatsApp, phone call or text message. <strong>All payments must be made exclusively through our official parent portal or at the school accounts office.</strong> If anyone contacts you requesting payment outside these channels, call us immediately on <strong>0244 512 123</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEES STRUCTURE -->
+  <section class="ea-fees-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">2026 Academic Year</span>
+        <h2>Fees Structure</h2>
+        <p>All fees are per term. There are three terms in the academic year.</p>
+      </div>
+
+      <div class="ea-fees-table-wrap">
+        <table class="ea-fees-table">
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Class</th>
+              <th>Tuition Fee</th>
+              <th>Activity Fee</th>
+              <th>PTA Levy</th>
+              <th>Total Per Term</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ea-fees-level ea-fees-kg">Kindergarten</span></td>
+              <td>KG 1 – KG 2</td>
+              <td>GHS 600.00</td>
+              <td>GHS 80.00</td>
+              <td>GHS 50.00</td>
+              <td><strong>GHS 730.00</strong></td>
+            </tr>
+            <tr>
+              <td><span class="ea-fees-level ea-fees-lower">Lower Primary</span></td>
+              <td>Class 1 – Class 3</td>
+              <td>GHS 700.00</td>
+              <td>GHS 90.00</td>
+              <td>GHS 60.00</td>
+              <td><strong>GHS 850.00</strong></td>
+            </tr>
+            <tr>
+              <td><span class="ea-fees-level ea-fees-upper">Upper Primary</span></td>
+              <td>Class 4 – Class 6</td>
+              <td>GHS 750.00</td>
+              <td>GHS 100.00</td>
+              <td>GHS 60.00</td>
+              <td><strong>GHS 910.00</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Additional Fees -->
+      <div class="ea-fees-additional">
+        <h3>Additional Fees</h3>
+        <div class="ea-fees-additional-grid">
+          <div class="ea-fees-additional-card">
+            <i class="fas fa-user-plus"></i>
+            <h4>Registration Fee</h4>
+            <p class="ea-fees-amount">GHS 200.00</p>
+            <p>One-time fee for new students only</p>
+          </div>
+          <div class="ea-fees-additional-card">
+            <i class="fas fa-book"></i>
+            <h4>Textbooks</h4>
+            <p class="ea-fees-amount">GHS 150.00 – GHS 250.00</p>
+            <p>Per academic year depending on level</p>
+          </div>
+          <div class="ea-fees-additional-card">
+            <i class="fas fa-bus"></i>
+            <h4>Transportation</h4>
+            <p class="ea-fees-amount">GHS 180.00</p>
+            <p>Per term — optional, route dependent</p>
+          </div>
+          <div class="ea-fees-additional-card">
+            <i class="fas fa-clock"></i>
+            <h4>After School Care</h4>
+            <p class="ea-fees-amount">GHS 120.00</p>
+            <p>Per term — until 5:30pm daily</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT METHODS -->
+  <section class="ea-payment-methods-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">How to Pay</span>
+        <h2>Payment Methods</h2>
+        <p>We offer multiple convenient and secure ways to pay school fees.</p>
+      </div>
+
+      <div class="ea-payment-methods-grid">
+
+        <div class="ea-payment-method-card ea-payment-recommended">
+          <div class="ea-payment-recommended-badge">Recommended</div>
+          <div class="ea-payment-method-icon ea-payment-portal">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <h3>Parent Portal</h3>
+          <p>Pay securely online via our official parent portal using MTN Mobile Money, Vodafone Cash or AirtelTigo Money. Instant receipt generated.</p>
+          <a href="login.html" class="ea-btn-primary">Pay via Portal</a>
+        </div>
+
+        <div class="ea-payment-method-card">
+          <div class="ea-payment-method-icon ea-payment-office">
+            <i class="fas fa-university"></i>
+          </div>
+          <h3>School Accounts Office</h3>
+          <p>Visit our accounts office during school hours to pay in cash or via mobile money directly at the school. A receipt will be issued immediately.</p>
+          <p class="ea-payment-hours"><i class="fas fa-clock"></i> Mon–Fri: 7:30am – 3:00pm</p>
+        </div>
+
+        <div class="ea-payment-method-card">
+          <div class="ea-payment-method-icon ea-payment-bank">
+            <i class="fas fa-piggy-bank"></i>
+          </div>
+          <h3>Bank Transfer</h3>
+          <p>Direct bank transfer to the school account. Please use your child's full name and class as the payment reference.</p>
+          <div class="ea-payment-bank-details">
+            <p><strong>Bank:</strong> GCB Bank</p>
+            <p><strong>Account Name:</strong> Eastgate Academy</p>
+            <p><strong>Account No:</strong> 1234567890</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mobile Money Networks -->
+      <div class="ea-fees-momo-section">
+        <h3>Accepted Mobile Money Networks</h3>
+        <div class="ea-fees-momo-grid">
+          <div class="ea-fees-momo-card">
+            <div class="ea-fees-momo-icon ea-momo-mtn">MTN</div>
+            <p>MTN Mobile Money</p>
+          </div>
+          <div class="ea-fees-momo-card">
+            <div class="ea-fees-momo-icon ea-momo-voda">VOD</div>
+            <p>Vodafone Cash</p>
+          </div>
+          <div class="ea-fees-momo-card">
+            <div class="ea-fees-momo-icon ea-momo-at">AT</div>
+            <p>AirtelTigo Money</p>
+          </div>
+        </div>
+        <p class="ea-fees-momo-note">
+          <i class="fas fa-info-circle"></i>
+          Mobile money payments are only accepted through the official parent portal or at the school accounts office. <strong>Never send money directly to any personal number.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCIAL AID -->
+  <section class="ea-financial-aid-section">
+    <div class="ea-container ea-financial-aid-inner">
+      <div class="ea-financial-aid-text">
+        <span class="ea-section-tag">Support Available</span>
+        <h2>Financial Aid & Scholarships</h2>
+        <p>We believe every deserving child should have access to quality education regardless of financial circumstances. Eastgate Academy offers limited scholarships and payment plan options for qualifying families.</p>
+        <ul class="ea-financial-aid-list">
+          <li><i class="fas fa-check-circle"></i> Merit-based scholarships for academically excellent students</li>
+          <li><i class="fas fa-check-circle"></i> Need-based fee reductions for qualifying families</li>
+          <li><i class="fas fa-check-circle"></i> Flexible payment plans — pay fees in installments</li>
+          <li><i class="fas fa-check-circle"></i> Sibling discount — 10% off for second child enrolled</li>
+        </ul>
+        <a href="contact.html" class="ea-btn-primary">
+          <i class="fas fa-envelope"></i> Apply for Financial Aid
+        </a>
+      </div>
+      <div class="ea-financial-aid-image">
+        <img src="images/classroom.jpg" alt="Students at Eastgate Academy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FEES FAQ -->
+  <section class="ea-fees-faq-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Questions?</span>
+        <h2>Fees FAQ</h2>
+        <p>Answers to common questions about school fees and payments.</p>
+      </div>
+
+      <div class="ea-adm-faq-list">
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            When are school fees due?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>School fees are due at the beginning of each term, within the first two weeks of resumption. Late payment may attract a penalty fee of GHS 50.00 per week after the deadline.</p>
+          </div>
+        </div>
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            Can I pay fees in installments?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>Yes, we offer installment payment plans for families who need flexibility. Please visit the school accounts office or contact us to arrange an installment plan before the term begins.</p>
+          </div>
+        </div>
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            What happens if fees are not paid?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>Students with outstanding fees may be asked to stay home until payment is made. We always try to work with families first — please contact the accounts office if you are experiencing difficulties.</p>
+          </div>
+        </div>
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            Are fees refundable if a student withdraws?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>Tuition fees are partially refundable if a student withdraws within the first two weeks of term. After two weeks, fees are non-refundable. Registration fees are non-refundable.</p>
+          </div>
+        </div>
+
+        <div class="ea-adm-faq-item">
+          <button class="faq-toggle">
+            How do I get a payment receipt?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>Payments made through the parent portal automatically generate a digital receipt with a unique reference number. For payments made at the school office, a printed receipt is issued immediately.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ea-cta">
+    <div class="ea-container ea-cta-inner">
+      <div class="ea-cta-text">
+        <h2>Ready to Pay School Fees?</h2>
+        <p>Log in to the parent portal to pay securely online in minutes.</p>
+      </div>
+      <div class="ea-cta-btns">
+        <a href="login.html" class="ea-btn-white"><i class="fas fa-laptop"></i> Pay via Portal</a>
+        <a href="contact.html" class="ea-btn-outline-white"><i class="fas fa-phone"></i> Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Providing quality primary education in Dawenya, Tema since 2010.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Dawenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0244 512 123</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateacademy.edu.gh</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
+      </div>
+    </div>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <span class="ea-whatsapp-tooltip">Chat with us</span>
+    <div class="ea-whatsapp-icon">
+      <i class="fab fa-whatsapp"></i>
+    </div>
+  </a>
+
+  <!-- Back to Top -->
+  <button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+<!-- Cookie Consent Banner -->
+<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+  <div class="ea-cookie-text">
+    <span class="ea-cookie-icon">🍪</span>
+    <div class="ea-cookie-text-content">
+      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="#">Learn more</a></p>
+    </div>
+  </div>
+  <div class="ea-cookie-btns">
+    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

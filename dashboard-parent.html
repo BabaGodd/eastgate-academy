@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parent Dashboard - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard-parent.css" />
+</head>
+<body>
+  <div class="ea-sidebar-overlay" id="ea-parent-sidebar-overlay"></div>
+  <div class="ea-parent-wrapper">
+    <aside class="ea-parent-sidebar">
+      <h2 class="ea-parent-logo">Eastgate Academy Parent Portal</h2>
+      <nav>
+        <ul class="ea-parent-nav">
+          <li><a href="#" class="ea-parent-link active" data-section="dashboard" data-title="Welcome, Parent">Dashboard</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="results" data-title="Child's Results">View Child Results</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="attendance" data-title="Child's Attendance">Attendance</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="fees" data-title="Pay School Fees">Pay School Fees</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="messages" data-title="Messages">Messages</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="events" data-title="School Events">School Events</a></li>
+          <li><a href="#" id="ea-parent-logout">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="ea-parent-main">
+      
+      <header class="ea-parent-header">
+  <div style="display:flex; align-items:center; gap:1rem;">
+    <button class="ea-parent-hamburger" id="ea-parent-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <h1 id="ea-parent-page-title">Welcome, Parent</h1>
+  </div>
+  <div class="ea-header-actions">
+
+    <!-- Notification Bell -->
+    <div class="ea-notif-wrap" id="ea-p-notif-wrap">
+      <button class="ea-notif-btn ea-p-notif-btn" id="ea-p-notif-btn" aria-label="Notifications">
+        <i class="fas fa-bell"></i>
+        <span class="ea-notif-badge" id="ea-p-notif-badge">3</span>
+      </button>
+      <div class="ea-notif-dropdown" id="ea-p-notif-dropdown">
+        <div class="ea-notif-dropdown-header">
+          <h3>Notifications</h3>
+          <button class="ea-notif-mark-all" id="ea-p-notif-mark-all">Mark all read</button>
+        </div>
+        <div class="ea-notif-list">
+          <div class="ea-notif-item ea-notif-unread" data-id="1">
+            <div class="ea-notif-icon ea-notif-icon-purple"><i class="fas fa-envelope"></i></div>
+            <div class="ea-notif-content">
+              <p class="ea-notif-text">New message from Mr. Kwame Mensah</p>
+              <span class="ea-notif-time">Today, 9:14am</span>
+            </div>
+            <span class="ea-notif-dot"></span>
+          </div>
+          <div class="ea-notif-item ea-notif-unread" data-id="2">
+            <div class="ea-notif-icon ea-notif-icon-orange"><i class="fas fa-money-bill-wave"></i></div>
+            <div class="ea-notif-content">
+              <p class="ea-notif-text">School fees of GHS 850.00 are due for Term 2</p>
+              <span class="ea-notif-time">Yesterday</span>
+            </div>
+            <span class="ea-notif-dot"></span>
+          </div>
+          <div class="ea-notif-item ea-notif-unread" data-id="3">
+            <div class="ea-notif-icon ea-notif-icon-green"><i class="fas fa-bullhorn"></i></div>
+            <div class="ea-notif-content">
+              <p class="ea-notif-text">New announcement: Sports Day — Friday 9th May</p>
+              <span class="ea-notif-time">1 May 2026</span>
+            </div>
+            <span class="ea-notif-dot"></span>
+          </div>
+          <div class="ea-notif-item" data-id="4">
+            <div class="ea-notif-icon ea-notif-icon-blue"><i class="fas fa-chart-bar"></i></div>
+            <div class="ea-notif-content">
+              <p class="ea-notif-text">Amy's Term 2 results are now available</p>
+              <span class="ea-notif-time">3 days ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="ea-notif-footer">
+          <a href="#">View all notifications</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Profile Chip -->
+    <div class="ea-user-chip ea-p-user-chip" id="ea-p-user-chip">
+      <div class="ea-user-avatar ea-p-user-avatar">P</div>
+      <div class="ea-user-info">
+        <span class="ea-user-name">Parent</span>
+        <span class="ea-user-role">Guardian</span>
+      </div>
+      <i class="fas fa-chevron-down ea-user-chevron"></i>
+      <div class="ea-user-dropdown" id="ea-p-user-dropdown">
+        <a href="#"><i class="fas fa-user"></i> My Profile</a>
+        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+        <div class="ea-user-dropdown-divider"></div>
+        <a href="#" id="ea-parent-logout-chip"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+      <!-- DASHBOARD OVERVIEW -->
+      <section class="ea-parent-content ea-parent-section" id="section-dashboard">
+        <div class="ea-p-stats-grid">
+          <div class="ea-p-stat-card ea-p-purple">
+            <p class="ea-p-stat-label">Child's Class</p>
+            <p class="ea-p-stat-value">4B</p>
+          </div>
+          <div class="ea-p-stat-card ea-p-green">
+            <p class="ea-p-stat-label">Average Grade</p>
+            <p class="ea-p-stat-value">B+</p>
+          </div>
+          <div class="ea-p-stat-card ea-p-blue">
+            <p class="ea-p-stat-label">Attendance Rate</p>
+            <p class="ea-p-stat-value">92%</p>
+          </div>
+          <div class="ea-p-stat-card ea-p-orange">
+            <p class="ea-p-stat-label">Fees Status</p>
+            <p class="ea-p-stat-value ea-p-fees-due">Due</p>
+          </div>
+        </div>
+
+        <h3 class="ea-p-section-title">Child's Overview</h3>
+        <div class="ea-p-child-card">
+          <div class="ea-p-child-avatar">AO</div>
+          <div class="ea-p-child-info">
+            <p class="ea-p-child-name">Amy Osei</p>
+            <p class="ea-p-child-detail">Class 4B &nbsp;|&nbsp; Student ID: EA-2024-041</p>
+            <p class="ea-p-child-detail">Class Teacher: Mr. Kwame Mensah</p>
+          </div>
+        </div>
+
+        <h3 class="ea-p-section-title" style="margin-top:1.5rem;">Latest Announcements</h3>
+        <div class="ea-p-announcements-list">
+          <div class="ea-p-announcement-card">
+            <div class="ea-p-ann-top">
+              <p class="ea-p-ann-title">Sports Day — Friday 9th May</p>
+              <span class="ea-p-ann-date">1 May 2026</span>
+            </div>
+            <p class="ea-p-ann-body">All students are required to wear their PE kit on Friday. Parents are welcome to attend from 10am.</p>
+          </div>
+          <div class="ea-p-announcement-card">
+            <div class="ea-p-ann-top">
+              <p class="ea-p-ann-title">End of Term Dates</p>
+              <span class="ea-p-ann-date">28 Apr 2026</span>
+            </div>
+            <p class="ea-p-ann-body">The school term ends on Friday 23rd May. Report cards will be sent home on the last day.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHILD RESULTS -->
+      <section class="ea-parent-content ea-parent-section" id="section-results" style="display:none;">
+        <div class="ea-p-top-bar">
+          <h2>Child's Results — Amy Osei</h2>
+        </div>
+
+        <div class="ea-p-filter-bar">
+          <select class="ea-p-select" id="ea-p-results-term">
+            <option value="">All Terms</option>
+            <option value="Term 1">Term 1</option>
+            <option value="Term 2">Term 2</option>
+            <option value="Term 3">Term 3</option>
+          </select>
+        </div>
+
+        <div class="ea-p-table-wrap">
+          <table class="ea-p-table">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Score</th>
+                <th>Grade</th>
+                <th>Term</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody id="ea-p-results-tbody">
+              <tr data-term="Term 1">
+                <td>Mathematics</td><td>87/100</td>
+                <td><span class="ea-p-grade ea-p-grade-a">A</span></td>
+                <td>Term 1</td><td>Excellent</td>
+              </tr>
+              <tr data-term="Term 1">
+                <td>English</td><td>74/100</td>
+                <td><span class="ea-p-grade ea-p-grade-b">B</span></td>
+                <td>Term 1</td><td>Good</td>
+              </tr>
+              <tr data-term="Term 1">
+                <td>Science</td><td>61/100</td>
+                <td><span class="ea-p-grade ea-p-grade-c">C</span></td>
+                <td>Term 1</td><td>Satisfactory</td>
+              </tr>
+              <tr data-term="Term 2">
+                <td>Mathematics</td><td>91/100</td>
+                <td><span class="ea-p-grade ea-p-grade-a">A</span></td>
+                <td>Term 2</td><td>Excellent</td>
+              </tr>
+              <tr data-term="Term 2">
+                <td>English</td><td>80/100</td>
+                <td><span class="ea-p-grade ea-p-grade-b">B</span></td>
+                <td>Term 2</td><td>Very Good</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ATTENDANCE -->
+      <section class="ea-parent-content ea-parent-section" id="section-attendance" style="display:none;">
+        <div class="ea-p-top-bar">
+          <h2>Child's Attendance — Amy Osei</h2>
+        </div>
+
+        <div class="ea-p-att-summary">
+          <div class="ea-p-att-card ea-p-att-present">
+            <p class="ea-p-att-count">18</p>
+            <p class="ea-p-att-label">Days Present</p>
+          </div>
+          <div class="ea-p-att-card ea-p-att-absent">
+            <p class="ea-p-att-count">2</p>
+            <p class="ea-p-att-label">Days Absent</p>
+          </div>
+          <div class="ea-p-att-card ea-p-att-late">
+            <p class="ea-p-att-count">1</p>
+            <p class="ea-p-att-label">Days Late</p>
+          </div>
+        </div>
+
+        <div class="ea-p-table-wrap" style="margin-top:1.5rem;">
+          <table class="ea-p-table">
+            <thead>
+              <tr><th>Date</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2 May 2026</td><td><span class="ea-p-att-status ea-p-att-p">Present</span></td></tr>
+              <tr><td>1 May 2026</td><td><span class="ea-p-att-status ea-p-att-p">Present</span></td></tr>
+              <tr><td>30 Apr 2026</td><td><span class="ea-p-att-status ea-p-att-a">Absent</span></td></tr>
+              <tr><td>29 Apr 2026</td><td><span class="ea-p-att-status ea-p-att-l">Late</span></td></tr>
+              <tr><td>28 Apr 2026</td><td><span class="ea-p-att-status ea-p-att-p">Present</span></td></tr>
+              <tr><td>25 Apr 2026</td><td><span class="ea-p-att-status ea-p-att-p">Present</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PAY SCHOOL FEES -->
+      <section class="ea-parent-content ea-parent-section" id="section-fees" style="display:none;">
+        <div class="ea-p-top-bar">
+          <h2>Pay School Fees</h2>
+        </div>
+
+        <!-- Payment Security Notice -->
+<div class="ea-p-security-notice">
+  <div class="ea-p-security-notice-icon">
+    <i class="fas fa-shield-alt"></i>
+  </div>
+  <div class="ea-p-security-notice-text">
+    <p class="ea-p-security-title">⚠️ Important Payment Security Notice</p>
+    <p class="ea-p-security-msg">Eastgate Academy will <strong>NEVER</strong> request school fees via WhatsApp, phone call, or text message. <strong>Only pay through this official portal.</strong> Every payment generates a unique reference number — always save it as proof. If anyone contacts you requesting payment outside this portal, call us immediately on <strong>0244 512 123</strong> to report it.</p>
+  </div>
+</div>
+
+        <!-- Fees Summary -->
+        <div class="ea-p-fees-summary">
+          <div class="ea-p-fees-info">
+            <p class="ea-p-fees-label">Student</p>
+            <p class="ea-p-fees-value">Amy Osei — Class 4B</p>
+          </div>
+          <div class="ea-p-fees-info">
+            <p class="ea-p-fees-label">Term</p>
+            <p class="ea-p-fees-value">Term 2 — 2026</p>
+          </div>
+          <div class="ea-p-fees-info">
+            <p class="ea-p-fees-label">Amount Due</p>
+            <p class="ea-p-fees-value ea-p-amount">GHS 850.00</p>
+          </div>
+          <div class="ea-p-fees-info">
+            <p class="ea-p-fees-label">Status</p>
+            <p class="ea-p-fees-value"><span class="ea-p-fees-badge ea-p-fees-unpaid">Unpaid</span></p>
+          </div>
+        </div>
+
+        <!-- Network Selection -->
+        <h3 class="ea-p-section-title" style="margin-top:1.5rem;">Select Mobile Money Network</h3>
+        <div class="ea-p-network-grid">
+          <div class="ea-p-network-card" data-network="MTN" id="net-mtn">
+            <div class="ea-p-network-icon ea-p-mtn">MTN</div>
+            <p class="ea-p-network-name">MTN Mobile Money</p>
+          </div>
+          <div class="ea-p-network-card" data-network="Vodafone" id="net-voda">
+            <div class="ea-p-network-icon ea-p-voda">VOD</div>
+            <p class="ea-p-network-name">Vodafone Cash</p>
+          </div>
+          <div class="ea-p-network-card" data-network="AirtelTigo" id="net-at">
+            <div class="ea-p-network-icon ea-p-at">AT</div>
+            <p class="ea-p-network-name">AirtelTigo Money</p>
+          </div>
+        </div>
+
+
+<!-- Secure Payment Badge -->
+<div class="ea-p-pay-secure-row">
+  <span class="ea-p-pay-secure-badge">
+    <i class="fas fa-lock"></i> Secure Payment
+  </span>
+  <span class="ea-p-pay-secure-badge">
+    <i class="fas fa-check-circle"></i> Official Portal Only
+  </span>
+  <span class="ea-p-pay-secure-badge">
+    <i class="fas fa-receipt"></i> Receipt Generated
+  </span>
+</div>
+
+
+        <!-- Payment Form -->
+        <div class="ea-p-payment-form" id="ea-p-payment-form" style="display:none;">
+          <h3 class="ea-p-section-title">Enter Payment Details</h3>
+          <div class="ea-p-form-group">
+            <label class="ea-p-label">Selected Network</label>
+            <input type="text" class="ea-p-input" id="ea-p-selected-network" readonly />
+          </div>
+          <div class="ea-p-form-group">
+            <label class="ea-p-label">Mobile Money Number</label>
+            <input type="tel" class="ea-p-input" id="ea-p-momo-number" placeholder="e.g. 0241234567" maxlength="10" />
+          </div>
+          <div class="ea-p-form-group">
+            <label class="ea-p-label">Account Name</label>
+            <input type="text" class="ea-p-input" id="ea-p-momo-name" placeholder="Name on MoMo account" />
+          </div>
+          <div class="ea-p-form-group">
+            <label class="ea-p-label">Amount (GHS)</label>
+            <input type="text" class="ea-p-input" value="850.00" readonly />
+          </div>
+          <div class="ea-p-form-btns">
+            <button class="ea-p-pay-btn" id="ea-p-pay-btn">Confirm & Pay GHS 850.00</button>
+            <button class="ea-p-cancel-btn" id="ea-p-cancel-payment">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Payment History -->
+        <h3 class="ea-p-section-title" style="margin-top:2rem;">Payment History</h3>
+        <div class="ea-p-table-wrap">
+          <table class="ea-p-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Term</th>
+                <th>Amount</th>
+                <th>Network</th>
+                <th>Reference</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ea-p-payment-history">
+              <tr>
+                <td>15 Jan 2026</td>
+                <td>Term 1 2026</td>
+                <td>GHS 850.00</td>
+                <td>MTN MoMo</td>
+                <td>EA-TXN-00123</td>
+                <td><span class="ea-p-pay-status ea-p-pay-success">Paid</span></td>
+              </tr>
+              <tr>
+                <td>10 Sep 2025</td>
+                <td>Term 3 2025</td>
+                <td>GHS 800.00</td>
+                <td>Vodafone Cash</td>
+                <td>EA-TXN-00098</td>
+                <td><span class="ea-p-pay-status ea-p-pay-success">Paid</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- MESSAGES -->
+      <section class="ea-parent-content ea-parent-section" id="section-messages" style="display:none;">
+        <div class="ea-p-top-bar">
+          <h2>Messages</h2>
+          <a href="messaging.html" class="ea-p-primary-btn">+ New Message</a>
+        </div>
+
+        <div class="ea-p-messages-list">
+          <div class="ea-p-message-card ea-p-msg-unread">
+            <div class="ea-p-msg-top">
+              <span class="ea-p-msg-sender">Mr. Kwame Mensah — Class Teacher</span>
+              <span class="ea-p-msg-time">Today, 9:14am</span>
+            </div>
+            <p class="ea-p-msg-body">Good morning! I wanted to let you know that Amy has been performing really well this term. Her Mathematics results have been outstanding.</p>
+            <span class="ea-p-msg-badge ea-p-badge-unread">Unread</span>
+          </div>
+          <div class="ea-p-message-card">
+            <div class="ea-p-msg-top">
+              <span class="ea-p-msg-sender">Admin — Eastgate Academy</span>
+              <span class="ea-p-msg-time">Yesterday, 2:00pm</span>
+            </div>
+            <p class="ea-p-msg-body">Dear Parent, this is a reminder that Term 2 school fees of GHS 850.00 are due. Please make payment via the portal or visit the school accounts office.</p>
+            <span class="ea-p-msg-badge ea-p-badge-read">Read</span>
+          </div>
+          <div class="ea-p-message-card">
+            <div class="ea-p-msg-top">
+              <span class="ea-p-msg-sender">Admin — Eastgate Academy</span>
+              <span class="ea-p-msg-time">28 Apr 2026, 10:00am</span>
+            </div>
+            <p class="ea-p-msg-body">Sports Day is on Friday 9th May. Parents are warmly invited to attend. The event starts at 10am on the school field.</p>
+            <span class="ea-p-msg-badge ea-p-badge-read">Read</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHOOL EVENTS -->
+      <section class="ea-parent-content ea-parent-section" id="section-events" style="display:none;">
+        <div class="ea-p-top-bar">
+          <h2>School Events</h2>
+        </div>
+
+        <div class="ea-p-events-list">
+          <div class="ea-p-event-card">
+            <div class="ea-p-event-date">
+              <p class="ea-p-event-day">9</p>
+              <p class="ea-p-event-month">MAY</p>
+            </div>
+            <div class="ea-p-event-info">
+              <p class="ea-p-event-title">Sports Day</p>
+              <p class="ea-p-event-detail">School Field · 10:00am · Parents welcome</p>
+              <p class="ea-p-event-desc">Annual sports day event. All students must wear PE kit. Parents are encouraged to attend and cheer.</p>
+            </div>
+            <span class="ea-p-event-badge ea-p-event-upcoming">Upcoming</span>
+          </div>
+          <div class="ea-p-event-card">
+            <div class="ea-p-event-date">
+              <p class="ea-p-event-day">23</p>
+              <p class="ea-p-event-month">MAY</p>
+            </div>
+            <div class="ea-p-event-info">
+              <p class="ea-p-event-title">End of Term</p>
+              <p class="ea-p-event-detail">Whole School · Last day of Term 2</p>
+              <p class="ea-p-event-desc">Report cards will be distributed on this day. School closes at 12:00pm.</p>
+            </div>
+            <span class="ea-p-event-badge ea-p-event-upcoming">Upcoming</span>
+          </div>
+          <div class="ea-p-event-card">
+            <div class="ea-p-event-date">
+              <p class="ea-p-event-day">9</p>
+              <p class="ea-p-event-month">JUN</p>
+            </div>
+            <div class="ea-p-event-info">
+              <p class="ea-p-event-title">Term 3 Resumes</p>
+              <p class="ea-p-event-detail">Whole School · 7:30am</p>
+              <p class="ea-p-event-desc">Students resume for Term 3. Please ensure all fees are paid before resumption.</p>
+            </div>
+            <span class="ea-p-event-badge ea-p-event-upcoming">Upcoming</span>
+          </div>
+          <div class="ea-p-event-card">
+            <div class="ea-p-event-date">
+              <p class="ea-p-event-day">15</p>
+              <p class="ea-p-event-month">APR</p>
+            </div>
+            <div class="ea-p-event-info">
+              <p class="ea-p-event-title">PTA Meeting</p>
+              <p class="ea-p-event-detail">School Hall · 4:00pm</p>
+              <p class="ea-p-event-desc">Quarterly PTA meeting for parents and teachers to discuss student progress and school development.</p>
+            </div>
+            <span class="ea-p-event-badge ea-p-event-past">Past</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="dashboard-parent.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="dashboard-parent.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messages - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="messaging.css" />
+</head>
+<body>
+  <section class="ea-messaging-section">
+    <h1>Messages</h1>
+
+    <div class="ea-chat-box" id="ea-chat-box">
+      <!-- Messages go here -->
+    </div>
+
+    <form id="ea-message-form">
+      <div class="ea-form-group">
+        <select id="ea-sender-role" required>
+          <option value="">Select Role</option>
+          <option value="teacher">Teacher</option>
+          <option value="parent">Parent</option>
+        </select>
+      </div>
+
+      <div class="ea-form-group">
+        <textarea id="ea-message-text" placeholder="Write your message..." required></textarea>
+      </div>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <script src="messaging.js"></script>
+</body>
+</html>

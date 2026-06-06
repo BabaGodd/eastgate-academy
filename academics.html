@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academics - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/LearnGrowSucceed.png" />
+  <meta name="description" content="Explore Eastgate Academy's curriculum, grade levels, subjects and assessment methods for primary school students in Ghana." />
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+<div class="ea-scroll-progress" id="ea-scroll-progress"></div>
+
+  <!-- Splash Screen -->
+<div class="ea-splash" id="ea-splash">
+  <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+  <p class="ea-splash-name">Eastgate Academy</p>
+  <p class="ea-splash-tagline">Nurturing Young Minds for a Brighter Future</p>
+  <div class="ea-splash-bar-wrap">
+    <div class="ea-splash-bar"></div>
+  </div>
+</div>
+
+  <!-- HEADER -->
+  <header class="ea-header" id="ea-header">
+    <div class="ea-header-inner">
+      <div class="ea-header-brand">
+        <img src="eastgateLogo.webp" alt="Eastgate Academy Logo" class="ea-header-logo" />
+        <span class="ea-header-name">Eastgate Academy</span>
+      </div>
+
+
+     <nav class="ea-nav" id="ea-nav">
+  <ul class="ea-nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="about.html" class="ea-nav-dropdown-trigger">
+        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      </ul>
+    </li>
+    <li class="active"><a href="academics.html">Academics</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="admissions.html" class="ea-nav-dropdown-trigger">
+        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Dark Mode Toggle -->
+<button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+  <i class="fas fa-moon"></i>
+</button>
+
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-lock"></i> Eastgate Portal
+      </a>
+      <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="ea-page-hero">
+    <div class="ea-page-hero-overlay"></div>
+    <img src="images/classroom.jpg" alt="Academics at Eastgate Academy" class="ea-page-hero-bg" />
+    <div class="ea-page-hero-content">
+      <span class="ea-hero-tag">Academics</span>
+      <h1>Excellence Through Innovation & Dedication</h1>
+      <p>Challenging young minds to think, create and lead.</p>
+    </div>
+  </section>
+
+  <!-- CURRICULUM INTRO -->
+  <section class="ea-acad-intro">
+    <div class="ea-container ea-acad-intro-grid">
+      <div class="ea-acad-intro-text">
+        <span class="ea-section-tag">Our Approach</span>
+        <h2>Our Curriculum</h2>
+        <p>At Eastgate Academy, we follow a balanced curriculum that meets national standards while incorporating innovative teaching methods to engage young learners at every stage of their development.</p>
+        <p>Our programme is designed to develop critical thinking, creativity, and a lifelong love of learning — equipping every child with the skills they need for the future.</p>
+        <div class="ea-acad-highlights">
+          <div class="ea-acad-highlight">
+            <i class="fas fa-check-circle"></i>
+            <span>National curriculum aligned</span>
+          </div>
+          <div class="ea-acad-highlight">
+            <i class="fas fa-check-circle"></i>
+            <span>Continuous assessment model</span>
+          </div>
+          <div class="ea-acad-highlight">
+            <i class="fas fa-check-circle"></i>
+            <span>Small class sizes for personal attention</span>
+          </div>
+          <div class="ea-acad-highlight">
+            <i class="fas fa-check-circle"></i>
+            <span>Bilingual support available</span>
+          </div>
+        </div>
+      </div>
+      <div class="ea-acad-intro-image">
+        <img src="images/classroom.jpg" alt="Curriculum at Eastgate Academy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADE LEVELS -->
+  <section class="ea-grade-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Grade Levels</span>
+        <h2>Learning at Every Stage</h2>
+        <p>Tailored programmes designed to meet each child exactly where they are.</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="ea-tab-buttons">
+        <button class="eg-tab-btn active" data-tab="kindergarten">
+          <i class="fas fa-star"></i> Kindergarten
+        </button>
+        <button class="eg-tab-btn" data-tab="lower-primary">
+          <i class="fas fa-book"></i> Lower Primary (P1–P3)
+        </button>
+        <button class="eg-tab-btn" data-tab="upper-primary">
+          <i class="fas fa-graduation-cap"></i> Upper Primary (P4–P6)
+        </button>
+      </div>
+
+      <!-- Kindergarten -->
+      <div id="kindergarten" class="eg-tab-content active">
+        <div class="ea-grade-layout">
+          <div class="ea-grade-text">
+            <h3>Kindergarten (Ages 5–6)</h3>
+            <p>Our kindergarten programme focuses on developing foundational skills through play-based learning and hands-on activities in a warm, nurturing environment.</p>
+            <h4>Key Focus Areas</h4>
+            <ul class="ea-grade-list">
+              <li><i class="fas fa-check"></i> Phonics and early reading skills</li>
+              <li><i class="fas fa-check"></i> Number recognition and basic math concepts</li>
+              <li><i class="fas fa-check"></i> Motor skill development</li>
+              <li><i class="fas fa-check"></i> Social-emotional learning</li>
+              <li><i class="fas fa-check"></i> Creative expression through art and music</li>
+            </ul>
+          </div>
+          <div class="ea-grade-image">
+            <img src="images/classroom.jpg" alt="Kindergarten at Eastgate Academy" />
+            <div class="ea-grade-badge">Ages 5–6</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lower Primary -->
+      <div id="lower-primary" class="eg-tab-content">
+        <div class="ea-grade-layout">
+          <div class="ea-grade-text">
+            <h3>Lower Primary (P1–P3)</h3>
+            <p>We build on core academic skills while nurturing curiosity, collaboration and a genuine love for learning in a structured but engaging classroom environment.</p>
+            <h4>Core Subjects</h4>
+            <ul class="ea-grade-list">
+              <li><i class="fas fa-check"></i> English Language & Literacy</li>
+              <li><i class="fas fa-check"></i> Mathematics</li>
+              <li><i class="fas fa-check"></i> Science & Environment</li>
+              <li><i class="fas fa-check"></i> Social Studies</li>
+              <li><i class="fas fa-check"></i> ICT and Creative Arts</li>
+            </ul>
+          </div>
+          <div class="ea-grade-image">
+            <img src="images/classroom.jpg" alt="Lower Primary at Eastgate Academy" />
+            <div class="ea-grade-badge">P1 – P3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upper Primary -->
+      <div id="upper-primary" class="eg-tab-content">
+        <div class="ea-grade-layout">
+          <div class="ea-grade-text">
+            <h3>Upper Primary (P4–P6)</h3>
+            <p>Our upper primary programme prepares learners for Junior High through deeper subject mastery, critical thinking and project-based learning experiences.</p>
+            <h4>Subjects & Enrichment</h4>
+            <ul class="ea-grade-list">
+              <li><i class="fas fa-check"></i> Advanced English & Literature</li>
+              <li><i class="fas fa-check"></i> Mathematics & Pre-Algebra</li>
+              <li><i class="fas fa-check"></i> Integrated Science</li>
+              <li><i class="fas fa-check"></i> History & Government</li>
+              <li><i class="fas fa-check"></i> Reading Programmes & Cultural Projects</li>
+            </ul>
+          </div>
+          <div class="ea-grade-image">
+            <img src="images/classroom.jpg" alt="Upper Primary at Eastgate Academy" />
+            <div class="ea-grade-badge">P4 – P6</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ASSESSMENT -->
+  <section class="ea-assessment-section">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">How We Measure Progress</span>
+        <h2>Assessment & Reporting</h2>
+        <p>We believe in continuous, fair assessment to monitor student growth and provide targeted support where it's needed most.</p>
+      </div>
+      <div class="ea-assessment-grid">
+        <div class="ea-assessment-card">
+          <div class="ea-assessment-icon"><i class="fas fa-clipboard-check"></i></div>
+          <h3>Formative Assessments</h3>
+          <p>Quizzes, classwork and teacher observations help us track learning in real time and adjust our teaching accordingly.</p>
+        </div>
+        <div class="ea-assessment-card">
+          <div class="ea-assessment-icon"><i class="fas fa-edit"></i></div>
+          <h3>Summative Assessments</h3>
+          <p>End-of-term exams give a comprehensive evaluation of each student's overall subject understanding and mastery.</p>
+        </div>
+        <div class="ea-assessment-card">
+          <div class="ea-assessment-icon"><i class="fas fa-project-diagram"></i></div>
+          <h3>Project Work</h3>
+          <p>Hands-on projects and presentations build research, communication and teamwork skills beyond the classroom.</p>
+        </div>
+      </div>
+      <div class="ea-assessment-note">
+        <i class="fas fa-info-circle"></i>
+        <p>Parents receive report cards three times a year and are warmly invited to attend progress conferences with class teachers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ea-cta">
+    <div class="ea-container ea-cta-inner">
+      <div class="ea-cta-text">
+        <h2>Ready to Join The Academy?</h2>
+        <p>Schedule a visit or begin the enrollment process today.</p>
+      </div>
+      <div class="ea-cta-btns">
+        <a href="contact.html" class="ea-btn-white"><i class="fas fa-calendar-alt"></i> Book a Tour</a>
+        <a href="admissions.html" class="ea-btn-outline-white"><i class="fas fa-file-alt"></i> Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Providing quality primary education in Dawenya, Tema since 2010.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Dawenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0244 512 123</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateacademy.edu.gh</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
+      </div>
+    </div>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+  <span class="ea-whatsapp-tooltip">Chat with us</span>
+  <div class="ea-whatsapp-icon">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+</a>
+
+<!-- Back to Top Button -->
+<button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Cookie Consent Banner -->
+<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+  <div class="ea-cookie-text">
+    <span class="ea-cookie-icon">🍪</span>
+    <div class="ea-cookie-text-content">
+      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="#">Learn more</a></p>
+    </div>
+  </div>
+  <div class="ea-cookie-btns">
+    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Assignment - Eastgate Academy</title>
+  <link rel="stylesheet" href="upload-assignment.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+</head>
+<body>
+  <section class="ea-upload-section">
+    <h1>Upload Assignment</h1>
+    <form id="ea-upload-form">
+      <div class="ea-upload-group">
+        <label for="ea-title">Title</label>
+        <input type="text" id="ea-title" required />
+      </div>
+
+      <div class="ea-upload-group">
+        <label for="ea-description">Description</label>
+        <textarea id="ea-description" required></textarea>
+      </div>
+
+      <div class="ea-upload-group">
+        <label for="ea-due-date">Due Date</label>
+        <input type="date" id="ea-due-date" required />
+      </div>
+
+      <div class="ea-upload-group">
+        <label for="ea-file">Assignment File (PDF or DOCX)</label>
+        <input type="file" id="ea-file" accept=".pdf,.doc,.docx" required />
+      </div>
+
+      <button type="submit">Upload</button>
+    </form>
+    <p id="ea-upload-success"></p>
+  </section>
+
+  <script src="upload-assignment.js"></script>
+</body>
+</html>

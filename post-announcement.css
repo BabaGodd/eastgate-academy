@@ -1,0 +1,55 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7fc;
+  padding: 2rem;
+}
+
+.ea-ann-post {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.ea-ann-post h1 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 2rem;
+}
+
+.ea-ann-group {
+  margin-bottom: 1.5rem;
+}
+
+.ea-ann-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.ea-ann-group input,
+.ea-ann-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 1rem;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#ea-ann-success {
+  text-align: center;
+  color: green;
+  margin-top: 1rem;
+}

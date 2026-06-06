@@ -1,0 +1,56 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7fc;
+  margin: 0;
+  padding: 2rem;
+}
+
+.ea-att-section {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.ea-att-section h1 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 2rem;
+}
+
+.ea-att-group {
+  margin-bottom: 1rem;
+}
+
+.ea-att-list {
+  margin: 1rem 0;
+}
+
+.ea-att-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.ea-att-checkbox input {
+  margin-right: 0.5rem;
+}
+
+button {
+  width: 100%;
+  padding: 1rem;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#ea-att-msg {
+  text-align: center;
+  color: green;
+  margin-top: 1rem;
+}

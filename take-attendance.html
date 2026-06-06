@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Take Attendance - Eastgate Academy</title>
+  <link rel="stylesheet" href="take-attendance.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+</head>
+<body>
+  <section class="ea-att-section">
+    <h1>Take Attendance</h1>
+
+    <form id="ea-att-form">
+      <div class="ea-att-group">
+        <label for="ea-date">Date</label>
+        <input type="date" id="ea-date" required />
+      </div>
+
+      <div id="ea-student-list" class="ea-att-list">
+        <!-- Student checkboxes injected here -->
+      </div>
+
+      <button type="submit">Save Attendance</button>
+      <p id="ea-att-msg"></p>
+    </form>
+  </section>
+
+  <script src="take-attendance.js"></script>
+</body>
+</html>

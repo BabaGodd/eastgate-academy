@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery - Eastgate Academy</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/LearnGrowSucceed.png" />
+  <meta name="description" content="Browse photos from Eastgate Academy's classrooms, events, sports days and school life in Dawenya, Tema, Ghana." />
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div class="ea-scroll-progress" id="ea-scroll-progress"></div>
+
+    <!-- Splash Screen -->
+<div class="ea-splash" id="ea-splash">
+  <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+  <p class="ea-splash-name">Eastgate Academy</p>
+  <p class="ea-splash-tagline">Nurturing Young Minds for a Brighter Future</p>
+  <div class="ea-splash-bar-wrap">
+    <div class="ea-splash-bar"></div>
+  </div>
+</div>
+
+  <!-- HEADER -->
+  <header class="ea-header" id="ea-header">
+    <div class="ea-header-inner">
+      <div class="ea-header-brand">
+        <img src="eastgateLogo.webp" alt="Eastgate Academy Logo" class="ea-header-logo" />
+        <span class="ea-header-name">Eastgate Academy</span>
+      </div>
+<nav class="ea-nav" id="ea-nav">
+  <ul class="ea-nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li class="ea-nav-dropdown-wrap active">
+      <a href="about.html" class="ea-nav-dropdown-trigger">
+        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+      </ul>
+    </li>
+    <li><a href="academics.html">Academics</a></li>
+    <li class="ea-nav-dropdown-wrap">
+      <a href="admissions.html" class="ea-nav-dropdown-trigger">
+        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      </a>
+      <ul class="ea-nav-dropdown">
+        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+
+      <button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-lock"></i> Eastgate Portal
+      </a>
+      <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="ea-page-hero">
+    <div class="ea-page-hero-overlay"></div>
+    <img src="images/classroom.jpg" alt="Eastgate Academy Gallery" class="ea-page-hero-bg" />
+    <div class="ea-page-hero-content">
+      <span class="ea-hero-tag">Our Gallery</span>
+      <h1>Life at Eastgate Academy</h1>
+      <p>A glimpse into our vibrant school community.</p>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section class="ea-gallery-section">
+    <div class="ea-container">
+
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Memories</span>
+        <h2>Photo Gallery</h2>
+        <p>Browse through moments from our classrooms, events and school life.</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="ea-gallery-filters">
+        <button class="ea-gallery-filter active" data-filter="all">All</button>
+        <button class="ea-gallery-filter" data-filter="classrooms">Classrooms</button>
+        <button class="ea-gallery-filter" data-filter="events">Events</button>
+        <button class="ea-gallery-filter" data-filter="sports">Sports</button>
+        <button class="ea-gallery-filter" data-filter="facilities">Facilities</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="ea-gallery-grid" id="ea-gallery-grid">
+
+        <!-- Real images using your existing files -->
+        <div class="ea-gallery-item" data-category="classrooms" data-title="Our Classrooms" data-desc="Modern, well-equipped classrooms designed for learning.">
+          <img src="images/classroom.jpg" alt="Eastgate Academy Classroom" />
+          <div class="ea-gallery-overlay">
+            <div class="ea-gallery-overlay-content">
+              <i class="fas fa-expand-alt"></i>
+              <p>Our Classrooms</p>
+            </div>
+          </div>
+          <span class="ea-gallery-cat">Classrooms</span>
+        </div>
+
+        <div class="ea-gallery-item" data-category="events" data-title="School Events" data-desc="Students and staff coming together for memorable school events.">
+          <img src="images/hero.jpg" alt="School Event" />
+          <div class="ea-gallery-overlay">
+            <div class="ea-gallery-overlay-content">
+              <i class="fas fa-expand-alt"></i>
+              <p>School Events</p>
+            </div>
+          </div>
+          <span class="ea-gallery-cat">Events</span>
+        </div>
+
+        <!-- Placeholder slots — swap src with real images when ready -->
+        <div class="ea-gallery-item ea-gallery-placeholder" data-category="sports" data-title="Sports Day" data-desc="Annual sports day bringing out the best in our students.">
+          <div class="ea-gallery-placeholder-inner">
+            <i class="fas fa-image"></i>
+            <p>Sports Day Photo</p>
+            <span>Coming Soon</span>
+          </div>
+          <span class="ea-gallery-cat">Sports</span>
+        </div>
+
+        <div class="ea-gallery-item ea-gallery-placeholder" data-category="facilities" data-title="Our Library" data-desc="A well-stocked library encouraging a love of reading.">
+          <div class="ea-gallery-placeholder-inner">
+            <i class="fas fa-image"></i>
+            <p>Library Photo</p>
+            <span>Coming Soon</span>
+          </div>
+          <span class="ea-gallery-cat">Facilities</span>
+        </div>
+
+        <div class="ea-gallery-item ea-gallery-placeholder" data-category="classrooms" data-title="ICT Lab" data-desc="Our modern computer lab preparing students for the digital world.">
+          <div class="ea-gallery-placeholder-inner">
+            <i class="fas fa-image"></i>
+            <p>ICT Lab Photo</p>
+            <span>Coming Soon</span>
+          </div>
+          <span class="ea-gallery-cat">Classrooms</span>
+        </div>
+
+        <div class="ea-gallery-item ea-gallery-placeholder" data-category="events" data-title="Graduation Ceremony" data-desc="Celebrating our students' achievements and milestones.">
+          <div class="ea-gallery-placeholder-inner">
+            <i class="fas fa-image"></i>
+            <p>Graduation Photo</p>
+            <span>Coming Soon</span>
+          </div>
+          <span class="ea-gallery-cat">Events</span>
+        </div>
+
+        <div class="ea-gallery-item ea-gallery-placeholder" data-category="sports" data-title="Football Match" data-desc="Our students competing in inter-school football tournaments.">
+          <div class="ea-gallery-placeholder-inner">
+            <i class="fas fa-image"></i>
+            <p>Football Photo</p>
+            <span>Coming Soon</span>
+          </div>
+          <span class="ea-gallery-cat">Sports</span>
+        </div>
+
+        <div class="ea-gallery-item ea-gallery-placeholder" data-category="facilities" data-title="Science Lab" data-desc="Hands-on experiments in our fully equipped science laboratory.">
+          <div class="ea-gallery-placeholder-inner">
+            <i class="fas fa-image"></i>
+            <p>Science Lab Photo</p>
+            <span>Coming Soon</span>
+          </div>
+          <span class="ea-gallery-cat">Facilities</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="ea-lightbox" id="ea-lightbox">
+    <div class="ea-lightbox-overlay" id="ea-lightbox-overlay"></div>
+    <div class="ea-lightbox-content">
+      <button class="ea-lightbox-close" id="ea-lightbox-close">
+        <i class="fas fa-times"></i>
+      </button>
+      <button class="ea-lightbox-prev" id="ea-lightbox-prev">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="ea-lightbox-next" id="ea-lightbox-next">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="ea-lightbox-img-wrap">
+        <img src="" alt="" id="ea-lightbox-img" />
+      </div>
+      <div class="ea-lightbox-info">
+        <h3 id="ea-lightbox-title"></h3>
+        <p id="ea-lightbox-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="ea-cta">
+    <div class="ea-container ea-cta-inner">
+      <div class="ea-cta-text">
+        <h2>Want to See More?</h2>
+        <p>Come visit us in person and experience Eastgate Academy for yourself.</p>
+      </div>
+      <div class="ea-cta-btns">
+        <a href="contact.html" class="ea-btn-white"><i class="fas fa-calendar-alt"></i> Book a Tour</a>
+        <a href="admissions.html" class="ea-btn-outline-white"><i class="fas fa-file-alt"></i> Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Providing quality primary education in Dawenya, Tema since 2010.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Dawenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0244 512 123</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateacademy.edu.gh</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
+      </div>
+    </div>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <span class="ea-whatsapp-tooltip">Chat with us</span>
+    <div class="ea-whatsapp-icon">
+      <i class="fab fa-whatsapp"></i>
+    </div>
+  </a>
+
+  <!-- Back to Top Button -->
+  <button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+<!-- Cookie Consent Banner -->
+<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+  <div class="ea-cookie-text">
+    <span class="ea-cookie-icon">🍪</span>
+    <div class="ea-cookie-text-content">
+      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="#">Learn more</a></p>
+    </div>
+  </div>
+  <div class="ea-cookie-btns">
+    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
