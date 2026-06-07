@@ -4230,3 +4230,245 @@ body.dark-mode .ea-nav-dropdown li:not(:last-child) {
     justify-content: flex-end;
   }
 }
+
+
+/* ============================================
+   GLOBAL GREEN OVERRIDE — REMOVE ALL GREEN
+   ============================================ */
+
+/* Force all green references to new brand colors */
+a { color: var(--primary); }
+a:hover { color: var(--primary-dark); }
+
+.ea-portal-btn {
+  background: #D94E2A !important;
+  color: white !important;
+}
+
+.ea-portal-btn:hover {
+  background: #7A1E0A !important;
+}
+
+/* Dark mode portal button */
+body.dark-mode .ea-portal-btn {
+  background: #D94E2A !important;
+  color: white !important;
+}
+
+body.dark-mode .ea-portal-btn:hover {
+  background: #7A1E0A !important;
+}
+
+/* Nav active links */
+.ea-nav-list li a:hover,
+.ea-nav-list li.active a {
+  color: #D94E2A !important;
+}
+
+body.dark-mode .ea-nav-list li a:hover {
+  color: #F5916E !important;
+}
+
+/* Section tags */
+.ea-section-tag {
+  background: #FDF0EC !important;
+  color: #D94E2A !important;
+}
+
+/* Hero tag */
+.ea-hero-tag {
+  background: rgba(217,78,42,0.15) !important;
+  color: #F5916E !important;
+}
+
+/* Buttons */
+.ea-btn-primary {
+  background: #D94E2A !important;
+  color: white !important;
+}
+
+.ea-btn-primary:hover {
+  background: #7A1E0A !important;
+}
+
+.ea-btn-secondary {
+  border-color: #D94E2A !important;
+  color: #D94E2A !important;
+}
+
+.ea-btn-secondary:hover {
+  background: #D94E2A !important;
+  color: white !important;
+}
+
+.ea-btn-white {
+  background: white !important;
+  color: #D94E2A !important;
+}
+
+.ea-btn-outline-white {
+  border-color: white !important;
+  color: white !important;
+}
+
+/* CTA section */
+.ea-cta {
+  background: linear-gradient(135deg, #D94E2A 0%, #7A1E0A 100%) !important;
+}
+
+/* Footer */
+.ea-footer {
+  background: #3d0e05 !important;
+}
+
+.ea-social-icons a:hover {
+  background: #D94E2A !important;
+  color: white !important;
+}
+
+/* Fact cards */
+.ea-fact-icon {
+  background: #FDF0EC !important;
+  color: #D94E2A !important;
+}
+
+.ea-fact-card h3 {
+  color: #D94E2A !important;
+}
+
+/* Back to top button */
+.ea-back-to-top {
+  background: #D94E2A !important;
+}
+
+.ea-back-to-top:hover {
+  background: #7A1E0A !important;
+}
+
+/* Scroll progress bar */
+.ea-scroll-progress {
+  background: linear-gradient(to right, #7A1E0A, #F5916E) !important;
+}
+
+/* Gallery filters */
+.ea-gallery-filter.active {
+  background: #D94E2A !important;
+  border-color: #D94E2A !important;
+}
+
+.ea-gallery-filter:hover {
+  border-color: #D94E2A !important;
+  color: #D94E2A !important;
+}
+
+/* Dark mode toggle */
+.ea-dark-toggle:hover {
+  background: #FDF0EC !important;
+  color: #D94E2A !important;
+}
+
+body.dark-mode .ea-dark-toggle {
+  color: #F5916E !important;
+}
+
+/* Section dividers and borders */
+.ea-section-divider {
+  background: #D94E2A !important;
+}
+
+/* Form focus states */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #D94E2A !important;
+  box-shadow: 0 0 0 3px rgba(217,78,42,0.12) !important;
+}
+
+/* Splash screen */
+.ea-splash {
+  background: linear-gradient(135deg, #7A1E0A 0%, #D94E2A 100%) !important;
+}
+
+/* Cookie banner accept button */
+.ea-cookie-accept {
+  background: #D94E2A !important;
+}
+
+.ea-cookie-accept:hover {
+  background: #7A1E0A !important;
+}
+
+/* Financial aid list icons */
+.ea-financial-aid-list i {
+  color: #D94E2A !important;
+}
+
+/* Fees level badges */
+.ea-fees-kg { background: #FDF0EC !important; color: #D94E2A !important; }
+.ea-fees-lower { background: #fde8e2 !important; color: #7A1E0A !important; }
+.ea-fees-upper { background: #f5c4b4 !important; color: #7A1E0A !important; }
+
+/* Payment portal icon */
+.ea-payment-portal { background: #D94E2A !important; }
+
+/* MoMo note icon */
+.ea-fees-momo-note i { color: #D94E2A !important; }
+
+/* Lightbox buttons */
+.ea-lightbox-close:hover,
+.ea-lightbox-prev:hover,
+.ea-lightbox-next:hover {
+  background: #D94E2A !important;
+}
+
+/* 404 page */
+.ea-404-four { color: #D94E2A !important; }
+
+/* Timeout warning stay button */
+.ea-timeout-stay {
+  background: #D94E2A !important;
+}
+
+.ea-timeout-stay:hover {
+  background: #7A1E0A !important;
+}
+
+/* Security badge icons */
+.ea-security-badge i { color: #D94E2A !important; }
+
+/* Dark mode all remaining green references */
+body.dark-mode .ea-header-name { color: #F5916E !important; }
+body.dark-mode .ea-portal-btn { background: #D94E2A !important; }
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+  border-color: #D94E2A !important;
+  box-shadow: 0 0 0 3px rgba(217,78,42,0.2) !important;
+}
+
+/* ============================================
+   DARK MODE — CIRCULAR LOGO FIX
+   ============================================ */
+
+body.dark-mode .ea-header-logo {
+  border-radius: 50% !important;
+  background: white !important;
+  padding: 3px !important;
+}
+
+body.dark-mode .ea-splash-logo {
+  border-radius: 50% !important;
+  background: white !important;
+  padding: 12px !important;
+}
+
+body.dark-mode .ea-login-logo {
+  border-radius: 50% !important;
+  background: white !important;
+  padding: 8px !important;
+}
+
+.ea-header-logo {
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
