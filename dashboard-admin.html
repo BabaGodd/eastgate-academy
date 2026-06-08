@@ -120,10 +120,15 @@
   <!-- MANAGE USERS -->
   <!-- MANAGE USERS -->
 <section class="ea-admin-content ea-section" id="section-users" style="display:none;">
-  <div class="ea-users-top">
-    <h2>Manage Users</h2>
-    <button class="ea-add-user-btn" id="ea-add-user-btn">+ Add User</button>
+
+<div class="ea-users-top">
+  <h2>Manage Users</h2>
+  <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+    <button class="ea-add-user-btn" id="ea-add-student-btn">+ Add Student</button>
+    <button class="ea-add-user-btn" id="ea-add-parent-btn" style="background:#7A1E0A;">+ Add Parent</button>
+    <button class="ea-add-user-btn" id="ea-add-user-btn" style="background:#F5916E;">+ Add Teacher</button>
   </div>
+</div>
 
   <!-- Add User Form (hidden by default) -->
   <div class="ea-add-user-form" id="ea-add-user-form" style="display:none;">
@@ -201,6 +206,95 @@
     </table>
   </div>
 </section>
+
+
+
+<!-- Add Student Modal -->
+<div class="ea-modal-overlay" id="ea-add-student-modal" style="display:none;">
+  <div class="ea-modal-box">
+    <div class="ea-modal-header">
+      <h3>Add New Student</h3>
+      <button class="ea-modal-close" id="ea-close-student-modal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="ea-modal-body">
+      <div class="ea-form-group-modal">
+        <label>Full Name</label>
+        <input type="text" id="ea-new-student-name" class="ea-input" placeholder="e.g. Kofi Mensah" />
+      </div>
+      <div class="ea-form-group-modal">
+        <label>Class</label>
+        <select id="ea-new-student-class" class="ea-input">
+          <option value="">Select Class</option>
+          <option value="a1b2c3d4-0001-0001-0001-000000000001">KG 1</option>
+          <option value="a1b2c3d4-0002-0002-0002-000000000002">KG 2</option>
+          <option value="a1b2c3d4-0003-0003-0003-000000000003">Class 1</option>
+          <option value="a1b2c3d4-0004-0004-0004-000000000004">Class 2</option>
+          <option value="a1b2c3d4-0005-0005-0005-000000000005">Class 3</option>
+          <option value="a1b2c3d4-0006-0006-0006-000000000006">Class 4</option>
+          <option value="a1b2c3d4-0007-0007-0007-000000000007">Class 5</option>
+          <option value="a1b2c3d4-0008-0008-0008-000000000008">Class 6</option>
+        </select>
+      </div>
+      <div class="ea-form-group-modal">
+        <label>Date of Birth</label>
+        <input type="date" id="ea-new-student-dob" class="ea-input" />
+      </div>
+      <div class="ea-modal-btns">
+        <button class="ea-add-user-btn" id="ea-save-student-btn">Add Student</button>
+        <button class="ea-cancel-btn" id="ea-cancel-student-modal">Cancel</button>
+      </div>
+      <p class="ea-modal-success" id="ea-student-success" style="display:none; color:#D94E2A; font-weight:700; margin-top:1rem;">
+        <i class="fas fa-check-circle"></i> Student added successfully!
+      </p>
+      <p class="ea-modal-error" id="ea-student-error" style="display:none; color:#c62828; font-weight:700; margin-top:1rem;">
+        <i class="fas fa-exclamation-circle"></i> <span id="ea-student-error-text"></span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Add Parent Modal -->
+<div class="ea-modal-overlay" id="ea-add-parent-modal" style="display:none;">
+  <div class="ea-modal-box">
+    <div class="ea-modal-header">
+      <h3>Add New Parent</h3>
+      <button class="ea-modal-close" id="ea-close-parent-modal">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="ea-modal-body">
+      <div class="ea-form-group-modal">
+        <label>Parent Full Name</label>
+        <input type="text" id="ea-new-parent-name" class="ea-input" placeholder="e.g. Mr. Kweku Mensah" />
+      </div>
+      <div class="ea-form-group-modal">
+        <label>Email Address</label>
+        <input type="email" id="ea-new-parent-email" class="ea-input" placeholder="parent@gmail.com" />
+      </div>
+      <div class="ea-form-group-modal">
+        <label>Phone Number</label>
+        <input type="tel" id="ea-new-parent-phone" class="ea-input" placeholder="e.g. 0244512123" />
+      </div>
+      <div class="ea-form-group-modal">
+        <label>Link to Student (Student ID)</label>
+        <input type="text" id="ea-new-parent-student" class="ea-input" placeholder="e.g. EA-2024-001" />
+      </div>
+      <div class="ea-modal-btns">
+        <button class="ea-add-user-btn" id="ea-save-parent-btn">Add Parent</button>
+        <button class="ea-cancel-btn" id="ea-cancel-parent-modal">Cancel</button>
+      </div>
+      <p class="ea-modal-success" id="ea-parent-success" style="display:none; color:#D94E2A; font-weight:700; margin-top:1rem;">
+        <i class="fas fa-check-circle"></i> Parent added successfully!
+      </p>
+      <p class="ea-modal-error" id="ea-parent-error" style="display:none; color:#c62828; font-weight:700; margin-top:1rem;">
+        <i class="fas fa-exclamation-circle"></i> <span id="ea-parent-error-text"></span>
+      </p>
+    </div>
+  </div>
+</div>
+
 
   <!-- MANAGE ASSIGNMENTS -->
  <!-- MANAGE ASSIGNMENTS -->

@@ -790,3 +790,185 @@ document.getElementById('ea-save-password-btn')?.addEventListener('click', async
     loadTeachers();
   }, 1500);
 });
+
+// ---- Add Student ----
+const addStudentBtn = document.getElementById('ea-add-student-btn');
+const addStudentModal = document.getElementById('ea-add-student-modal');
+const closeStudentModal = document.getElementById('ea-close-student-modal');
+const cancelStudentModal = document.getElementById('ea-cancel-student-modal');
+const saveStudentBtn = document.getElementById('ea-save-student-btn');
+
+if (addStudentBtn) {
+  addStudentBtn.addEventListener('click', () => {
+    addStudentModal.style.display = 'flex';
+  });
+}
+
+if (closeStudentModal) {
+  closeStudentModal.addEventListener('click', () => {
+    addStudentModal.style.display = 'none';
+  });
+}
+
+if (cancelStudentModal) {
+  cancelStudentModal.addEventListener('click', () => {
+    addStudentModal.style.display = 'none';
+  });
+}
+
+if (saveStudentBtn) {
+  saveStudentBtn.addEventListener('click', async function () {
+    const name = document.getElementById('ea-new-student-name').value.trim();
+    const classId = document.getElementById('ea-new-student-class').value;
+    const dob = document.getElementById('ea-new-student-dob').value;
+    const successMsg = document.getElementById('ea-student-success');
+    const errorMsg = document.getElementById('ea-student-error');
+    const errorText = document.getElementById('ea-student-error-text');
+
+    successMsg.style.display = 'none';
+    errorMsg.style.display = 'none';
+
+    if (!name || !classId) {
+      errorText.textContent = 'Please fill in name and class.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    // Generate student code
+    const { count } = await supabaseClient
+      .from('students')
+      .select('*', { count: 'exact', head: true });
+
+    const newCount = (count || 0) + 1;
+    const year = new Date().getFullYear();
+    const studentCode = `EA-${year}-${String(newCount).padStart(3, '0')}`;
+
+    const { error } = await supabaseClient
+      .from('students')
+      .insert({
+        full_name: name,
+        class_id: classId,
+        student_code: studentCode,
+        date_of_birth: dob || null
+      });
+
+    if (error) {
+      errorText.textContent = 'Error adding student. Please try again.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    successMsg.innerHTML = `<i class="fas fa-check-circle"></i> Student added! Student ID: <strong>${studentCode}</strong>`;
+    successMsg.style.display = 'block';
+
+    // Clear form
+    document.getElementById('ea-new-student-name').value = '';
+    document.getElementById('ea-new-student-class').value = '';
+    document.getElementById('ea-new-student-dob').value = '';
+
+    // Refresh stats
+    loadStats();
+
+    setTimeout(() => {
+      addStudentModal.style.display = 'none';
+      successMsg.style.display = 'none';
+    }, 3000);
+  });
+}
+
+// ---- Add Parent ----
+const addParentBtn = document.getElementById('ea-add-parent-btn');
+const addParentModal = document.getElementById('ea-add-parent-modal');
+const closeParentModal = document.getElementById('ea-close-parent-modal');
+const cancelParentModal = document.getElementById('ea-cancel-parent-modal');
+const saveParentBtn = document.getElementById('ea-save-parent-btn');
+
+if (addParentBtn) {
+  addParentBtn.addEventListener('click', () => {
+    addParentModal.style.display = 'flex';
+  });
+}
+
+if (closeParentModal) {
+  closeParentModal.addEventListener('click', () => {
+    addParentModal.style.display = 'none';
+  });
+}
+
+if (cancelParentModal) {
+  cancelParentModal.addEventListener('click', () => {
+    addParentModal.style.display = 'none';
+  });
+}
+
+if (saveParentBtn) {
+  saveParentBtn.addEventListener('click', async function () {
+    const name = document.getElementById('ea-new-parent-name').value.trim();
+    const email = document.getElementById('ea-new-parent-email').value.trim();
+    const phone = document.getElementById('ea-new-parent-phone').value.trim();
+    const studentCode = document.getElementById('ea-new-parent-student').value.trim().toUpperCase();
+    const successMsg = document.getElementById('ea-parent-success');
+    const errorMsg = document.getElementById('ea-parent-error');
+    const errorText = document.getElementById('ea-parent-error-text');
+
+    successMsg.style.display = 'none';
+    errorMsg.style.display = 'none';
+
+    if (!name || !email || !phone) {
+      errorText.textContent = 'Please fill in name, email and phone.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    // Insert parent into users table
+    const { data: parentData, error: parentError } = await supabaseClient
+      .from('users')
+      .insert({
+        full_name: name,
+        email: email,
+        role: 'parent',
+        phone: phone
+      })
+      .select()
+      .single();
+
+    if (parentError) {
+      errorText.textContent = 'Error adding parent. Email may already exist.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    // Link parent to student if student code provided
+    if (studentCode) {
+      const { data: studentData } = await supabaseClient
+        .from('students')
+        .select('id')
+        .eq('student_code', studentCode)
+        .single();
+
+      if (studentData) {
+        await supabaseClient
+          .from('students')
+          .update({ parent_id: parentData.id })
+          .eq('id', studentData.id);
+      }
+    }
+
+    successMsg.innerHTML = `
+      <i class="fas fa-check-circle"></i> Parent added successfully!<br>
+      <small>They can log in using Student ID: <strong>${studentCode || 'Not linked'}</strong> and their child's last name as password.</small>
+    `;
+    successMsg.style.display = 'block';
+
+    // Clear form
+    document.getElementById('ea-new-parent-name').value = '';
+    document.getElementById('ea-new-parent-email').value = '';
+    document.getElementById('ea-new-parent-phone').value = '';
+    document.getElementById('ea-new-parent-student').value = '';
+
+    setTimeout(() => {
+      addParentModal.style.display = 'none';
+      successMsg.style.display = 'none';
+    }, 4000);
+  });
+}
