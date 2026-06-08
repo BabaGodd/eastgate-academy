@@ -21,6 +21,29 @@
 
 </head>
 <body>
+
+<!-- Session Timeout Warning -->
+<div class="ea-timeout-overlay" id="ea-timeout-overlay">
+  <div class="ea-timeout-box">
+    <div class="ea-timeout-icon">
+      <i class="fas fa-clock"></i>
+    </div>
+    <h3 class="ea-timeout-title">Session Expiring Soon</h3>
+    <p class="ea-timeout-msg">You have been inactive for a while. For your security you will be automatically logged out in:</p>
+    <div class="ea-timeout-countdown" id="ea-timeout-countdown">60</div>
+    <p class="ea-timeout-sub">seconds</p>
+    <div class="ea-timeout-btns">
+      <button class="ea-timeout-stay" id="ea-timeout-stay">
+        <i class="fas fa-check"></i> Stay Logged In
+      </button>
+      <button class="ea-timeout-logout" id="ea-timeout-logout">
+        <i class="fas fa-sign-out-alt"></i> Logout Now
+      </button>
+    </div>
+  </div>
+</div>
+
+
   <div class="ea-sidebar-overlay" id="ea-parent-sidebar-overlay"></div>
   <div class="ea-parent-wrapper">
     <aside class="ea-parent-sidebar">
@@ -170,9 +193,13 @@
 
       <!-- CHILD RESULTS -->
       <section class="ea-parent-content ea-parent-section" id="section-results" style="display:none;">
+
         <div class="ea-p-top-bar">
-          <h2>Child's Results — Amy Osei</h2>
-        </div>
+  <h2>Child's Results — Amy Osei</h2>
+  <button class="ea-p-primary-btn" id="ea-p-download-report">
+    <i class="fas fa-download"></i> Download Report Card
+  </button>
+</div>
 
         <div class="ea-p-filter-bar">
           <select class="ea-p-select" id="ea-p-results-term">
@@ -489,9 +516,11 @@
     </main>
   </div>
 
-  <script src="dashboard-parent.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 <script src="dashboard-parent.js"></script>
+
 </body>
 </html>

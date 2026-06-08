@@ -54,6 +54,9 @@ async function loadParentData(parentId) {
 
   if (!child) return;
 
+      localStorage.setItem('ea-student-name', child.full_name);
+      localStorage.setItem('ea-student-code', child.student_code || 'N/A');
+
   // Update child overview card
   const childName = document.querySelector('.ea-p-child-name');
   const childDetails = document.querySelectorAll('.ea-p-child-detail');
@@ -618,3 +621,196 @@ document.addEventListener('click', function () {
 
   resetInactivityTimer();
 })();
+
+// ---- Download Report Card PDF ----
+const downloadReportBtn = document.getElementById('ea-p-download-report');
+
+if (downloadReportBtn) {
+  downloadReportBtn.addEventListener('click', async function () {
+    this.textContent = 'Generating...';
+    this.disabled = true;
+
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Get student info from localStorage
+      const studentName = localStorage.getItem('ea-student-name') || 'Student';
+      const parentName = localStorage.getItem('ea-user-name') || 'Parent';
+      const today = new Date().toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+
+      // ---- HEADER ----
+      doc.setFillColor(217, 78, 42);
+      doc.rect(0, 0, 210, 35, 'F');
+
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(20);
+      doc.setFont('helvetica', 'bold');
+      doc.text('EASTGATE ACADEMY', 105, 14, { align: 'center' });
+
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Dawenya, Tema, Ghana  |  0244 512 123', 105, 22, { align: 'center' });
+      doc.text('Nurturing Future Leaders', 105, 29, { align: 'center' });
+
+      // ---- TITLE ----
+      doc.setTextColor(217, 78, 42);
+      doc.setFontSize(16);
+      doc.setFont('helvetica', 'bold');
+      doc.text('STUDENT REPORT CARD', 105, 48, { align: 'center' });
+
+      // Divider line
+      doc.setDrawColor(217, 78, 42);
+      doc.setLineWidth(0.5);
+      doc.line(14, 52, 196, 52);
+
+      // ---- STUDENT INFO ----
+      doc.setTextColor(50, 50, 50);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+
+      const studentId = localStorage.getItem('ea-student-code') || 'N/A';
+      const studentClass = document.querySelector('.ea-p-stat-value')?.textContent || 'N/A';
+
+      doc.text(`Student Name:`, 14, 62);
+      doc.setFont('helvetica', 'bold');
+      doc.text(studentName, 55, 62);
+
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Student ID:`, 14, 70);
+      doc.setFont('helvetica', 'bold');
+      doc.text(studentId, 55, 70);
+
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Class:`, 14, 78);
+      doc.setFont('helvetica', 'bold');
+      doc.text(studentClass, 55, 78);
+
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Academic Year:`, 120, 62);
+      doc.setFont('helvetica', 'bold');
+      doc.text('2026', 161, 62);
+
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Date Issued:`, 120, 70);
+      doc.setFont('helvetica', 'bold');
+      doc.text(today, 161, 70);
+
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Parent/Guardian:`, 120, 78);
+      doc.setFont('helvetica', 'bold');
+      doc.text(parentName, 161, 78);
+
+      // Divider
+      doc.setDrawColor(220, 220, 220);
+      doc.setLineWidth(0.3);
+      doc.line(14, 84, 196, 84);
+
+      // ---- RESULTS TABLE ----
+      doc.setTextColor(217, 78, 42);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Academic Results', 14, 93);
+
+      // Get results from the table
+      const rows = [];
+      document.querySelectorAll('#ea-p-results-tbody tr').forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length >= 5) {
+          rows.push([
+            cells[0].textContent.trim(),
+            cells[1].textContent.trim(),
+            cells[2].textContent.trim(),
+            cells[3].textContent.trim(),
+            cells[4].textContent.trim()
+          ]);
+        }
+      });
+
+      doc.autoTable({
+        startY: 97,
+        head: [['Subject', 'Score', 'Grade', 'Term', 'Remark']],
+        body: rows.length > 0 ? rows : [['No results available', '', '', '', '']],
+        headStyles: {
+          fillColor: [217, 78, 42],
+          textColor: 255,
+          fontStyle: 'bold',
+          fontSize: 10
+        },
+        bodyStyles: {
+          fontSize: 9,
+          textColor: [50, 50, 50]
+        },
+        alternateRowStyles: {
+          fillColor: [253, 240, 236]
+        },
+        columnStyles: {
+          0: { cellWidth: 55 },
+          1: { cellWidth: 30, halign: 'center' },
+          2: { cellWidth: 25, halign: 'center' },
+          3: { cellWidth: 30, halign: 'center' },
+          4: { cellWidth: 45 }
+        },
+        margin: { left: 14, right: 14 }
+      });
+
+      // ---- ATTENDANCE SUMMARY ----
+      const finalY = doc.lastAutoTable.finalY + 10;
+
+      doc.setTextColor(217, 78, 42);
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Attendance Summary', 14, finalY);
+
+      const presentCount = document.querySelector('.ea-p-att-present .ea-p-att-count')?.textContent || '0';
+      const absentCount = document.querySelector('.ea-p-att-absent .ea-p-att-count')?.textContent || '0';
+      const lateCount = document.querySelector('.ea-p-att-late .ea-p-att-count')?.textContent || '0';
+      const attRate = document.querySelector('.ea-p-stat-value:nth-child(3)')?.textContent || 'N/A';
+
+      doc.autoTable({
+        startY: finalY + 4,
+        head: [['Days Present', 'Days Absent', 'Days Late', 'Attendance Rate']],
+        body: [[presentCount, absentCount, lateCount, attRate]],
+        headStyles: {
+          fillColor: [122, 30, 10],
+          textColor: 255,
+          fontStyle: 'bold',
+          fontSize: 10
+        },
+        bodyStyles: {
+          fontSize: 10,
+          textColor: [50, 50, 50],
+          halign: 'center'
+        },
+        margin: { left: 14, right: 14 }
+      });
+
+      // ---- FOOTER ----
+      const footerY = doc.lastAutoTable.finalY + 20;
+
+      doc.setDrawColor(217, 78, 42);
+      doc.setLineWidth(0.5);
+      doc.line(14, footerY, 196, footerY);
+
+      doc.setTextColor(100, 100, 100);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'italic');
+      doc.text('This is an official report card generated from the Eastgate Academy portal.', 105, footerY + 6, { align: 'center' });
+      doc.text('For queries contact: info@eastgateacademy.edu.gh  |  0244 512 123', 105, footerY + 11, { align: 'center' });
+      doc.text(`Generated on ${today} by Eastgate Academy Portal`, 105, footerY + 16, { align: 'center' });
+
+      // ---- SAVE ----
+      const fileName = `Eastgate_Report_Card_${studentName.replace(/ /g, '_')}_2026.pdf`;
+      doc.save(fileName);
+
+    } catch (err) {
+      console.error('PDF generation error:', err);
+      alert('Error generating report card. Please try again.');
+    }
+
+    this.innerHTML = '<i class="fas fa-download"></i> Download Report Card';
+    this.disabled = false;
+  });
+}
