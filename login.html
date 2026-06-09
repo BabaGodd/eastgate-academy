@@ -21,6 +21,8 @@
 <link rel="apple-touch-icon" href="eastgateLogo.webp" />
 
 
+
+
 </head>
 <body>
 
@@ -125,6 +127,35 @@
               <span id="ea-portal-btn-text">Sign In</span>
               <i class="fas fa-arrow-right"></i>
             </button>
+
+            <p class="ea-login-forgot">
+  Forgot your password? 
+  <a href="#" id="ea-forgot-link">Click here</a>
+</p>
+
+<!-- Forgot Password Form -->
+<div class="ea-forgot-form" id="ea-forgot-form" style="display:none;">
+  <p class="ea-forgot-desc">
+    <i class="fas fa-info-circle"></i>
+    Enter your Staff ID or Student ID and we will notify the school admin to reset your password.
+  </p>
+  <div class="ea-login-group">
+    <label for="ea-forgot-id">Your Staff ID or Student ID</label>
+    <div class="ea-login-input-wrap">
+      <i class="fas fa-id-card"></i>
+      <input type="text" id="ea-forgot-id" placeholder="e.g. EAT-001 or EA-2024-001" />
+    </div>
+  </div>
+  <button type="button" class="ea-login-btn" id="ea-forgot-submit">
+    <span>Request Password Reset</span>
+    <i class="fas fa-paper-plane"></i>
+  </button>
+  <div class="ea-forgot-success" id="ea-forgot-success" style="display:none;">
+    <i class="fas fa-check-circle"></i>
+    Request sent! The school admin will reset your password shortly. Please visit the school office or call <strong>0244 512 123</strong>.
+  </div>
+</div>
+
 
             <div class="ea-login-error" id="ea-portal-error" style="display:none;">
               <i class="fas fa-exclamation-circle"></i>

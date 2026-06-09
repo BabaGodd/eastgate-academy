@@ -270,4 +270,57 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+
+// ---- Forgot Password ----
+const forgotLink = document.getElementById('ea-forgot-link');
+const forgotForm = document.getElementById('ea-forgot-form');
+const forgotSubmit = document.getElementById('ea-forgot-submit');
+const forgotSuccess = document.getElementById('ea-forgot-success');
+
+if (forgotLink) {
+  forgotLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    forgotForm.style.display = forgotForm.style.display === 'none' ? 'flex' : 'none';
+    forgotForm.style.flexDirection = 'column';
+  });
+}
+
+if (forgotSubmit) {
+  forgotSubmit.addEventListener('click', async function () {
+    const id = document.getElementById('ea-forgot-id').value.trim().toUpperCase();
+
+    if (!id) {
+      alert('Please enter your Staff ID or Student ID.');
+      return;
+    }
+
+    this.textContent = 'Sending...';
+    this.disabled = true;
+
+    // Log the reset request to Supabase messages table
+    // Find the admin user first
+    const { data: adminData } = await supabaseClient
+      .from('users')
+      .select('id')
+      .eq('role', 'admin')
+      .single();
+
+    if (adminData) {
+      await supabaseClient.from('messages').insert({
+        sender_id: adminData.id,
+        receiver_id: adminData.id,
+        body: `PASSWORD RESET REQUEST: User with ID "${id}" has requested a password reset. Please update their password from the Manage Teachers section.`,
+        is_read: false
+      });
+    }
+
+    forgotSuccess.style.display = 'flex';
+    this.innerHTML = '<span>Request Sent</span> <i class="fas fa-check"></i>';
+    this.disabled = true;
+  });
+}
+
+
+
+
 });
