@@ -4,45 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parent Dashboard - Eastgate Academy</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="dashboard-parent.css" />
-
-  
-  <!-- PWA Support -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#D94E2A" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
-<link rel="apple-touch-icon" href="eastgateLogo.webp" />
-
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#D94E2A" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
+  <link rel="apple-touch-icon" href="images/logo.png" />
 </head>
 <body>
 
-<!-- Session Timeout Warning -->
-<div class="ea-timeout-overlay" id="ea-timeout-overlay">
-  <div class="ea-timeout-box">
-    <div class="ea-timeout-icon">
-      <i class="fas fa-clock"></i>
-    </div>
-    <h3 class="ea-timeout-title">Session Expiring Soon</h3>
-    <p class="ea-timeout-msg">You have been inactive for a while. For your security you will be automatically logged out in:</p>
-    <div class="ea-timeout-countdown" id="ea-timeout-countdown">60</div>
-    <p class="ea-timeout-sub">seconds</p>
-    <div class="ea-timeout-btns">
-      <button class="ea-timeout-stay" id="ea-timeout-stay">
-        <i class="fas fa-check"></i> Stay Logged In
-      </button>
-      <button class="ea-timeout-logout" id="ea-timeout-logout">
-        <i class="fas fa-sign-out-alt"></i> Logout Now
-      </button>
+  <!-- Session Timeout Warning -->
+  <div class="ea-timeout-overlay" id="ea-timeout-overlay" style="display:none;">
+    <div class="ea-timeout-box">
+      <div class="ea-timeout-icon">
+        <i class="fas fa-clock"></i>
+      </div>
+      <h3 class="ea-timeout-title">Session Expiring Soon</h3>
+      <p class="ea-timeout-msg">You have been inactive for a while. For your security you will be automatically logged out in:</p>
+      <div class="ea-timeout-countdown" id="ea-timeout-countdown">60</div>
+      <p class="ea-timeout-sub">seconds</p>
+      <div class="ea-timeout-btns">
+        <button class="ea-timeout-stay" id="ea-timeout-stay">
+          <i class="fas fa-check"></i> Stay Logged In
+        </button>
+        <button class="ea-timeout-logout" id="ea-timeout-logout">
+          <i class="fas fa-sign-out-alt"></i> Logout Now
+        </button>
+      </div>
     </div>
   </div>
-</div>
-
 
   <div class="ea-sidebar-overlay" id="ea-parent-sidebar-overlay"></div>
   <div class="ea-parent-wrapper">
@@ -62,84 +55,84 @@
     </aside>
 
     <main class="ea-parent-main">
-      
+
       <header class="ea-parent-header">
-  <div style="display:flex; align-items:center; gap:1rem;">
-    <button class="ea-parent-hamburger" id="ea-parent-hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-    <h1 id="ea-parent-page-title">Welcome, Parent</h1>
-  </div>
-  <div class="ea-header-actions">
-
-    <!-- Notification Bell -->
-    <div class="ea-notif-wrap" id="ea-p-notif-wrap">
-      <button class="ea-notif-btn ea-p-notif-btn" id="ea-p-notif-btn" aria-label="Notifications">
-        <i class="fas fa-bell"></i>
-        <span class="ea-notif-badge" id="ea-p-notif-badge">3</span>
-      </button>
-      <div class="ea-notif-dropdown" id="ea-p-notif-dropdown">
-        <div class="ea-notif-dropdown-header">
-          <h3>Notifications</h3>
-          <button class="ea-notif-mark-all" id="ea-p-notif-mark-all">Mark all read</button>
+        <div style="display:flex; align-items:center; gap:1rem;">
+          <button class="ea-parent-hamburger" id="ea-parent-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+          <h1 id="ea-parent-page-title">Welcome, Parent</h1>
         </div>
-        <div class="ea-notif-list">
-          <div class="ea-notif-item ea-notif-unread" data-id="1">
-            <div class="ea-notif-icon ea-notif-icon-purple"><i class="fas fa-envelope"></i></div>
-            <div class="ea-notif-content">
-              <p class="ea-notif-text">New message from Mr. Kwame Mensah</p>
-              <span class="ea-notif-time">Today, 9:14am</span>
-            </div>
-            <span class="ea-notif-dot"></span>
-          </div>
-          <div class="ea-notif-item ea-notif-unread" data-id="2">
-            <div class="ea-notif-icon ea-notif-icon-orange"><i class="fas fa-money-bill-wave"></i></div>
-            <div class="ea-notif-content">
-              <p class="ea-notif-text">School fees of GHS 850.00 are due for Term 2</p>
-              <span class="ea-notif-time">Yesterday</span>
-            </div>
-            <span class="ea-notif-dot"></span>
-          </div>
-          <div class="ea-notif-item ea-notif-unread" data-id="3">
-            <div class="ea-notif-icon ea-notif-icon-green"><i class="fas fa-bullhorn"></i></div>
-            <div class="ea-notif-content">
-              <p class="ea-notif-text">New announcement: Sports Day — Friday 9th May</p>
-              <span class="ea-notif-time">1 May 2026</span>
-            </div>
-            <span class="ea-notif-dot"></span>
-          </div>
-          <div class="ea-notif-item" data-id="4">
-            <div class="ea-notif-icon ea-notif-icon-blue"><i class="fas fa-chart-bar"></i></div>
-            <div class="ea-notif-content">
-              <p class="ea-notif-text">Amy's Term 2 results are now available</p>
-              <span class="ea-notif-time">3 days ago</span>
-            </div>
-          </div>
-        </div>
-        <div class="ea-notif-footer">
-          <a href="#">View all notifications</a>
-        </div>
-      </div>
-    </div>
+        <div class="ea-header-actions">
 
-    <!-- User Profile Chip -->
-    <div class="ea-user-chip ea-p-user-chip" id="ea-p-user-chip">
-      <div class="ea-user-avatar ea-p-user-avatar">P</div>
-      <div class="ea-user-info">
-        <span class="ea-user-name">Parent</span>
-        <span class="ea-user-role">Guardian</span>
-      </div>
-      <i class="fas fa-chevron-down ea-user-chevron"></i>
-      <div class="ea-user-dropdown" id="ea-p-user-dropdown">
-        <a href="#"><i class="fas fa-user"></i> My Profile</a>
-        <a href="#"><i class="fas fa-cog"></i> Settings</a>
-        <div class="ea-user-dropdown-divider"></div>
-        <a href="#" id="ea-parent-logout-chip"><i class="fas fa-sign-out-alt"></i> Logout</a>
-      </div>
-    </div>
+          <!-- Notification Bell -->
+          <div class="ea-notif-wrap" id="ea-p-notif-wrap">
+            <button class="ea-notif-btn ea-p-notif-btn" id="ea-p-notif-btn" aria-label="Notifications">
+              <i class="fas fa-bell"></i>
+              <span class="ea-notif-badge" id="ea-p-notif-badge">3</span>
+            </button>
+            <div class="ea-notif-dropdown" id="ea-p-notif-dropdown">
+              <div class="ea-notif-dropdown-header">
+                <h3>Notifications</h3>
+                <button class="ea-notif-mark-all" id="ea-p-notif-mark-all">Mark all read</button>
+              </div>
+              <div class="ea-notif-list">
+                <div class="ea-notif-item ea-notif-unread" data-id="1">
+                  <div class="ea-notif-icon ea-notif-icon-purple"><i class="fas fa-envelope"></i></div>
+                  <div class="ea-notif-content">
+                    <p class="ea-notif-text">New message from Mr. Kwame Mensah</p>
+                    <span class="ea-notif-time">Today, 9:14am</span>
+                  </div>
+                  <span class="ea-notif-dot"></span>
+                </div>
+                <div class="ea-notif-item ea-notif-unread" data-id="2">
+                  <div class="ea-notif-icon ea-notif-icon-orange"><i class="fas fa-money-bill-wave"></i></div>
+                  <div class="ea-notif-content">
+                    <p class="ea-notif-text">School fees of GHS 850.00 are due for Term 2</p>
+                    <span class="ea-notif-time">Yesterday</span>
+                  </div>
+                  <span class="ea-notif-dot"></span>
+                </div>
+                <div class="ea-notif-item ea-notif-unread" data-id="3">
+                  <div class="ea-notif-icon ea-notif-icon-green"><i class="fas fa-bullhorn"></i></div>
+                  <div class="ea-notif-content">
+                    <p class="ea-notif-text">New announcement: Sports Day — Friday 9th May</p>
+                    <span class="ea-notif-time">1 May 2026</span>
+                  </div>
+                  <span class="ea-notif-dot"></span>
+                </div>
+                <div class="ea-notif-item" data-id="4">
+                  <div class="ea-notif-icon ea-notif-icon-blue"><i class="fas fa-chart-bar"></i></div>
+                  <div class="ea-notif-content">
+                    <p class="ea-notif-text">Amy's Term 2 results are now available</p>
+                    <span class="ea-notif-time">3 days ago</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ea-notif-footer">
+                <a href="#">View all notifications</a>
+              </div>
+            </div>
+          </div>
 
-  </div>
-</header>
+          <!-- User Profile Chip -->
+          <div class="ea-user-chip ea-p-user-chip" id="ea-p-user-chip">
+            <div class="ea-user-avatar ea-p-user-avatar">P</div>
+            <div class="ea-user-info">
+              <span class="ea-user-name">Parent</span>
+              <span class="ea-user-role">Guardian</span>
+            </div>
+            <i class="fas fa-chevron-down ea-user-chevron"></i>
+            <div class="ea-user-dropdown" id="ea-p-user-dropdown">
+              <a href="#"><i class="fas fa-user"></i> My Profile</a>
+              <a href="#"><i class="fas fa-cog"></i> Settings</a>
+              <div class="ea-user-dropdown-divider"></div>
+              <a href="#" id="ea-parent-logout-chip"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+
+        </div>
+      </header>
 
       <!-- DASHBOARD OVERVIEW -->
       <section class="ea-parent-content ea-parent-section" id="section-dashboard">
@@ -167,7 +160,7 @@
           <div class="ea-p-child-avatar">AO</div>
           <div class="ea-p-child-info">
             <p class="ea-p-child-name">Amy Osei</p>
-            <p class="ea-p-child-detail">Class 4B &nbsp;|&nbsp; Student ID: EA-2024-041</p>
+            <p class="ea-p-child-detail">Class 4B &nbsp;|&nbsp; Student ID: EA-2024-001</p>
             <p class="ea-p-child-detail">Class Teacher: Mr. Kwame Mensah</p>
           </div>
         </div>
@@ -193,13 +186,12 @@
 
       <!-- CHILD RESULTS -->
       <section class="ea-parent-content ea-parent-section" id="section-results" style="display:none;">
-
         <div class="ea-p-top-bar">
-  <h2>Child's Results — Amy Osei</h2>
-  <button class="ea-p-primary-btn" id="ea-p-download-report">
-    <i class="fas fa-download"></i> Download Report Card
-  </button>
-</div>
+          <h2>Child's Results</h2>
+          <button class="ea-p-primary-btn" id="ea-p-download-report">
+            <i class="fas fa-download"></i> Download Report Card
+          </button>
+        </div>
 
         <div class="ea-p-filter-bar">
           <select class="ea-p-select" id="ea-p-results-term">
@@ -255,7 +247,7 @@
       <!-- ATTENDANCE -->
       <section class="ea-parent-content ea-parent-section" id="section-attendance" style="display:none;">
         <div class="ea-p-top-bar">
-          <h2>Child's Attendance — Amy Osei</h2>
+          <h2>Child's Attendance</h2>
         </div>
 
         <div class="ea-p-att-summary">
@@ -297,15 +289,15 @@
         </div>
 
         <!-- Payment Security Notice -->
-<div class="ea-p-security-notice">
-  <div class="ea-p-security-notice-icon">
-    <i class="fas fa-shield-alt"></i>
-  </div>
-  <div class="ea-p-security-notice-text">
-    <p class="ea-p-security-title">⚠️ Important Payment Security Notice</p>
-    <p class="ea-p-security-msg">Eastgate Academy will <strong>NEVER</strong> request school fees via WhatsApp, phone call, or text message. <strong>Only pay through this official portal.</strong> Every payment generates a unique reference number — always save it as proof. If anyone contacts you requesting payment outside this portal, call us immediately on <strong>0244 512 123</strong> to report it.</p>
-  </div>
-</div>
+        <div class="ea-p-security-notice">
+          <div class="ea-p-security-notice-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="ea-p-security-notice-text">
+            <p class="ea-p-security-title">⚠️ Important Payment Security Notice</p>
+            <p class="ea-p-security-msg">Eastgate Academy will <strong>NEVER</strong> request school fees via WhatsApp, phone call, or text message. <strong>Only pay through this official portal.</strong> Every payment generates a unique reference number — always save it as proof. If anyone contacts you requesting payment outside this portal, call us immediately on <strong>0244 512 123</strong> to report it.</p>
+          </div>
+        </div>
 
         <!-- Fees Summary -->
         <div class="ea-p-fees-summary">
@@ -344,20 +336,18 @@
           </div>
         </div>
 
-
-<!-- Secure Payment Badge -->
-<div class="ea-p-pay-secure-row">
-  <span class="ea-p-pay-secure-badge">
-    <i class="fas fa-lock"></i> Secure Payment
-  </span>
-  <span class="ea-p-pay-secure-badge">
-    <i class="fas fa-check-circle"></i> Official Portal Only
-  </span>
-  <span class="ea-p-pay-secure-badge">
-    <i class="fas fa-receipt"></i> Receipt Generated
-  </span>
-</div>
-
+        <!-- Secure Payment Badges -->
+        <div class="ea-p-pay-secure-row">
+          <span class="ea-p-pay-secure-badge">
+            <i class="fas fa-lock"></i> Secure Payment
+          </span>
+          <span class="ea-p-pay-secure-badge">
+            <i class="fas fa-check-circle"></i> Official Portal Only
+          </span>
+          <span class="ea-p-pay-secure-badge">
+            <i class="fas fa-receipt"></i> Receipt Generated
+          </span>
+        </div>
 
         <!-- Payment Form -->
         <div class="ea-p-payment-form" id="ea-p-payment-form" style="display:none;">
@@ -516,11 +506,11 @@
     </main>
   </div>
 
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-<script src="dashboard-parent.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <script src="dashboard-parent.js"></script>
 
 </body>
 </html>
