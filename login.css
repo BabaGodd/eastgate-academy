@@ -71,11 +71,14 @@ body {
 }
 
 .ea-login-logo {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
   margin: 0 auto 1.2rem;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  border-radius: 50%;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 }
 
 .ea-login-school-name {
