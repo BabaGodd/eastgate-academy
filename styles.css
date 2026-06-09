@@ -4734,3 +4734,32 @@ body.dark-mode .ea-terms-warning { background: #1a1200; }
 @media (max-width: 768px) {
   .ea-terms-contact-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================
+   FIX APPLY NOW BUTTON HOVER TEXT
+   ============================================ */
+
+.ea-btn-outline-white {
+  border: 2px solid white !important;
+  color: white !important;
+  background: transparent !important;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.ea-btn-outline-white:hover {
+  background: white !important;
+  color: #D94E2A !important;
+}
+
+.ea-btn-outline-white:hover i {
+  color: #D94E2A !important;
+}
