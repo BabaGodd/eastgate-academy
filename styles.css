@@ -4763,3 +4763,51 @@ body.dark-mode .ea-terms-warning { background: #1a1200; }
 .ea-btn-outline-white:hover i {
   color: #D94E2A !important;
 }
+
+/* ============================================
+   CONTACT FORM SUCCESS & ERROR
+   ============================================ */
+
+.ea-form-success {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #e8f5e9;
+  border: 1.5px solid #388E3C;
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-top: 1rem;
+}
+
+.ea-form-success i {
+  color: #388E3C;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ea-form-success p {
+  margin: 0 0 4px 0;
+  font-size: 0.92rem;
+  color: #2E7D32;
+  line-height: 1.5;
+}
+
+.ea-form-error-msg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffebee;
+  border: 1.5px solid #c62828;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #c62828;
+  font-weight: 600;
+}
+
+.ea-form-error-msg i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}

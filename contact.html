@@ -4,85 +4,73 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us - Eastgate Academy</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
   <meta name="description" content="Contact Eastgate Academy in Dawenya, Tema. Call us, send a message or book a school tour today." />
-
-
-  <!-- PWA Support -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#D94E2A" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
-<link rel="apple-touch-icon" href="eastgateLogo.webp" />
-
-
-
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#D94E2A" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
 </head>
 <body>
 
   <!-- Scroll Progress Bar -->
-<div class="ea-scroll-progress" id="ea-scroll-progress"></div>
+  <div class="ea-scroll-progress" id="ea-scroll-progress"></div>
 
   <!-- Splash Screen -->
-<div class="ea-splash" id="ea-splash">
-  <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
-  <p class="ea-splash-name">Eastgate Academy</p>
-  <p class="ea-splash-tagline">Nurturing Young Minds for a Brighter Future</p>
-  <div class="ea-splash-bar-wrap">
-    <div class="ea-splash-bar"></div>
+  <div class="ea-splash" id="ea-splash">
+    <img src="images/logo.png" alt="Eastgate Academy" class="ea-splash-logo" />
+    <p class="ea-splash-name">Eastgate Academy</p>
+    <p class="ea-splash-tagline">Nurturing Future Leaders</p>
+    <div class="ea-splash-bar-wrap">
+      <div class="ea-splash-bar"></div>
+    </div>
   </div>
-</div>
 
   <!-- HEADER -->
   <header class="ea-header" id="ea-header">
     <div class="ea-header-inner">
       <div class="ea-header-brand">
-        <img src="eastgateLogo.webp" alt="Eastgate Academy Logo" class="ea-header-logo" />
+        <img src="images/logo.png" alt="Eastgate Academy Logo" class="ea-header-logo" />
         <span class="ea-header-name">Eastgate Academy</span>
       </div>
 
+      <nav class="ea-nav" id="ea-nav">
+        <ul class="ea-nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li class="ea-nav-dropdown-wrap">
+            <a href="about.html" class="ea-nav-dropdown-trigger">
+              About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+            </a>
+            <ul class="ea-nav-dropdown">
+              <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+              <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+              <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            </ul>
+          </li>
+          <li><a href="academics.html">Academics</a></li>
+          <li class="ea-nav-dropdown-wrap">
+            <a href="admissions.html" class="ea-nav-dropdown-trigger">
+              Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+            </a>
+            <ul class="ea-nav-dropdown">
+              <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+              <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+            </ul>
+          </li>
+          <li class="active"><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
 
-   <nav class="ea-nav" id="ea-nav">
-  <ul class="ea-nav-list">
-    <li><a href="index.html">Home</a></li>
-    <li class="ea-nav-dropdown-wrap">
-      <a href="about.html" class="ea-nav-dropdown-trigger">
-        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
-      </a>
-      <ul class="ea-nav-dropdown">
-        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
-        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
-        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-      </ul>
-    </li>
-    <li><a href="academics.html">Academics</a></li>
-    <li class="ea-nav-dropdown-wrap">
-      <a href="admissions.html" class="ea-nav-dropdown-trigger">
-        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
-      </a>
-      <ul class="ea-nav-dropdown">
-        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
-        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
-      </ul>
-    </li>
-    <li class="active"><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- Dark Mode Toggle -->
-<button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
-  <i class="fas fa-moon"></i>
-</button>
-
+      <button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
       <a href="login.html" class="ea-portal-btn">
         <i class="fas fa-lock"></i> Eastgate Portal
       </a>
@@ -162,6 +150,7 @@
       <div class="ea-contact-form-box">
         <h2>Send Us a Message</h2>
         <p>Fill in the form below and we'll get back to you within 24–48 hours.</p>
+
         <form id="ea-contact-form" class="ea-contact-form" novalidate>
           <div class="ea-form-row">
             <div class="ea-form-group">
@@ -182,11 +171,11 @@
               <label for="ea-subject">Subject</label>
               <select id="ea-subject" name="subject" required>
                 <option value="">Select a subject</option>
-                <option value="admissions">Admissions Inquiry</option>
-                <option value="general">General Information</option>
-                <option value="tour">Schedule a Tour</option>
-                <option value="feedback">Feedback / Suggestions</option>
-                <option value="other">Other</option>
+                <option value="Admissions Inquiry">Admissions Inquiry</option>
+                <option value="General Information">General Information</option>
+                <option value="Schedule a Tour">Schedule a Tour</option>
+                <option value="Feedback / Suggestions">Feedback / Suggestions</option>
+                <option value="Other">Other</option>
               </select>
             </div>
           </div>
@@ -194,12 +183,26 @@
             <label for="ea-message">Your Message</label>
             <textarea id="ea-message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
           </div>
-          <button type="submit" class="ea-btn-primary ea-form-submit">
-            <i class="fas fa-paper-plane"></i> Send Message
+
+          <button type="submit" class="ea-btn-primary ea-form-submit" id="ea-form-submit-btn">
+            <i class="fas fa-paper-plane"></i> <span id="ea-submit-text">Send Message</span>
           </button>
-          <p class="ea-form-success" id="ea-form-success" style="display:none;">
-            <i class="fas fa-check-circle"></i> Thank you! We'll respond within 24–48 hours.
-          </p>
+
+          <!-- Success Message -->
+          <div class="ea-form-success" id="ea-form-success" style="display:none;">
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <p><strong>Message sent successfully!</strong></p>
+              <p>Thank you for reaching out. We'll get back to you within 24–48 hours.</p>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div class="ea-form-error-msg" id="ea-form-error-msg" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="ea-form-error-text">Something went wrong. Please try again.</span>
+          </div>
+
         </form>
       </div>
 
@@ -220,14 +223,14 @@
           <div class="ea-visit-tour-icon"><i class="fas fa-users"></i></div>
           <h3>Family Tour</h3>
           <p>Book a personalised tour at your convenience. Meet our teachers and explore the campus at your own pace.</p>
-          <a href="#ea-contact-form" class="ea-btn-primary" id="ea-tour-btn">Schedule a Tour</a>
+          <a href="#ea-contact-form" class="ea-btn-primary">Schedule a Tour</a>
         </div>
         <div class="ea-visit-tour-card">
           <div class="ea-visit-tour-icon"><i class="fas fa-calendar-alt"></i></div>
           <h3>Open House</h3>
           <p>Join our monthly open house — a relaxed, welcoming event for all prospective families to explore the school.</p>
           <p class="ea-next-date"><i class="fas fa-clock"></i> Next: 14 June 2026</p>
-          <a href="#ea-contact-form" class="ea-btn-primary" id="ea-openhouse-btn">RSVP Now</a>
+          <a href="#ea-contact-form" class="ea-btn-primary">RSVP Now</a>
         </div>
         <div class="ea-visit-tour-card">
           <div class="ea-visit-tour-icon"><i class="fas fa-phone-alt"></i></div>
@@ -239,19 +242,18 @@
         </div>
       </div>
 
-      <!-- Map -->
-   <!-- Google Maps -->
-<div class="ea-map-wrap">
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31757.356894889697!2d0.03743370540582909!3d5.760598580187882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x102080c2dbfc8919%3A0xa8ce7e24bd636906!2sDawhenya!5e0!3m2!1sen!2sgh!4v1780853771237!5m2!1sen!2sgh"
-    width="100%"
-    height="450"
-    style="border:0; border-radius:12px;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
-</div>
+      <!-- Google Maps -->
+      <div class="ea-map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31757.356894889697!2d0.03743370540582909!3d5.760598580187882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x102080c2dbfc8919%3A0xa8ce7e24bd636906!2sDawhenya!5e0!3m2!1sen!2sgh!4v1780853771237!5m2!1sen!2sgh"
+          width="100%"
+          height="450"
+          style="border:0; border-radius:12px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
 
     </div>
   </section>
@@ -312,33 +314,37 @@
   </footer>
 
   <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
-  <span class="ea-whatsapp-tooltip">Chat with us</span>
-  <div class="ea-whatsapp-icon">
-    <i class="fab fa-whatsapp"></i>
-  </div>
-</a>
+  <a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <span class="ea-whatsapp-tooltip">Chat with us</span>
+    <div class="ea-whatsapp-icon">
+      <i class="fab fa-whatsapp"></i>
+    </div>
+  </a>
 
-<!-- Back to Top Button -->
-<button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
-  <i class="fas fa-arrow-up"></i>
-</button>
+  <!-- Back to Top Button -->
+  <button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-
-<!-- Cookie Consent Banner -->
-<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
-  <div class="ea-cookie-text">
-    <span class="ea-cookie-icon">🍪</span>
-    <div class="ea-cookie-text-content">
-      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="terms.html">Learn more</a></p>
+  <!-- Cookie Consent Banner -->
+  <div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+    <div class="ea-cookie-text">
+      <span class="ea-cookie-icon">🍪</span>
+      <div class="ea-cookie-text-content">
+        <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="terms.html">Learn more</a></p>
+      </div>
+    </div>
+    <div class="ea-cookie-btns">
+      <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+      <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
     </div>
   </div>
-  <div class="ea-cookie-btns">
-    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
-    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
-  </div>
-</div>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
+  <script src="contact.js"></script>
 </body>
 </html>
