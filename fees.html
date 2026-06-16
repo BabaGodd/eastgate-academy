@@ -417,6 +417,68 @@
     </div>
   </a>
 
+
+  <!-- AI Chat Widget -->
+<div class="ea-ai-chat" id="ea-ai-chat">
+
+  <!-- Chat Button -->
+  <button class="ea-ai-chat-btn" id="ea-ai-chat-btn" aria-label="Chat with AI Assistant">
+    <i class="fas fa-robot ea-ai-icon-open"></i>
+    <i class="fas fa-times ea-ai-icon-close" style="display:none;"></i>
+  </button>
+
+  <!-- Chat Window -->
+  <div class="ea-ai-chat-window" id="ea-ai-chat-window" style="display:none;">
+    <div class="ea-ai-chat-header">
+      <div class="ea-ai-chat-header-info">
+        <div class="ea-ai-avatar">
+          <i class="fas fa-robot"></i>
+        </div>
+        <div>
+          <p class="ea-ai-chat-name">Eastgate Assistant</p>
+          <p class="ea-ai-chat-status">
+            <span class="ea-ai-status-dot"></span> Online
+          </p>
+        </div>
+      </div>
+      <button class="ea-ai-chat-close" id="ea-ai-chat-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="ea-ai-chat-messages" id="ea-ai-chat-messages">
+      <div class="ea-ai-message ea-ai-message-bot">
+        <div class="ea-ai-message-avatar"><i class="fas fa-robot"></i></div>
+        <div class="ea-ai-message-bubble">
+          <p>👋 Hello! I'm the Eastgate Academy AI Assistant. I can help you with information about our school, admissions, fees and more. How can I help you today?</p>
+        </div>
+      </div>
+
+      <!-- Quick question buttons -->
+      <div class="ea-ai-quick-btns">
+        <button class="ea-ai-quick-btn" data-question="What are the school fees?">School Fees</button>
+        <button class="ea-ai-quick-btn" data-question="How do I enroll my child?">Admissions</button>
+        <button class="ea-ai-quick-btn" data-question="Where is the school located?">Location</button>
+        <button class="ea-ai-quick-btn" data-question="How do I access the parent portal?">Parent Portal</button>
+      </div>
+    </div>
+
+    <div class="ea-ai-chat-input-wrap">
+      <input
+        type="text"
+        class="ea-ai-chat-input"
+        id="ea-ai-chat-input"
+        placeholder="Ask me anything..."
+        maxlength="500"
+      />
+      <button class="ea-ai-chat-send" id="ea-ai-chat-send">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+</div>
+
   <!-- Back to Top -->
   <button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
@@ -437,5 +499,6 @@
 </div>
 
   <script src="script.js"></script>
+  <script src="ai-chat.js"></script>
 </body>
 </html>
