@@ -473,8 +473,35 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ---- Dropdown Navigation ----
+// ---- Dropdown Navigation ----
 document.addEventListener('DOMContentLoaded', function () {
   const dropdownWraps = document.querySelectorAll('.ea-nav-dropdown-wrap');
+  const hamburger = document.getElementById('ea-hamburger');
+  const nav = document.getElementById('ea-nav');
+
+  // Handle hamburger menu
+  if (hamburger) {
+    hamburger.addEventListener('click', function () {
+      nav.classList.toggle('open');
+      this.classList.toggle('open');
+    });
+  }
+
+  // Close nav when clicking outside
+  document.addEventListener('click', function (e) {
+    if (nav && hamburger) {
+      if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+        nav.classList.remove('open');
+        hamburger.classList.remove('open');
+        // Close all dropdowns
+        dropdownWraps.forEach(wrap => {
+          wrap.classList.remove('mobile-open');
+          const chevron = wrap.querySelector('.ea-nav-chevron');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+        });
+      }
+    }
+  });
 
   dropdownWraps.forEach(wrap => {
     const trigger = wrap.querySelector('.ea-nav-dropdown-trigger');
@@ -483,6 +510,18 @@ document.addEventListener('DOMContentLoaded', function () {
       trigger.addEventListener('click', function (e) {
         if (window.innerWidth <= 768) {
           e.preventDefault();
+          e.stopPropagation();
+
+          // Close other dropdowns
+          dropdownWraps.forEach(other => {
+            if (other !== wrap) {
+              other.classList.remove('mobile-open');
+              const otherChevron = other.querySelector('.ea-nav-chevron');
+              if (otherChevron) otherChevron.style.transform = 'rotate(0deg)';
+            }
+          });
+
+          // Toggle this dropdown
           wrap.classList.toggle('mobile-open');
           const chevron = this.querySelector('.ea-nav-chevron');
           if (chevron) {
@@ -494,6 +533,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
+});
 
   document.addEventListener('click', function (e) {
     if (window.innerWidth <= 768) {

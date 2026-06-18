@@ -5180,3 +5180,64 @@ body.dark-mode .ea-ai-typing-dots {
     width: 300px;
   }
 }
+
+/* ============================================
+   MOBILE NAV FIXES
+   ============================================ */
+
+/* Show portal button on mobile */
+@media (max-width: 768px) {
+  .ea-portal-btn {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    padding: 8px 14px;
+  }
+}
+
+/* Fix dropdowns in mobile burger menu */
+@media (max-width: 768px) {
+  .ea-nav.open .ea-nav-dropdown-wrap.mobile-open .ea-nav-dropdown {
+    display: block !important;
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: rgba(0,0,0,0.08) !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-width: unset !important;
+  }
+
+  .ea-nav.open .ea-nav-dropdown-wrap .ea-nav-dropdown {
+    display: none !important;
+  }
+
+  .ea-nav-dropdown li a {
+    padding: 10px 2rem 10px 3rem !important;
+    font-size: 0.9rem !important;
+    color: var(--text) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .ea-nav-dropdown-trigger {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  body.dark-mode .ea-nav.open .ea-nav-dropdown-wrap.mobile-open .ea-nav-dropdown {
+    background: rgba(255,255,255,0.05) !important;
+  }
+
+  body.dark-mode .ea-nav-dropdown li a {
+    color: #ccc !important;
+  }
+}
