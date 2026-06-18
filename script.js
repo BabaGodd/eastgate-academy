@@ -451,26 +451,37 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ---- Splash Screen ----
+// ---- Splash Screen ----
 document.addEventListener('DOMContentLoaded', function () {
   const splash = document.getElementById('ea-splash');
   if (!splash) return;
 
-  // Only show once per session
-  if (sessionStorage.getItem('ea-splash-shown')) {
-    splash.style.display = 'none';
-    return;
-  }
-
-  // Hide after 2.8 seconds
-  setTimeout(() => {
+  // Always hide splash after 2.8 seconds no matter what
+  // Don't rely on sessionStorage in PWA mode
+  function hideSplash() {
     splash.classList.add('ea-splash-hide');
     setTimeout(() => {
       splash.style.display = 'none';
+      document.body.style.overflow = '';
     }, 600);
-  }, 2800);
+  }
 
-  sessionStorage.setItem('ea-splash-shown', 'true');
+  // Hide after 2.8 seconds
+  const splashTimer = setTimeout(hideSplash, 2800);
+
+  // Safety net — if something goes wrong force hide after 4 seconds
+  const safetyTimer = setTimeout(() => {
+    splash.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 4000);
+
+  // Clear safety timer if splash hides normally
+  splash.addEventListener('transitionend', function () {
+    clearTimeout(safetyTimer);
+  });
 });
+
+
 
 // ---- Dropdown Navigation ----
 // ---- Dropdown Navigation ----
@@ -533,7 +544,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
-});
 
   document.addEventListener('click', function (e) {
     if (window.innerWidth <= 768) {

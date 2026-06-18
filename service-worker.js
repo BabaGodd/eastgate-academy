@@ -2,7 +2,7 @@
 // EASTGATE ACADEMY — SERVICE WORKER
 // ============================================
 
-const CACHE_NAME = 'eastgate-academy-v1';
+const CACHE_NAME = 'eastgate-academy-v3';
 
 // Files to cache for offline use
 const STATIC_ASSETS = [
