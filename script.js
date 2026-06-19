@@ -13,23 +13,7 @@ if ('serviceWorker' in navigator) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  // ---- Mobile Menu ----
-  const hamburger = document.getElementById('ea-hamburger');
-  const nav = document.getElementById('ea-nav');
-
-  if (hamburger && nav) {
-    hamburger.addEventListener('click', function () {
-      hamburger.classList.toggle('open');
-      nav.classList.toggle('open');
-    });
-
-    nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        nav.classList.remove('open');
-      });
-    });
-  }
+  
 
   // ---- Sticky Header Shadow ----
   const header = document.getElementById('ea-header');
