@@ -11,7 +11,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
 
   // ---- Mobile Menu ----
@@ -232,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const darkToggle = document.getElementById('ea-dark-toggle');
   const body = document.body;
 
-  // Load saved preference
   if (localStorage.getItem('ea-dark-mode') === 'true') {
     body.classList.add('dark-mode');
     if (darkToggle) {
@@ -293,7 +291,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (existingTick) existingTick.remove();
   }
 
-  // Validate on blur
   const nameInput = document.getElementById('ea-name');
   const emailInput = document.getElementById('ea-email');
   const messageInput = document.getElementById('ea-message');
@@ -356,11 +353,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-
 // ---- Gallery Filter & Lightbox ----
 document.addEventListener('DOMContentLoaded', function () {
 
-  // ---- Filter ----
   const filterBtns = document.querySelectorAll('.ea-gallery-filter');
   const galleryItems = document.querySelectorAll('.ea-gallery-item');
 
@@ -379,7 +374,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ---- Lightbox ----
   const lightbox = document.getElementById('ea-lightbox');
   const lightboxImg = document.getElementById('ea-lightbox-img');
   const lightboxTitle = document.getElementById('ea-lightbox-title');
@@ -391,7 +385,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!lightbox) return;
 
-  // Only real images (not placeholders)
   const realItems = Array.from(galleryItems).filter(
     item => !item.classList.contains('ea-gallery-placeholder')
   );
@@ -427,20 +420,15 @@ document.addEventListener('DOMContentLoaded', function () {
     openLightbox(currentIndex);
   }
 
-  // Open on click
   realItems.forEach((item, index) => {
     item.addEventListener('click', () => openLightbox(index));
   });
 
-  // Close
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxOverlay.addEventListener('click', closeLightbox);
-
-  // Prev / Next
   lightboxPrev.addEventListener('click', showPrev);
   lightboxNext.addEventListener('click', showNext);
 
-  // Keyboard navigation
   document.addEventListener('keydown', function (e) {
     if (!lightbox.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
@@ -451,13 +439,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ---- Splash Screen ----
-// ---- Splash Screen ----
 document.addEventListener('DOMContentLoaded', function () {
   const splash = document.getElementById('ea-splash');
   if (!splash) return;
 
-  // Always hide splash after 2.8 seconds no matter what
-  // Don't rely on sessionStorage in PWA mode
   function hideSplash() {
     splash.classList.add('ea-splash-hide');
     setTimeout(() => {
@@ -466,31 +451,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 600);
   }
 
-  // Hide after 2.8 seconds
   const splashTimer = setTimeout(hideSplash, 2800);
 
-  // Safety net — if something goes wrong force hide after 4 seconds
   const safetyTimer = setTimeout(() => {
     splash.style.display = 'none';
     document.body.style.overflow = '';
   }, 4000);
 
-  // Clear safety timer if splash hides normally
   splash.addEventListener('transitionend', function () {
     clearTimeout(safetyTimer);
   });
 });
 
-
-
-// ---- Dropdown Navigation ----
 // ---- Dropdown Navigation ----
 document.addEventListener('DOMContentLoaded', function () {
   const dropdownWraps = document.querySelectorAll('.ea-nav-dropdown-wrap');
   const hamburger = document.getElementById('ea-hamburger');
   const nav = document.getElementById('ea-nav');
 
-  // Handle hamburger menu
   if (hamburger) {
     hamburger.addEventListener('click', function () {
       nav.classList.toggle('open');
@@ -498,13 +476,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Close nav when clicking outside
   document.addEventListener('click', function (e) {
     if (nav && hamburger) {
       if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
         nav.classList.remove('open');
         hamburger.classList.remove('open');
-        // Close all dropdowns
         dropdownWraps.forEach(wrap => {
           wrap.classList.remove('mobile-open');
           const chevron = wrap.querySelector('.ea-nav-chevron');
@@ -523,7 +499,6 @@ document.addEventListener('DOMContentLoaded', function () {
           e.preventDefault();
           e.stopPropagation();
 
-          // Close other dropdowns
           dropdownWraps.forEach(other => {
             if (other !== wrap) {
               other.classList.remove('mobile-open');
@@ -532,7 +507,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           });
 
-          // Toggle this dropdown
           wrap.classList.toggle('mobile-open');
           const chevron = this.querySelector('.ea-nav-chevron');
           if (chevron) {
@@ -540,18 +514,6 @@ document.addEventListener('DOMContentLoaded', function () {
               ? 'rotate(180deg)'
               : 'rotate(0deg)';
           }
-        }
-      });
-    }
-  });
-
-  document.addEventListener('click', function (e) {
-    if (window.innerWidth <= 768) {
-      dropdownWraps.forEach(wrap => {
-        if (!wrap.contains(e.target)) {
-          wrap.classList.remove('mobile-open');
-          const chevron = wrap.querySelector('.ea-nav-chevron');
-          if (chevron) chevron.style.transform = 'rotate(0deg)';
         }
       });
     }
@@ -580,17 +542,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!banner) return;
 
-  // Check if user has already made a choice
   const cookieChoice = localStorage.getItem('ea-cookie-consent');
 
   if (!cookieChoice) {
-    // Show banner after a short delay
     setTimeout(() => {
       banner.style.display = 'flex';
     }, 1500);
   }
 
-  // Accept
   if (acceptBtn) {
     acceptBtn.addEventListener('click', function () {
       localStorage.setItem('ea-cookie-consent', 'accepted');
@@ -598,7 +557,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Decline
   if (declineBtn) {
     declineBtn.addEventListener('click', function () {
       localStorage.setItem('ea-cookie-consent', 'declined');
