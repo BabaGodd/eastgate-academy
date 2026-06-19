@@ -13,7 +13,7 @@ if ('serviceWorker' in navigator) {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  
+
 
   // ---- Sticky Header Shadow ----
   const header = document.getElementById('ea-header');
@@ -423,9 +423,19 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ---- Splash Screen ----
+// ---- Splash Screen ----
 document.addEventListener('DOMContentLoaded', function () {
   const splash = document.getElementById('ea-splash');
   if (!splash) return;
+
+  // If splash already shown this session hide it instantly
+  if (sessionStorage.getItem('ea-splash-shown')) {
+    splash.style.display = 'none';
+    return;
+  }
+
+  // Mark as shown immediately
+  sessionStorage.setItem('ea-splash-shown', 'true');
 
   function hideSplash() {
     splash.classList.add('ea-splash-hide');
@@ -435,16 +445,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 600);
   }
 
-  const splashTimer = setTimeout(hideSplash, 2800);
+  // Hide after 2.8 seconds
+  setTimeout(hideSplash, 2800);
 
-  const safetyTimer = setTimeout(() => {
+  // Safety net for PWA — force hide after 4 seconds
+  setTimeout(() => {
     splash.style.display = 'none';
     document.body.style.overflow = '';
   }, 4000);
-
-  splash.addEventListener('transitionend', function () {
-    clearTimeout(safetyTimer);
-  });
 });
 
 // ---- Dropdown Navigation ----
