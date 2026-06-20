@@ -42,7 +42,7 @@ body {
 /* ---- LEFT PANEL ---- */
 .ea-login-left {
   flex: 1;
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
