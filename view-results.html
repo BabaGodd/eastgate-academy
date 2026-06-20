@@ -5,57 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Results - Eastgate Academy</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+  <script src="supabase.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="inner-pages.css" />
   <link rel="stylesheet" href="view-results.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-  
-  <section class="ea-results-container">
-    <h1>My Academic Results</h1>
+
+  <!-- Page Header with Return Button -->
+  <div class="ea-page-header">
+    <button class="ea-return-btn" onclick="history.back()">
+      <i class="fas fa-arrow-left"></i> Return to Dashboard
+    </button>
+    <h1><i class="fas fa-chart-bar"></i> Academic Results</h1>
+  </div>
+
+  <div class="ea-inner-content">
 
     <!-- Filter Section -->
-    <div class="ea-filter-group">
-      <label for="ea-term">Term:</label>
-      <select id="ea-term">
-        <option value="All">All</option>
-        <option value="Term 1">Term 1</option>
-        <option value="Term 2">Term 2</option>
-        <option value="Term 3">Term 3</option>
-      </select>
-
-      <label for="ea-subject">Subject:</label>
-      <select id="ea-subject">
-        <option value="All">All</option>
-        <option value="Math">Math</option>
-        <option value="English">English</option>
-        <option value="Science">Science</option>
-        <!-- Add more subjects -->
-      </select>
-
-      <button id="ea-export-pdf">Export PDF</button>
+    <div class="ea-inner-form" style="margin-bottom:1.5rem;">
+      <h2>Filter Results</h2>
+      <div class="ea-inner-btn-row" style="align-items:flex-end;">
+        <div class="ea-inner-group" style="margin-bottom:0; flex:1;">
+          <label for="ea-term">Term</label>
+          <select id="ea-term">
+            <option value="All">All Terms</option>
+            <option value="Term 1">Term 1</option>
+            <option value="Term 2">Term 2</option>
+            <option value="Term 3">Term 3</option>
+          </select>
+        </div>
+        <div class="ea-inner-group" style="margin-bottom:0; flex:1;">
+          <label for="ea-subject">Subject</label>
+          <select id="ea-subject">
+            <option value="All">All Subjects</option>
+            <option value="Math">Mathematics</option>
+            <option value="English">English</option>
+            <option value="Science">Science</option>
+          </select>
+        </div>
+        <button class="ea-inner-submit-btn" id="ea-export-pdf">
+          <i class="fas fa-file-pdf"></i> Export PDF
+        </button>
+      </div>
     </div>
 
     <!-- Results Table -->
-    <table class="ea-results-table">
-      <thead>
-        <tr>
-          <th>Subject</th>
-          <th>Score</th>
-          <th>Term</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody id="ea-results-body">
-        <!-- Results will be injected here -->
-      </tbody>
-    </table>
-  </section>
+    <div class="ea-inner-table-wrap">
+      <table class="ea-inner-table">
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Score</th>
+            <th>Term</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="ea-results-body">
+          <!-- Results injected here -->
+        </tbody>
+      </table>
+    </div>
 
-  <!-- JS Script -->
+  </div>
+
   <script src="view-results.js"></script>
-
-
 </body>
 </html>

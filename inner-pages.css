@@ -1,0 +1,314 @@
+/* ============================================
+   EASTGATE ACADEMY — INNER PAGES SHARED CSS
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #faf7f6;
+  color: #1a1a2e;
+  min-height: 100vh;
+}
+
+/* ---- Page Header ---- */
+.ea-page-header {
+  background: #D94E2A;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ea-return-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: 'Nunito', sans-serif;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ea-return-btn:hover {
+  background: rgba(255,255,255,0.35);
+  transform: translateX(-3px);
+}
+
+.ea-return-btn i {
+  font-size: 0.9rem;
+}
+
+.ea-page-header h1 {
+  color: white;
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ea-page-header h1 i {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* ---- Page Content ---- */
+.ea-inner-content {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* ---- Form Styles ---- */
+.ea-inner-form {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border: 1px solid #e0e0e0;
+}
+
+.ea-inner-form h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: #D94E2A;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #FDF0EC;
+}
+
+.ea-inner-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1.2rem;
+}
+
+.ea-inner-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.ea-inner-group input,
+.ea-inner-group select,
+.ea-inner-group textarea {
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  color: #333;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.ea-inner-group input:focus,
+.ea-inner-group select:focus,
+.ea-inner-group textarea:focus {
+  outline: none;
+  border-color: #D94E2A;
+  box-shadow: 0 0 0 3px rgba(217,78,42,0.1);
+}
+
+.ea-inner-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ---- Buttons ---- */
+.ea-inner-submit-btn {
+  background: #D94E2A;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  width: auto !important;
+  white-space: nowrap;
+}
+
+.ea-inner-cancel-btn {
+  background: #f5f5f5;
+  color: #555;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  width: auto !important;
+  white-space: nowrap;
+}
+
+.ea-inner-submit-btn:hover {
+  background: #7A1E0A;
+  transform: translateY(-2px);
+}
+
+.ea-inner-cancel-btn {
+  background: #f5f5f5;
+  color: #555;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.ea-inner-cancel-btn:hover {
+  background: #e0e0e0;
+}
+
+.ea-inner-btn-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---- Success and Error ---- */
+.ea-inner-success {
+  background: #e8f5e9;
+  border: 1.5px solid #388E3C;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  color: #2E7D32;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.ea-inner-error {
+  background: #ffebee;
+  border: 1.5px solid #c62828;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  color: #c62828;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+/* ---- Table Styles ---- */
+.ea-inner-table-wrap {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.ea-inner-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.ea-inner-table thead {
+  background: #D94E2A;
+  color: white;
+}
+
+.ea-inner-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.ea-inner-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+}
+
+.ea-inner-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ea-inner-table tr:hover td {
+  background: #FDF0EC;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .ea-inner-btn-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .ea-inner-submit-btn,
+  .ea-inner-cancel-btn {
+    width: auto;
+    justify-content: center;
+  }
+}
+
+
+/* ============================================
+   RETURN BUTTON FIX
+   ============================================ */
+
+.ea-page-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  flex-wrap: nowrap !important;
+}
+
+.ea-return-btn {
+  width: auto !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  white-space: nowrap !important;
+}
+
+.ea-page-header h1 {
+  flex: 1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}

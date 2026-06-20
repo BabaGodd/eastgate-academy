@@ -5,14 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>View Assignments - Eastgate Academy</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+  <script src="supabase.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="inner-pages.css" />
   <link rel="stylesheet" href="view-assignments.css" />
 </head>
 <body>
-  <section class="ea-view-section">
-    <h1>Available Assignments</h1>
+
+  <!-- Page Header with Return Button -->
+  <div class="ea-page-header">
+    <button class="ea-return-btn" onclick="history.back()">
+      <i class="fas fa-arrow-left"></i> Return to Dashboard
+    </button>
+    <h1><i class="fas fa-file-alt"></i> Available Assignments</h1>
+  </div>
+
+  <div class="ea-inner-content">
     <div id="ea-assignment-list"></div>
-  </section>
+  </div>
 
   <script src="view-assignments.js"></script>
 </body>

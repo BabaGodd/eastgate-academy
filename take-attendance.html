@@ -4,28 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Take Attendance - Eastgate Academy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="inner-pages.css" />
   <link rel="stylesheet" href="take-attendance.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+  <script src="supabase.js"></script>
 </head>
 <body>
-  <section class="ea-att-section">
-    <h1>Take Attendance</h1>
 
-    <form id="ea-att-form">
-      <div class="ea-att-group">
-        <label for="ea-date">Date</label>
-        <input type="date" id="ea-date" required />
-      </div>
+  <!-- Page Header with Return Button -->
+  <div class="ea-page-header">
+    <button class="ea-return-btn" onclick="history.back()">
+      <i class="fas fa-arrow-left"></i> Return to Dashboard
+    </button>
+    <h1><i class="fas fa-clipboard-check"></i> Take Attendance</h1>
+  </div>
 
-      <div id="ea-student-list" class="ea-att-list">
-        <!-- Student checkboxes injected here -->
-      </div>
+  <div class="ea-inner-content">
+    <div class="ea-inner-form">
+      <h2>Mark Attendance</h2>
+      <form id="ea-att-form">
 
-      <button type="submit">Save Attendance</button>
-      <p id="ea-att-msg"></p>
-    </form>
-  </section>
+        <div class="ea-inner-group">
+          <label for="ea-date">Date</label>
+          <input type="date" id="ea-date" required />
+        </div>
+
+        <div id="ea-student-list" class="ea-att-list">
+          <!-- Student checkboxes injected here -->
+        </div>
+
+        <div class="ea-inner-btn-row">
+          <button type="submit" class="ea-inner-submit-btn">
+            <i class="fas fa-save"></i> Save Attendance
+          </button>
+          <button type="button" class="ea-inner-cancel-btn" onclick="history.back()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+
+        <p id="ea-att-msg"></p>
+
+      </form>
+    </div>
+  </div>
 
   <script src="take-attendance.js"></script>
 </body>
