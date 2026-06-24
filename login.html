@@ -9,22 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
-
-
-  <!-- PWA Support -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#D94E2A" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
-<link rel="apple-touch-icon" href="eastgateLogo.webp" />
-
-
-
-
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#D94E2A" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
+  <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png" />
 </head>
 <body>
+
+  <!-- Splash Screen -->
+  <div class="ea-splash" id="ea-splash">
+    <div class="ea-splash-logo-wrap">
+      <div class="ea-splash-ring"></div>
+      <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+    </div>
+    <p class="ea-splash-name">Eastgate Academy</p>
+    <p class="ea-splash-tagline">Nurturing Future Leaders</p>
+    <div class="ea-splash-bar-wrap">
+      <div class="ea-splash-bar"></div>
+    </div>
+  </div>
 
   <div class="ea-login-wrapper">
 
@@ -69,7 +77,7 @@
           </div>
           <div class="ea-security-banner-text">
             <p class="ea-security-title">⚠️ Official Security Notice</p>
-            <p class="ea-security-msg">Eastgate Academy will <strong>NEVER</strong> ask for payment via WhatsApp or phone call. All payments are made <strong>exclusively</strong> through this portal or the school's account office. Call <strong>0244 512 123</strong> to verify anything suspicious.</p>
+            <p class="ea-security-msg">Eastgate Academy will <strong>NEVER</strong> ask for payment via WhatsApp or phone call. All payments are made <strong>exclusively</strong> through this portal or the school's account office. Call <strong>0244 506796</strong> to verify anything suspicious.</p>
           </div>
         </div>
 
@@ -105,22 +113,18 @@
             </div>
 
             <div class="ea-login-group">
-              <label for="ea-portal-pin">PIN</label>
+              <label for="ea-portal-pin">Password</label>
               <div class="ea-login-input-wrap">
                 <i class="fas fa-key"></i>
-                
                 <input type="password" id="ea-portal-pin" placeholder="Enter your password" required />
                 <button type="button" class="ea-login-eye" id="ea-toggle-pin" aria-label="Toggle PIN">
                   <i class="fas fa-eye"></i>
                 </button>
               </div>
-
-            <p class="ea-login-hint">
-  <i class="fas fa-info-circle"></i>
-  Parents: enter your child's last name. Teachers: enter your assigned password.
-</p>
-
-
+              <p class="ea-login-hint">
+                <i class="fas fa-info-circle"></i>
+                Parents: enter your child's last name. Teachers: enter your assigned password.
+              </p>
             </div>
 
             <button type="submit" class="ea-login-btn" id="ea-portal-btn">
@@ -129,33 +133,32 @@
             </button>
 
             <p class="ea-login-forgot">
-  Forgot your password? 
-  <a href="#" id="ea-forgot-link">Click here</a>
-</p>
+              Forgot your password?
+              <a href="#" id="ea-forgot-link">Click here</a>
+            </p>
 
-<!-- Forgot Password Form -->
-<div class="ea-forgot-form" id="ea-forgot-form" style="display:none;">
-  <p class="ea-forgot-desc">
-    <i class="fas fa-info-circle"></i>
-    Enter your Staff ID or Student ID and we will notify the school admin to reset your password.
-  </p>
-  <div class="ea-login-group">
-    <label for="ea-forgot-id">Your Staff ID or Student ID</label>
-    <div class="ea-login-input-wrap">
-      <i class="fas fa-id-card"></i>
-      <input type="text" id="ea-forgot-id" placeholder="e.g. EAT-001 or EA-2024-001" />
-    </div>
-  </div>
-  <button type="button" class="ea-login-btn" id="ea-forgot-submit">
-    <span>Request Password Reset</span>
-    <i class="fas fa-paper-plane"></i>
-  </button>
-  <div class="ea-forgot-success" id="ea-forgot-success" style="display:none;">
-    <i class="fas fa-check-circle"></i>
-    Request sent! The school admin will reset your password shortly. Please visit the school office or call <strong>0244 512 123</strong>.
-  </div>
-</div>
-
+            <!-- Forgot Password Form -->
+            <div class="ea-forgot-form" id="ea-forgot-form" style="display:none;">
+              <p class="ea-forgot-desc">
+                <i class="fas fa-info-circle"></i>
+                Enter your Staff ID or Student ID and we will notify the school admin to reset your password.
+              </p>
+              <div class="ea-login-group">
+                <label for="ea-forgot-id">Your Staff ID or Student ID</label>
+                <div class="ea-login-input-wrap">
+                  <i class="fas fa-id-card"></i>
+                  <input type="text" id="ea-forgot-id" placeholder="e.g. EAT-001 or EA-2024-001" />
+                </div>
+              </div>
+              <button type="button" class="ea-login-btn" id="ea-forgot-submit">
+                <span>Request Password Reset</span>
+                <i class="fas fa-paper-plane"></i>
+              </button>
+              <div class="ea-forgot-success" id="ea-forgot-success" style="display:none;">
+                <i class="fas fa-check-circle"></i>
+                Request sent! The school admin will reset your password shortly. Please visit the school office or call <strong>0244 512 123</strong>.
+              </div>
+            </div>
 
             <div class="ea-login-error" id="ea-portal-error" style="display:none;">
               <i class="fas fa-exclamation-circle"></i>

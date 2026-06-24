@@ -1,5 +1,32 @@
+// ---- Loading Skeleton ----
+function showAdminSkeleton() {
+  const statValues = document.querySelectorAll('.ea-stat-value');
+  statValues.forEach(val => {
+    val.innerHTML = '<div class="ea-sk-dark" style="height:28px; width:60px;"></div>';
+  });
+
+  const recentBox = document.querySelector('.ea-recent-box');
+  if (recentBox) {
+    recentBox.innerHTML = `
+      <div class="ea-sk-banner">
+        <span class="ea-sk-pulse-dot"></span>
+        <p class="ea-sk-banner-text">Loading dashboard data...</p>
+      </div>
+      ${Array(4).fill(`
+        <div class="ea-recent-item">
+          <div class="ea-sk" style="height:14px; width:65%;"></div>
+          <div class="ea-sk-dark" style="height:20px; width:55px; border-radius:20px;"></div>
+        </div>
+      `).join('')}
+    `;
+  }
+}
+
+showAdminSkeleton();
+// ---- Check Auth & Load User ----
 // ---- Check Auth & Load User ----
 async function checkAuth() {
+  showAdminSkeleton();
   const { data: { user } } = await supabaseClient.auth.getUser();
 
   if (!user) {

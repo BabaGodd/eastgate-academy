@@ -1,5 +1,30 @@
+// ---- Loading Skeleton ----
+function showTeacherSkeleton() {
+  const statValues = document.querySelectorAll('.ea-t-stat-value');
+  statValues.forEach(val => {
+    val.innerHTML = '<div class="ea-sk-dark" style="height:28px; width:60px;"></div>';
+  });
+
+  const classesGrid = document.querySelector('.ea-t-classes-grid');
+  if (classesGrid) {
+    classesGrid.innerHTML = `
+      <div class="ea-sk-banner" style="grid-column: 1/-1;">
+        <span class="ea-sk-pulse-dot"></span>
+        <p class="ea-sk-banner-text">Loading your classes...</p>
+      </div>
+      ${Array(3).fill(`
+        <div class="ea-sk-dark" style="height:90px; border-radius:10px;"></div>
+      `).join('')}
+    `;
+  }
+}
+
+
+
 // ---- Check Auth & Load User ----
+
 async function checkTeacherAuth() {
+  showTeacherSkeleton();
   const { data: { user } } = await supabaseClient.auth.getUser();
 
   if (!user) {

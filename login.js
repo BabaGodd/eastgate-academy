@@ -320,6 +320,17 @@ if (forgotSubmit) {
   });
 }
 
+// ---- Splash Screen ----
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const splash = document.getElementById('ea-splash');
+      if (splash) splash.classList.add('hidden');
+    }, 2000);
+  });
+
+
+
+
 
 
 

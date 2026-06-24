@@ -1,5 +1,92 @@
+// ---- Loading Skeletons ----
+function showDashboardSkeleton() {
+  const statsGrid = document.querySelector('.ea-p-stats-grid');
+  const childCard = document.querySelector('.ea-p-child-card');
+  const announcementsList = document.querySelector('.ea-p-announcements-list');
+
+  if (statsGrid) {
+    statsGrid.innerHTML = `
+      <div class="ea-sk-banner" style="grid-column: 1/-1;">
+        <span class="ea-sk-pulse-dot"></span>
+        <p class="ea-sk-banner-text">Loading your dashboard data...</p>
+      </div>
+      <div class="ea-sk-stat-card">
+        <div class="ea-sk" style="height:11px; width:75%; margin-bottom:10px;"></div>
+        <div class="ea-sk-dark" style="height:26px; width:45%;"></div>
+      </div>
+      <div class="ea-sk-stat-card">
+        <div class="ea-sk" style="height:11px; width:75%; margin-bottom:10px;"></div>
+        <div class="ea-sk-dark" style="height:26px; width:45%;"></div>
+      </div>
+      <div class="ea-sk-stat-card">
+        <div class="ea-sk" style="height:11px; width:75%; margin-bottom:10px;"></div>
+        <div class="ea-sk-dark" style="height:26px; width:45%;"></div>
+      </div>
+      <div class="ea-sk-stat-card">
+        <div class="ea-sk" style="height:11px; width:75%; margin-bottom:10px;"></div>
+        <div class="ea-sk-dark" style="height:26px; width:45%;"></div>
+      </div>
+    `;
+  }
+
+  if (childCard) {
+    childCard.innerHTML = `
+      <div class="ea-sk-child">
+        <div class="ea-sk-dark" style="width:56px; height:56px; border-radius:50%; flex-shrink:0;"></div>
+        <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+          <div class="ea-sk-dark" style="height:16px; width:45%;"></div>
+          <div class="ea-sk" style="height:11px; width:65%;"></div>
+          <div class="ea-sk" style="height:11px; width:50%;"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (announcementsList) {
+    announcementsList.innerHTML = `
+      <div class="ea-sk-ann">
+        <div class="ea-sk-dark" style="height:13px; width:55%; margin-bottom:8px;"></div>
+        <div class="ea-sk" style="height:10px; width:30%; margin-bottom:8px;"></div>
+        <div class="ea-sk" style="height:10px; width:90%; margin-bottom:5px;"></div>
+        <div class="ea-sk" style="height:10px; width:70%;"></div>
+      </div>
+      <div class="ea-sk-ann">
+        <div class="ea-sk-dark" style="height:13px; width:45%; margin-bottom:8px;"></div>
+        <div class="ea-sk" style="height:10px; width:30%; margin-bottom:8px;"></div>
+        <div class="ea-sk" style="height:10px; width:85%; margin-bottom:5px;"></div>
+        <div class="ea-sk" style="height:10px; width:65%;"></div>
+      </div>
+    `;
+  }
+}
+
+function showResultsSkeleton() {
+  const tbody = document.getElementById('ea-p-results-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = Array(5).fill(`
+    <tr>
+      <td><div class="ea-sk" style="height:11px; width:80%;"></div></td>
+      <td><div class="ea-sk" style="height:11px; width:60%;"></div></td>
+      <td><div class="ea-sk" style="height:11px; width:60%;"></div></td>
+      <td><div class="ea-sk" style="height:11px; width:60%;"></div></td>
+      <td><div class="ea-sk" style="height:11px; width:70%;"></div></td>
+    </tr>
+  `).join('');
+}
+
+function showAttendanceSkeleton() {
+  const rows = document.querySelectorAll('#section-attendance tbody tr');
+  rows.forEach(row => {
+    row.innerHTML = `
+      <td><div class="ea-sk" style="height:11px; width:80%;"></div></td>
+      <td><div class="ea-sk" style="height:11px; width:60%;"></div></td>
+    `;
+  });
+}
+
 // ---- Check Auth & Load User ----
 async function checkParentAuth() {
+   showDashboardSkeleton();
   const { data: { user } } = await supabaseClient.auth.getUser();
 
   if (!user) {
@@ -17,6 +104,8 @@ async function checkParentAuth() {
     window.location.href = 'login.html';
     return;
   }
+
+ 
 
   // Update UI with real user name
   const pageTitle = document.getElementById('ea-parent-page-title');
@@ -71,9 +160,12 @@ async function loadParentData(parentId) {
   const statValues = document.querySelectorAll('.ea-p-stat-value');
   if (statValues[0]) statValues[0].textContent = child.classes?.name || 'N/A';
 
+
+  showResultsSkeleton();
   // Load child results
   loadChildResults(child.id);
-
+  
+  showAttendanceSkeleton();
   // Load child attendance
   loadChildAttendance(child.id, child.class_id);
 

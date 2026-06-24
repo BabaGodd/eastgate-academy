@@ -531,3 +531,97 @@ body {
   margin-top: 2px;
 }
 
+/* ============================================
+   SPLASH SCREEN
+   ============================================ */
+
+.ea-splash {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #D94E2A 0%, #7A1E0A 60%, #3a0d04 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.ea-splash.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ea-splash-logo-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.ea-splash-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: rgba(255,255,255,0.9);
+  border-right-color: rgba(255,255,255,0.4);
+  animation: splashSpin 1.2s linear infinite;
+}
+
+@keyframes splashSpin {
+  to { transform: rotate(360deg); }
+}
+
+.ea-splash-logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: white;
+  padding: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.ea-splash-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.ea-splash-tagline {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.5px;
+}
+
+.ea-splash-bar-wrap {
+  width: 180px;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.ea-splash-bar {
+  height: 100%;
+  width: 0%;
+  background: white;
+  border-radius: 99px;
+  animation: splashLoad 1.8s ease forwards;
+}
+
+@keyframes splashLoad {
+  0%   { width: 0%; }
+  60%  { width: 75%; }
+  100% { width: 100%; }
+}
