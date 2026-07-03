@@ -4,41 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Our Staff - Eastgate Academy</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="images/LearnGrowSucceed.png" />
-  <meta name="description" content="Meet the dedicated teaching and administrative staff at Eastgate Academy, Dawenya, Tema, Ghana." />
-
-
-  <!-- PWA Support -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#D94E2A" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
-<link rel="apple-touch-icon" href="eastgateLogo.webp" />
-
-
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
+  <meta name="description" content="Meet the dedicated teaching and administrative staff at Eastgate Academy, New Dawhenya, Tema, Ghana." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#D94E2A" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
 </head>
 <body>
 
   <!-- Splash Screen -->
-
-  <div class="ea-splash" id="ea-splash">
-  <div class="ea-splash-logo-wrap">
-    <div class="ea-splash-ring"></div>
-    <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+  <div class="ea-splash" id="ea-splash" style="position:fixed;inset:0;background:linear-gradient(135deg,#4a0a00 0%,#7A1E0A 30%,#D94E2A 70%,#F5916E 100%);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;">
+    <div class="ea-splash-logo-wrap">
+      <div class="ea-splash-ring"></div>
+      <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+    </div>
+    <p class="ea-splash-name">Eastgate Academy</p>
+    <p class="ea-splash-tagline">Nurturing Future Leaders</p>
+    <div class="ea-splash-bar-wrap">
+      <div class="ea-splash-bar"></div>
+    </div>
   </div>
-  <p class="ea-splash-name">Eastgate Academy</p>
-  <p class="ea-splash-tagline">Nurturing Future Leaders</p>
-  <div class="ea-splash-bar-wrap">
-    <div class="ea-splash-bar"></div>
-  </div>
-</div>
 
   <!-- HEADER -->
   <header class="ea-header" id="ea-header">
@@ -48,43 +41,41 @@
         <span class="ea-header-name">Eastgate Academy</span>
       </div>
 
-
       <nav class="ea-nav" id="ea-nav">
-  <ul class="ea-nav-list">
-    <li><a href="index.html">Home</a></li>
-    <li class="ea-nav-dropdown-wrap active">
-      <a href="about.html" class="ea-nav-dropdown-trigger">
-        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
-      </a>
-      <ul class="ea-nav-dropdown">
-        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
-        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
-        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-      </ul>
-    </li>
-    <li><a href="academics.html">Academics</a></li>
-    <li class="ea-nav-dropdown-wrap">
-      <a href="admissions.html" class="ea-nav-dropdown-trigger">
-        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
-      </a>
-      <ul class="ea-nav-dropdown">
-        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
-        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
-      </ul>
-    </li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+        <ul class="ea-nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li class="ea-nav-dropdown-wrap active">
+            <a href="about.html" class="ea-nav-dropdown-trigger">
+              About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+            </a>
+            <ul class="ea-nav-dropdown">
+              <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+              <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+              <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            </ul>
+          </li>
+          <li><a href="academics.html">Academics</a></li>
+          <li class="ea-nav-dropdown-wrap">
+            <a href="admissions.html" class="ea-nav-dropdown-trigger">
+              Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+            </a>
+            <ul class="ea-nav-dropdown">
+              <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+              <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
 
-<!-- Dark Mode Toggle -->
-<button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
-  <i class="fas fa-moon"></i>
-</button>
+      <button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
 
-<a href="login.html" class="ea-portal-btn">
-  <i class="fas fa-user-circle"></i>
-  <span class="ea-portal-text">Eastgate Portal</span>
-</a>
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-user-circle"></i>
+        <span class="ea-portal-text">Eastgate Portal</span>
+      </a>
 
       <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -113,16 +104,16 @@
         <p>All our teachers hold relevant degrees and teaching certifications, and participate in ongoing professional development to stay current with the latest educational methodologies.</p>
         <div class="ea-staff-philosophy-stats">
           <div class="ea-staff-stat">
-            <span class="ea-staff-stat-num">24</span>
+            <span class="ea-staff-stat-num">15</span>
             <span class="ea-staff-stat-label">Staff Members</span>
-          </div>
-          <div class="ea-staff-stat">
-            <span class="ea-staff-stat-num">12+</span>
-            <span class="ea-staff-stat-label">Avg. Years Experience</span>
           </div>
           <div class="ea-staff-stat">
             <span class="ea-staff-stat-num">100%</span>
             <span class="ea-staff-stat-label">Certified Teachers</span>
+          </div>
+          <div class="ea-staff-stat">
+            <span class="ea-staff-stat-num">2023</span>
+            <span class="ea-staff-stat-label">Est. Year</span>
           </div>
         </div>
       </div>
@@ -132,61 +123,61 @@
     </div>
   </section>
 
-  <!-- ADMINISTRATIVE TEAM -->
+  <!-- LEADERSHIP TEAM -->
   <section class="ea-staff-section">
     <div class="ea-container">
       <div class="ea-section-header">
         <span class="ea-section-tag">Leadership</span>
-        <h2>Administrative Team</h2>
+        <h2>School Leadership</h2>
         <p>The Dedicated Leadership Team That Keeps Eastgate Academy Running At Its Best.</p>
       </div>
       <div class="ea-staff-grid">
 
         <div class="ea-staff-card">
           <div class="ea-staff-avatar">
-            <img src="images/teacher1.jpg" alt="Mrs. Akosua Mensah" />
+            <img src="images/teacher1.jpg" alt="Mr Joseph Apana" />
           </div>
           <div class="ea-staff-info">
-            <h3>Mrs. Akosua Mensah</h3>
-            <p class="ea-staff-position">Headteacher</p>
-            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Ed Education Leadership, M.Ed School Administration</p>
-            <p class="ea-staff-bio">Leads the school with a focus on academic excellence and holistic student growth. Has over 15 years of experience in primary education leadership.</p>
+            <h3>Mr. Joseph Apana</h3>
+            <p class="ea-staff-position">Director — Administration & Finance</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Administration & Finance</p>
+            <p class="ea-staff-bio">Oversees the administrative and financial operations of Eastgate Academy, ensuring the school runs efficiently and sustainably.</p>
           </div>
         </div>
 
         <div class="ea-staff-card">
           <div class="ea-staff-avatar">
-            <img src="images/teacher2.jpg" alt="Mrs. Amina Asante" />
+            <img src="images/teacher2.jpg" alt="Frank Sontim-Buor" />
           </div>
           <div class="ea-staff-info">
-            <h3>Mrs. Amina Asante</h3>
-            <p class="ea-staff-position">Assistant Headteacher</p>
-            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Ed Basic Education, M.Ed School Administration</p>
-            <p class="ea-staff-bio">Specialises in curriculum development and teacher mentoring, ensuring every classroom delivers the highest quality of teaching.</p>
+            <h3>Mr. Frank Sontim-Buor</h3>
+            <p class="ea-staff-position">Director — Academics & Quality Assurance</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Academics & Quality Assurance</p>
+            <p class="ea-staff-bio">Responsible for academic standards, curriculum oversight and quality assurance across all levels of the school.</p>
           </div>
         </div>
 
         <div class="ea-staff-card">
           <div class="ea-staff-avatar">
-            <img src="images/teacher4.jpg" alt="Mrs. Lydia Asare" />
+            <img src="images/teacher2.jpg" alt="Mr Andrews Amanor" />
           </div>
           <div class="ea-staff-info">
-            <h3>Mrs. Lydia Asare</h3>
-            <p class="ea-staff-position">School Secretary</p>
-            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> HND Office Management</p>
-            <p class="ea-staff-bio">Manages school records, correspondence, and daily administrative operations with efficiency and care.</p>
+            <h3>Mr. Andrews Amanor</h3>
+            <p class="ea-staff-position">Head of School</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> School Administration</p>
+            <p class="ea-staff-bio">Leads the day-to-day running of Eastgate Academy with a focus on academic excellence, staff development and student welfare.</p>
           </div>
         </div>
 
         <div class="ea-staff-card">
           <div class="ea-staff-avatar">
-            <img src="images/teacher5.jpg" alt="Mr. Daniel Tetteh" />
+            <img src="images/teacher4.jpg" alt="Ms Mercy Baani" />
           </div>
           <div class="ea-staff-info">
-            <h3>Mr. Daniel Tetteh</h3>
-            <p class="ea-staff-position">Accounts Officer</p>
-            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Sc Accounting</p>
-            <p class="ea-staff-bio">Oversees financial records, budgeting and fee processing. Ensures full transparency and accuracy in all financial matters.</p>
+            <h3>Ms. Mercy Baani</h3>
+            <p class="ea-staff-position">Assistant Head & KG 1 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Early Childhood Education</p>
+            <p class="ea-staff-bio">Supports school leadership while also teaching KG 1, bringing warmth and dedication to both her administrative and classroom roles.</p>
           </div>
         </div>
 
@@ -206,49 +197,133 @@
 
         <div class="ea-staff-card">
           <div class="ea-staff-avatar">
-            <img src="images/teacher6.jpg" alt="Mr. Kwame Boateng" />
+            <img src="images/teacher5.jpg" alt="Ms Charlotte" />
           </div>
           <div class="ea-staff-info">
-            <h3>Mr. Kwame Boateng</h3>
-            <p class="ea-staff-position">P4–P6 Mathematics Teacher</p>
-            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Ed Mathematics Education</p>
-            <p class="ea-staff-bio">Brings mathematics to life through practical problem-solving activities and real-world applications for upper primary students.</p>
+            <h3>Ms. Charlotte</h3>
+            <p class="ea-staff-position">Creche & Pre-Nursery Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Early Childhood Development</p>
+            <p class="ea-staff-bio">Provides a warm, nurturing environment for the youngest learners at Eastgate Academy, focusing on play-based learning and social development.</p>
           </div>
         </div>
 
         <div class="ea-staff-card">
           <div class="ea-staff-avatar">
-            <img src="images/teacher2.jpg" alt="Ms. Abena Darko" />
+            <img src="images/teacher6.jpg" alt="Ms Nadia A" />
           </div>
           <div class="ea-staff-info">
-            <h3>Ms. Abena Darko</h3>
-            <p class="ea-staff-position">P1–P3 English Teacher</p>
-            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Ed English Language Education</p>
-            <p class="ea-staff-bio">Inspires a love of reading and storytelling in young learners through creative, engaging literacy programmes.</p>
+            <h3>Ms. Nadia A.</h3>
+            <p class="ea-staff-position">Nursery Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Early Childhood Education</p>
+            <p class="ea-staff-bio">Creates a joyful and stimulating learning environment for nursery children, building confidence and foundational skills.</p>
           </div>
         </div>
 
         <div class="ea-staff-card">
           <div class="ea-staff-avatar">
-            <img src="images/teacher4.jpg" alt="Mr. Kofi Amponsah" />
+            <img src="images/teacher1.jpg" alt="Ms Patience N." />
           </div>
           <div class="ea-staff-info">
-            <h3>Mr. Kofi Amponsah</h3>
-            <p class="ea-staff-position">Integrated Science Teacher</p>
-            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Sc Science Education</p>
-            <p class="ea-staff-bio">Makes science exciting through hands-on experiments and discovery-based learning that sparks curiosity in every student.</p>
+            <h3>Ms. Patience N.</h3>
+            <p class="ea-staff-position">KG 2 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Early Childhood Education</p>
+            <p class="ea-staff-bio">Guides KG 2 pupils through early literacy and numeracy with creativity and patience, laying a strong foundation for primary school.</p>
           </div>
         </div>
 
         <div class="ea-staff-card">
           <div class="ea-staff-avatar">
-            <img src="images/teacher5.jpg" alt="Mrs. Esi Owusu" />
+            <img src="images/teacher2.jpg" alt="Ms Christabel" />
           </div>
           <div class="ea-staff-info">
-            <h3>Mrs. Esi Owusu</h3>
-            <p class="ea-staff-position">ICT Teacher</p>
-            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> B.Sc Computer Science</p>
-            <p class="ea-staff-bio">Equips students with digital literacy and coding fundamentals, preparing them confidently for the modern technology-driven world.</p>
+            <h3>Ms. Christabel</h3>
+            <p class="ea-staff-position">Basic 1 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Primary Education</p>
+            <p class="ea-staff-bio">Introduces Basic 1 pupils to formal learning in a fun and engaging way, ensuring every child transitions smoothly into primary school.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher2.jpg" alt="Ms Mary Tetteh" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Ms. Mary Tetteh</h3>
+            <p class="ea-staff-position">Basic 2 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Primary Education</p>
+            <p class="ea-staff-bio">Builds on foundational skills in Basic 2 through structured and interactive lessons that encourage curiosity and critical thinking.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher4.jpg" alt="Ms Shirley" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Ms. Shirley</h3>
+            <p class="ea-staff-position">Basic 3 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Primary Education</p>
+            <p class="ea-staff-bio">Challenges Basic 3 pupils to grow academically and personally through a balanced approach to teaching and mentoring.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher5.jpg" alt="Mr Ernest Avotri" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mr. Ernest Avotri</h3>
+            <p class="ea-staff-position">Basic 4 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Primary Education</p>
+            <p class="ea-staff-bio">Delivers engaging lessons across all Basic 4 subjects, with a particular strength in Mathematics and Science.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher6.jpg" alt="Ms Selina" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Ms. Selina</h3>
+            <p class="ea-staff-position">Basic 5 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Primary Education</p>
+            <p class="ea-staff-bio">Prepares Basic 5 pupils for upper primary with rigorous and inspiring lessons that build academic confidence and independence.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher1.jpg" alt="Ms Kukie" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Ms. Kukie</h3>
+            <p class="ea-staff-position">Basic 6 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Primary Education</p>
+            <p class="ea-staff-bio">Prepares Basic 6 pupils for the transition to JHS with thorough academic grounding and strong personal guidance.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher2.jpg" alt="Mr Maxwell Added" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Mr. Maxwell Added</h3>
+            <p class="ea-staff-position">JHS 1 Teacher</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> Junior High Education</p>
+            <p class="ea-staff-bio">Guides JHS 1 students through the demands of junior high school with skill, dedication and a strong commitment to academic success.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card">
+          <div class="ea-staff-avatar">
+            <img src="images/teacher1.jpg" alt="Monsieur Pascal" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Monsieur Pascal</h3>
+            <p class="ea-staff-position">French Teacher (Part-time)</p>
+            <p class="ea-staff-qual"><i class="fas fa-graduation-cap"></i> French Language Education</p>
+            <p class="ea-staff-bio">Brings French language to life for Basic 4 to JHS students through communicative and engaging teaching methods.</p>
           </div>
         </div>
 
@@ -268,23 +343,34 @@
 
         <div class="ea-staff-card ea-staff-card-compact">
           <div class="ea-staff-avatar ea-staff-avatar-sm">
-            <img src="images/teacher6.jpg" alt="Mr. Isaac Nortey" />
+            <img src="images/teacher4.jpg" alt="Ms Mabel Agorvor" />
           </div>
           <div class="ea-staff-info">
-            <h3>Mr. Isaac Nortey</h3>
-            <p class="ea-staff-position">School Caretaker</p>
-            <p class="ea-staff-bio">Ensures the school grounds and facilities are safe, clean and well-maintained at all times.</p>
+            <h3>Ms. Mabel Agorvor</h3>
+            <p class="ea-staff-position">Secretary & Administrative Assistant</p>
+            <p class="ea-staff-bio">Manages school records, correspondence and daily administrative operations with efficiency and professionalism.</p>
           </div>
         </div>
 
         <div class="ea-staff-card ea-staff-card-compact">
           <div class="ea-staff-avatar ea-staff-avatar-sm">
-            <img src="images/teacher2.jpg" alt="Mrs. Grace Tawiah" />
+            <img src="images/teacher5.jpg" alt="Mr Pascal" />
           </div>
           <div class="ea-staff-info">
-            <h3>Mrs. Grace Tawiah</h3>
-            <p class="ea-staff-position">School Nurse</p>
-            <p class="ea-staff-bio">Provides first aid, monitors student health and wellbeing, and liaises with parents on health matters.</p>
+            <h3>Mr. Pascal</h3>
+            <p class="ea-staff-position">School Driver</p>
+            <p class="ea-staff-bio">Ensures the safe transportation of students and staff, maintaining punctuality and the highest standards of road safety at all times.</p>
+          </div>
+        </div>
+
+        <div class="ea-staff-card ea-staff-card-compact">
+          <div class="ea-staff-avatar ea-staff-avatar-sm">
+            <img src="images/teacher6.jpg" alt="Ms Perpetual Etornam" />
+          </div>
+          <div class="ea-staff-info">
+            <h3>Ms. Perpetual Etornam</h3>
+            <p class="ea-staff-position">Cateress</p>
+            <p class="ea-staff-bio">Prepares nutritious and balanced meals for students and staff, contributing to the health and wellbeing of the entire school community.</p>
           </div>
         </div>
 
@@ -326,137 +412,119 @@
     </div>
   </section>
 
-<!-- FOOTER -->
-<footer class="ea-footer">
-  <div class="ea-container ea-footer-grid">
-    <div class="ea-footer-col">
-      <h3>Eastgate Academy</h3>
-      <p>Eastgate Academy is a premier primary school located in Dawenya, Tema, Ghana. Founded in 2017, we are committed to providing quality education that nurtures future leaders in a safe, supportive and inspiring environment.</p>
-      <div class="ea-social-icons">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Eastgate Academy is a premier school located near Magna Terris Estates, New Dawhenya, Tema, Ghana. Founded in February 2023, we are committed to providing quality education that nurtures future leaders in a safe, supportive and inspiring environment.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Near Magna Terris Estates, New Dawhenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0303962585</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateschool.com</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
       </div>
     </div>
-    <div class="ea-footer-col">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="academics.html">Academics</a></li>
-        <li><a href="admissions.html">Admissions</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
     </div>
-    <div class="ea-footer-col">
-      <h3>Contact Info</h3>
-      <p><i class="fas fa-map-marker-alt"></i> 123 Education St, Dawenya, Tema</p>
-      <p><i class="fas fa-phone"></i> 0244 512 123</p>
-      <p><i class="fas fa-envelope"></i> eastgateacademy@protonmail.com</p>
-    </div>
-    <div class="ea-footer-col">
-      <h3>School Hours</h3>
-      <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
-      <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
-      <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
-    </div>
-  </div>
-  <div class="ea-footer-bottom">
-    <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
-    <p>Built by KyKal Technologies.</p>
-  </div>
-</footer>
+  </footer>
 
   <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/233244506796" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
-  <span class="ea-whatsapp-tooltip">Chat with us</span>
-  <div class="ea-whatsapp-icon">
-    <i class="fab fa-whatsapp"></i>
-  </div>
-</a>
-
-
-<!-- AI Chat Widget -->
-<div class="ea-ai-chat" id="ea-ai-chat">
-
-  <!-- Chat Button -->
-  <button class="ea-ai-chat-btn" id="ea-ai-chat-btn" aria-label="Chat with AI Assistant">
-    <i class="fas fa-robot ea-ai-icon-open"></i>
-    <i class="fas fa-times ea-ai-icon-close" style="display:none;"></i>
-  </button>
-
-  <!-- Chat Window -->
-  <div class="ea-ai-chat-window" id="ea-ai-chat-window" style="display:none;">
-    <div class="ea-ai-chat-header">
-      <div class="ea-ai-chat-header-info">
-        <div class="ea-ai-avatar">
-          <i class="fas fa-robot"></i>
-        </div>
-        <div>
-          <p class="ea-ai-chat-name">Eastgate Assistant</p>
-          <p class="ea-ai-chat-status">
-            <span class="ea-ai-status-dot"></span> Online
-          </p>
-        </div>
-      </div>
-      <button class="ea-ai-chat-close" id="ea-ai-chat-close">
-        <i class="fas fa-times"></i>
-      </button>
+  <a href="https://wa.me/233303962585" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <span class="ea-whatsapp-tooltip">Chat with us</span>
+    <div class="ea-whatsapp-icon">
+      <i class="fab fa-whatsapp"></i>
     </div>
+  </a>
 
-    <div class="ea-ai-chat-messages" id="ea-ai-chat-messages">
-      <div class="ea-ai-message ea-ai-message-bot">
-        <div class="ea-ai-message-avatar"><i class="fas fa-robot"></i></div>
-        <div class="ea-ai-message-bubble">
-          <p>👋 Hello! I'm the Eastgate AI Assistant. I can help you with information about our school, admissions, fees and more. How can I help you today?</p>
-        </div>
-      </div>
+  <!-- AI Chat Widget -->
+  <div class="ea-ai-chat" id="ea-ai-chat">
 
-      <!-- Quick question buttons -->
-      <div class="ea-ai-quick-btns">
-        <button class="ea-ai-quick-btn" data-question="What are the school fees?">School Fees</button>
-        <button class="ea-ai-quick-btn" data-question="How do I enroll my child?">Admissions</button>
-        <button class="ea-ai-quick-btn" data-question="Where is the school located?">Location</button>
-        <button class="ea-ai-quick-btn" data-question="How do I access the parent portal?">Parent Portal</button>
-      </div>
-    </div>
-
-    <div class="ea-ai-chat-input-wrap">
-      <input
-        type="text"
-        class="ea-ai-chat-input"
-        id="ea-ai-chat-input"
-        placeholder="Ask me anything..."
-        maxlength="500"
-      />
-      <button class="ea-ai-chat-send" id="ea-ai-chat-send">
-        <i class="fas fa-paper-plane"></i>
-      </button>
-    </div>
-  </div>
-
-</div>
-
-
-<!-- Back to Top Button -->
-<button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
-  <i class="fas fa-arrow-up"></i>
+    <button class="ea-ai-chat-btn" id="ea-ai-chat-btn" aria-label="Chat with AI Assistant">
+    <img src="images/mascot.png" alt="EA" class="ea-ai-icon-open" style="width:42px;height:42px;border-radius:50%;object-fit:cover;" />
+    <i class="fas fa-times ea-ai-icon-close" style="display:none;color:white;"></i>
 </button>
 
-<!-- Cookie Consent Banner -->
-<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
-  <div class="ea-cookie-text">
-    <span class="ea-cookie-icon">🍪</span>
-    <div class="ea-cookie-text-content">
-      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="terms.html">Learn more</a></p>
+    <div class="ea-ai-chat-window" id="ea-ai-chat-window" style="display:none;">
+      <div class="ea-ai-chat-header">
+        <div class="ea-ai-chat-header-info">
+          <div class="ea-ai-avatar"><img src="images/mascot.png" alt="EA" style="width:42px;height:42px;border-radius:50%;object-fit:cover;" /></div>
+          <div>
+            <p class="ea-ai-chat-name">Eastgate Assistant</p>
+            <p class="ea-ai-chat-status">
+              <span class="ea-ai-status-dot"></span> Online
+            </p>
+          </div>
+        </div>
+        <button class="ea-ai-chat-close" id="ea-ai-chat-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="ea-ai-chat-messages" id="ea-ai-chat-messages">
+        <div class="ea-ai-message ea-ai-message-bot">
+          <div class="ea-ai-message-avatar"><i class="fas fa-robot"></i></div>
+          <div class="ea-ai-message-bubble">
+            <p>👋 Hello! I'm the Eastgate AI Assistant. I can help you with information about our school, admissions, fees and more. How can I help you today?</p>
+          </div>
+        </div>
+        <div class="ea-ai-quick-btns">
+          <button class="ea-ai-quick-btn" data-question="What are the school fees?">School Fees</button>
+          <button class="ea-ai-quick-btn" data-question="How do I enroll my child?">Admissions</button>
+          <button class="ea-ai-quick-btn" data-question="Where is the school located?">Location</button>
+          <button class="ea-ai-quick-btn" data-question="How do I access the parent portal?">Parent Portal</button>
+        </div>
+      </div>
+      <div class="ea-ai-chat-input-wrap">
+        <input type="text" class="ea-ai-chat-input" id="ea-ai-chat-input" placeholder="Ask me anything..." maxlength="500" />
+        <button class="ea-ai-chat-send" id="ea-ai-chat-send">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="ea-cookie-btns">
-    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
-    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
-  </div>
-</div>
 
+  <!-- Back to Top Button -->
+  <button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Cookie Consent Banner -->
+  <div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+    <div class="ea-cookie-text">
+      <span class="ea-cookie-icon">🍪</span>
+      <div class="ea-cookie-text-content">
+        <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="terms.html">Learn more</a></p>
+      </div>
+    </div>
+    <div class="ea-cookie-btns">
+      <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+      <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
   <script src="ai-chat.js"></script>
