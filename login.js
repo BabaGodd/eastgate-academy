@@ -101,11 +101,11 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
           }
 
-          // Sign in with Supabase Auth for RLS
+       // Sign in with Supabase Auth for RLS
           await supabaseClient.auth.signInWithPassword({
-            email: teacher.email,
-            password: 'Teacher@2026'
-          });
+          email: teacher.email,
+          password: password
+           });
 
           localStorage.setItem('ea-user-role', 'teacher');
           localStorage.setItem('ea-user-name', teacher.full_name);
@@ -327,11 +327,5 @@ if (forgotSubmit) {
       if (splash) splash.classList.add('hidden');
     }, 2000);
   });
-
-
-
-
-
-
 
 });
