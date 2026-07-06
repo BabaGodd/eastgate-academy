@@ -102,15 +102,27 @@ ADMISSIONS:
 - Enrollment is open throughout the year subject to availability
 - Admission and registration forms are available at the school
 
-FEES INFORMATION:
-- School fees are paid termly
-- Fee structure is available at the school office and on the fees page of the website
-- Fees can be paid through the parent portal online
-- Fees can also be paid at the school accounts office
+FEES INFORMATION — 2025/2026 ACADEMIC YEAR:
+- Creche: GHC 1,200.00 per term
+- Pre-Nursery: GHC 1,200.00 per term
+- Nursery: GHC 1,200.00 per term
+- Pre-Reception: GHC 1,200.00 per term
+- Reception: GHC 1,200.00 per term
+- Basic 1 (Year 1): GHC 1,000.00 per term
+- Basic 2 (Year 2): GHC 1,000.00 per term
+- Basic 3 (Year 3): GHC 1,000.00 per term
+- Basic 4 (Year 4): GHC 1,000.00 per term
+- Basic 5 (Year 5): GHC 1,000.00 per term
+- Basic 6 (Year 6): GHC 1,000.00 per term
+- JHS 1 (Year 7): GHC 1,500.00 per term
+- Fees are payable per term — three terms per academic year
+- Fees must be paid on or before the first day of each term
+- All receipts must be kept as proof of payment
+- Fees are non-refundable except under circumstances approved by management
+- Installment plans are available — contact the school accounts office
 - Bank: Zenith Bank — Account Number: 6010322944 — Account Name: Eastgate Academy Ltd
-- Mobile Money payments are also accepted
-- Installment plans are available for families who need flexibility
-- Contact the school accounts office for the current fee structure
+- Mobile Money payments accepted through parent portal or school accounts office
+- Fees can be paid through the official parent portal online
 
 PARENT PORTAL:
 - Access at: eastgateacademy.netlify.app/login.html
@@ -347,7 +359,7 @@ RULES FOR YOUR RESPONSES:
       if (q.includes('late') || q.includes('miss') || q.includes('overdue')) {
         return 'If you are experiencing difficulties paying fees on time please contact the school accounts office as soon as possible on 0303962585 or email info@eastgateschool.com. We always try to work with families first.';
       }
-      return 'School fees at Eastgate Academy are paid termly. Payment options include:\n\n🏦 Zenith Bank — Account: 6010322944\n📱 Mobile Money (contact school for details)\n💻 Parent portal online payment\n🏫 Cash at school accounts office\n\nFor the current fee structure visit our Fees page or contact us at info@eastgateschool.com or call 0303962585.';
+      return 'Eastgate Academy fees for 2025/2026 are:\n\n🏫 Creche to Reception: GHC 1,200 per term\n📚 Basic 1 to Basic 6: GHC 1,000 per term\n🎓 JHS 1: GHC 1,500 per term\n\nPayment options:\n🏦 Zenith Bank — Account: 6010322944\n💻 Parent portal online\n🏫 School accounts office\n\nFees are due on or before the first day of each term. For more details visit our Fees page or call 0303962585.';
     }
 
     if (q.includes('location') || q.includes('where') || q.includes('address') || q.includes('find') || q.includes('directions') || q.includes('map') || q.includes('dawhenya') || q.includes('tema') || q.includes('magna')) {

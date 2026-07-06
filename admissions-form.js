@@ -59,8 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
       day: 'numeric', month: 'long', year: 'numeric',
       hour: '2-digit', minute: '2-digit'
     });
-
-    try {
+try {
       // ---- Step 1: Save to Supabase ----
       const { error } = await supabaseClient
         .from('admissions')
@@ -82,33 +81,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (error) {
         console.error('Supabase error:', error);
-        showError('Something went wrong. Please try again or call us on 0303962585.');
+        showError('Something went wrong saving your application. Please try again or call us on 0303962585.');
         submitBtn.disabled = false;
         submitText.textContent = 'Submit Application';
         return;
       }
 
-      // ---- Step 2: Send email via EmailJS ----
-      await emailjs.send(
-        'service_ucii8l5',
-        'template_31hp5lh',
-        {
-          child_name: childName,
-          dob: dob,
-          gender: gender,
-          class_applying: classApplying,
-          prev_school: prevSchool || 'None',
-          parent_name: parentName,
-          relationship: relationship,
-          phone: phone,
-          email: email,
-          address: address || 'Not provided',
-          heard_from: heardFrom || 'Not specified',
-          additional: additional || 'None',
-          ref_number: ref,
-          submitted_date: submittedDate
-        }
-      );
+      // ---- Step 2: Send email via EmailJS (non blocking) ----
+      try {
+        await emailjs.send(
+          'service_ucii8l5',
+          'template_31hp5lh',
+          {
+            child_name: childName,
+            dob: dob,
+            gender: gender,
+            class_applying: classApplying,
+            prev_school: prevSchool || 'None',
+            parent_name: parentName,
+            relationship: relationship,
+            phone: phone,
+            email: email,
+            address: address || 'Not provided',
+            heard_from: heardFrom || 'Not specified',
+            additional: additional || 'None',
+            ref_number: ref,
+            submitted_date: submittedDate
+          }
+        );
+      } catch (emailErr) {
+        // Email failed but form was saved — continue to success
+        console.log('Email notification failed but form saved:', emailErr);
+      }
 
       // ---- Success ----
       form.reset();
