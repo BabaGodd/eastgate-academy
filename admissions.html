@@ -5,46 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admissions - Eastgate Academy</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
+  <script src="supabase.js"></script>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="admissions-form.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
-  <meta name="description" content="Apply to Eastgate Academy in Dawenya, Tema. Learn about our admissions process, requirements and how to enroll your child." />
-
-
-  <!-- PWA Support -->
-<link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#D94E2A" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
-<link rel="apple-touch-icon" href="eastgateLogo.webp" />
-
-
-
+  <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
+  <meta name="description" content="Apply to Eastgate Academy in New Dawhenya, Tema. Learn about our admissions process, requirements and how to enroll your child." />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#D94E2A" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Eastgate Academy" />
 </head>
 <body>
 
   <!-- Scroll Progress Bar -->
-<div class="ea-scroll-progress" id="ea-scroll-progress"></div>
+  <div class="ea-scroll-progress" id="ea-scroll-progress"></div>
 
   <!-- Splash Screen -->
-
-<div class="ea-splash" id="ea-splash">
-  <div class="ea-splash-logo-wrap">
-    <div class="ea-splash-ring"></div>
-    <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+  <div class="ea-splash" id="ea-splash" style="position:fixed;inset:0;background:linear-gradient(135deg,#4a0a00 0%,#7A1E0A 30%,#D94E2A 70%,#F5916E 100%);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;">
+    <div class="ea-splash-logo-wrap">
+      <div class="ea-splash-ring"></div>
+      <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-splash-logo" />
+    </div>
+    <p class="ea-splash-name">Eastgate Academy</p>
+    <p class="ea-splash-tagline">Nurturing Future Leaders</p>
+    <div class="ea-splash-bar-wrap">
+      <div class="ea-splash-bar"></div>
+    </div>
   </div>
-  <p class="ea-splash-name">Eastgate Academy</p>
-  <p class="ea-splash-tagline">Nurturing Future Leaders</p>
-  <div class="ea-splash-bar-wrap">
-    <div class="ea-splash-bar"></div>
-  </div>
-</div>
 
   <!-- HEADER -->
   <header class="ea-header" id="ea-header">
@@ -54,45 +47,41 @@
         <span class="ea-header-name">Eastgate Academy</span>
       </div>
 
+      <nav class="ea-nav" id="ea-nav">
+        <ul class="ea-nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li class="ea-nav-dropdown-wrap">
+            <a href="about.html" class="ea-nav-dropdown-trigger">
+              About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+            </a>
+            <ul class="ea-nav-dropdown">
+              <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+              <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
+              <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            </ul>
+          </li>
+          <li><a href="academics.html">Academics</a></li>
+          <li class="ea-nav-dropdown-wrap active">
+            <a href="admissions.html" class="ea-nav-dropdown-trigger">
+              Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
+            </a>
+            <ul class="ea-nav-dropdown">
+              <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
+              <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
 
- <nav class="ea-nav" id="ea-nav">
-  <ul class="ea-nav-list">
-    <li><a href="index.html">Home</a></li>
-    <li class="ea-nav-dropdown-wrap">
-      <a href="about.html" class="ea-nav-dropdown-trigger">
-        About <i class="fas fa-chevron-down ea-nav-chevron"></i>
+      <button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <a href="login.html" class="ea-portal-btn">
+        <i class="fas fa-user-circle"></i>
+        <span class="ea-portal-text">Eastgate Portal</span>
       </a>
-      <ul class="ea-nav-dropdown">
-        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
-        <li><a href="staff.html"><i class="fas fa-users"></i> Our Staff</a></li>
-        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-      </ul>
-    </li>
-    <li><a href="academics.html">Academics</a></li>
-    <li class="ea-nav-dropdown-wrap active">
-      <a href="admissions.html" class="ea-nav-dropdown-trigger">
-        Admissions <i class="fas fa-chevron-down ea-nav-chevron"></i>
-      </a>
-      <ul class="ea-nav-dropdown">
-        <li><a href="admissions.html"><i class="fas fa-file-alt"></i> Admissions</a></li>
-        <li><a href="fees.html"><i class="fas fa-money-bill-wave"></i> School Fees</a></li>
-      </ul>
-    </li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
-
-      <!-- Dark Mode Toggle -->
-<button class="ea-dark-toggle" id="ea-dark-toggle" aria-label="Toggle dark mode">
-  <i class="fas fa-moon"></i>
-</button>
-
-
-<a href="login.html" class="ea-portal-btn">
-  <i class="fas fa-user-circle"></i>
-  <span class="ea-portal-text">Eastgate Portal</span>
-</a>
-
 
       <button class="ea-hamburger" id="ea-hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -166,10 +155,10 @@
         <div class="ea-adm-req-card">
           <div class="ea-adm-req-header">
             <i class="fas fa-star"></i>
-            <h3>Kindergarten</h3>
+            <h3>Creche & Kindergarten</h3>
           </div>
           <ul class="ea-adm-req-list">
-            <li><i class="fas fa-check"></i> Child must be 5 years old by September 1st</li>
+            <li><i class="fas fa-check"></i> Child must be at least 4 years old</li>
             <li><i class="fas fa-check"></i> Completed application form</li>
             <li><i class="fas fa-check"></i> Copy of birth certificate</li>
             <li><i class="fas fa-check"></i> Immunization records</li>
@@ -179,7 +168,7 @@
         <div class="ea-adm-req-card">
           <div class="ea-adm-req-header">
             <i class="fas fa-book"></i>
-            <h3>Primary (P1–P3)</h3>
+            <h3>Basic 1 – Basic 3</h3>
           </div>
           <ul class="ea-adm-req-list">
             <li><i class="fas fa-check"></i> Completed application form</li>
@@ -193,7 +182,7 @@
         <div class="ea-adm-req-card">
           <div class="ea-adm-req-header">
             <i class="fas fa-graduation-cap"></i>
-            <h3>Primary (P4–P6)</h3>
+            <h3>Basic 4 – JHS</h3>
           </div>
           <ul class="ea-adm-req-list">
             <li><i class="fas fa-check"></i> Completed application form</li>
@@ -274,8 +263,8 @@
         </div>
         <div class="ea-adm-subject-card">
           <div class="ea-adm-subject-icon"><i class="fas fa-laptop-code"></i></div>
-          <h3>ICT</h3>
-          <p>Computer basics, typing skills and an introduction to coding.</p>
+          <h3>Computing</h3>
+          <p>Computer basics, typing skills and introduction to coding.</p>
         </div>
         <div class="ea-adm-subject-card">
           <div class="ea-adm-subject-icon"><i class="fas fa-paint-brush"></i></div>
@@ -286,24 +275,164 @@
     </div>
   </section>
 
-  <!-- APPLY NOW -->
-  <section class="ea-adm-apply-section">
-    <div class="ea-container ea-adm-apply-grid">
-      <div class="ea-adm-apply-text">
-        <span class="ea-section-tag">Get Started</span>
-        <h2>Ready to Apply?</h2>
-        <p>Begin your child's educational journey at Eastgate Academy today. Download our application form or contact our admissions team directly.</p>
-        <div class="ea-adm-apply-btns">
-          <a href="downloads/application-form.pdf" class="ea-btn-primary" download>
-            <i class="fas fa-download"></i> Download Application Form
-          </a>
-          <a href="contact.html" class="ea-btn-secondary">
-            <i class="fas fa-phone"></i> Contact Admissions
-          </a>
-        </div>
+  <!-- ONLINE ADMISSION FORM -->
+  <section class="ea-admission-form-section" id="apply-now">
+    <div class="ea-container">
+      <div class="ea-section-header">
+        <span class="ea-section-tag">Apply Online</span>
+        <h2>Online Admission Form</h2>
+        <p>Fill in the form below and our admissions team will contact you within 24 to 48 hours.</p>
       </div>
-      <div class="ea-adm-apply-image">
-        <img src="images/hero.jpg" alt="Happy students at Eastgate Academy" />
+
+      <div class="ea-admission-form-wrap">
+
+        <!-- Form Header -->
+        <div class="ea-admission-form-header">
+          <div class="ea-admission-logo-wrap">
+            <img src="eastgateLogo.webp" alt="Eastgate Academy" class="ea-admission-logo" />
+            <div class="ea-admission-school-info">
+              <h2>Eastgate Academy.</h2>
+              <p>Nurturing Future Leaders.</p>
+            </div>
+          </div>
+          <p class="ea-admission-form-title">
+            <i class="fas fa-file-alt"></i> &nbsp; Online Admission Application Form
+          </p>
+        </div>
+
+        <!-- Form Body -->
+        <div class="ea-admission-form-body">
+          <form id="ea-admission-form" novalidate>
+
+            <!-- Child Information -->
+            <p class="ea-admission-section-title">
+              <i class="fas fa-child"></i> Child's Information
+            </p>
+            <div class="ea-adm-form-grid">
+              <div class="ea-adm-form-group full">
+                <label>Child's Full Name <span>*</span></label>
+                <input type="text" id="adm-child-name" placeholder="e.g. Ama Boateng" required />
+              </div>
+              <div class="ea-adm-form-group">
+                <label>Date of Birth <span>*</span></label>
+                <input type="date" id="adm-dob" required />
+              </div>
+              <div class="ea-adm-form-group">
+                <label>Gender <span>*</span></label>
+                <select id="adm-gender" required>
+                  <option value="">Select gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="ea-adm-form-group">
+                <label>Class Applying For <span>*</span></label>
+                <select id="adm-class" required>
+                  <option value="">Select class</option>
+                  <option value="Creche">Creche</option>
+                  <option value="Pre-Nursery">Pre-Nursery</option>
+                  <option value="Nursery">Nursery</option>
+                  <option value="KG 1">KG 1</option>
+                  <option value="KG 2">KG 2</option>
+                  <option value="Basic 1">Basic 1</option>
+                  <option value="Basic 2">Basic 2</option>
+                  <option value="Basic 3">Basic 3</option>
+                  <option value="Basic 4">Basic 4</option>
+                  <option value="Basic 5">Basic 5</option>
+                  <option value="Basic 6">Basic 6</option>
+                  <option value="JHS 1">JHS 1</option>
+                </select>
+              </div>
+              <div class="ea-adm-form-group">
+                <label>Previous School (if any)</label>
+                <input type="text" id="adm-prev-school" placeholder="e.g. Sunshine Preparatory School" />
+              </div>
+            </div>
+
+            <!-- Parent Information -->
+            <p class="ea-admission-section-title">
+              <i class="fas fa-user"></i> Parent / Guardian Information
+            </p>
+            <div class="ea-adm-form-grid">
+              <div class="ea-adm-form-group">
+                <label>Parent / Guardian Full Name <span>*</span></label>
+                <input type="text" id="adm-parent-name" placeholder="e.g. Kweku Boateng" required />
+              </div>
+              <div class="ea-adm-form-group">
+                <label>Relationship to Child <span>*</span></label>
+                <select id="adm-relationship" required>
+                  <option value="">Select relationship</option>
+                  <option value="Father">Father</option>
+                  <option value="Mother">Mother</option>
+                  <option value="Guardian">Guardian</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="ea-adm-form-group">
+                <label>Phone Number <span>*</span></label>
+                <input type="tel" id="adm-phone" placeholder="e.g. 0244 512 123" required />
+              </div>
+              <div class="ea-adm-form-group">
+                <label>Email Address <span>*</span></label>
+                <input type="email" id="adm-email" placeholder="e.g. parent@gmail.com" required />
+              </div>
+              <div class="ea-adm-form-group full">
+                <label>Home Address</label>
+                <input type="text" id="adm-address" placeholder="e.g. New Dawhenya, Tema" />
+              </div>
+              <div class="ea-adm-form-group">
+                <label>How Did You Hear About Us?</label>
+                <select id="adm-heard-from">
+                  <option value="">Select option</option>
+                  <option value="Friend or Family">Friend or Family</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Google Search">Google Search</option>
+                  <option value="Flyer or Banner">Flyer or Banner</option>
+                  <option value="Walked Past the School">Walked Past the School</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="ea-adm-form-group full">
+                <label>Additional Information or Questions</label>
+                <textarea id="adm-additional" placeholder="Any additional information you would like us to know about your child or any questions you have..."></textarea>
+              </div>
+            </div>
+
+            <!-- Declaration -->
+            <div class="ea-adm-declaration">
+              <input type="checkbox" id="adm-declaration" />
+              <label for="adm-declaration">
+                I confirm that the information provided in this form is accurate and complete.
+                I understand that Eastgate Academy will contact me to discuss the next steps.
+                I also confirm that I have read and understood that
+                <strong>all fee payments are made exclusively through the official portal or school accounts office</strong>
+                — never via WhatsApp or phone call.
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="ea-adm-submit-btn" id="adm-submit-btn">
+              <i class="fas fa-paper-plane"></i>
+              <span id="adm-submit-text">Submit Application</span>
+            </button>
+
+            <!-- Error Message -->
+            <div class="ea-adm-error" id="adm-error">
+              <i class="fas fa-exclamation-circle"></i>
+              <span id="adm-error-text">Please fill in all required fields.</span>
+            </div>
+
+            <!-- Success Message -->
+            <div class="ea-adm-success" id="adm-success">
+              <i class="fas fa-check-circle"></i>
+              <h3>Application Submitted Successfully!</h3>
+              <p>Thank you for applying to Eastgate Academy. Our admissions team will review your application and contact you within <strong>24 to 48 hours</strong>.</p>
+              <p style="margin-top:0.5rem;">For urgent enquiries please call us on <strong>0303962585</strong> or email <strong>info@eastgateschool.com</strong></p>
+              <div class="ea-adm-ref" id="adm-ref-number"></div>
+            </div>
+
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -317,7 +446,6 @@
         <p>Answers to the most common questions from prospective parents.</p>
       </div>
       <div class="ea-adm-faq-list">
-
         <div class="ea-adm-faq-item">
           <button class="faq-toggle">
             What is the application deadline?
@@ -327,7 +455,6 @@
             <p>We accept applications year-round, but for guaranteed consideration for the upcoming academic year, applications should be submitted by May 31st. Late applications will be considered if spaces remain available.</p>
           </div>
         </div>
-
         <div class="ea-adm-faq-item">
           <button class="faq-toggle">
             Do you offer after-school care?
@@ -337,7 +464,6 @@
             <p>Yes, we offer supervised after-school care until 5:30pm for an additional fee. Students can complete homework, participate in extracurricular activities, or engage in supervised play.</p>
           </div>
         </div>
-
         <div class="ea-adm-faq-item">
           <button class="faq-toggle">
             What is the student-teacher ratio?
@@ -347,27 +473,24 @@
             <p>We maintain a maximum student-teacher ratio of 20:1 in all classes, with many classes having even smaller ratios to ensure individual attention for every child.</p>
           </div>
         </div>
-
         <div class="ea-adm-faq-item">
           <button class="faq-toggle">
             Do you provide transportation?
             <i class="fas fa-chevron-down"></i>
           </button>
           <div class="faq-content">
-            <p>We have partnered with a reliable transportation service that offers routes throughout Dawenya and surrounding areas. Transportation fees are separate from tuition.</p>
+            <p>We have a school bus service that covers selected routes in the New Dawhenya and Tema area. Transport fees are paid termly. Contact us for route information.</p>
           </div>
         </div>
-
         <div class="ea-adm-faq-item">
           <button class="faq-toggle">
             What languages are taught?
             <i class="fas fa-chevron-down"></i>
           </button>
           <div class="faq-content">
-            <p>English is our primary language of instruction. We also offer Twi language classes twice weekly as part of our cultural studies programme.</p>
+            <p>English is our primary language of instruction. We also teach Ghanaian Language and French is introduced from Basic 4 through to JHS.</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -381,148 +504,126 @@
       </div>
       <div class="ea-cta-btns">
         <a href="contact.html" class="ea-btn-white"><i class="fas fa-calendar-alt"></i> Book a Tour</a>
-        <a href="admissions.html" class="ea-btn-outline-white"><i class="fas fa-file-alt"></i> Apply Now</a>
+        <a href="#apply-now" class="ea-btn-outline-white"><i class="fas fa-file-alt"></i> Apply Now</a>
       </div>
     </div>
   </section>
 
-<!-- FOOTER -->
-<footer class="ea-footer">
-  <div class="ea-container ea-footer-grid">
-    <div class="ea-footer-col">
-      <h3>Eastgate Academy</h3>
-      <p>Eastgate Academy is a premier primary school located in Dawenya, Tema, Ghana. Founded in 2017, we are committed to providing quality education that nurtures future leaders in a safe, supportive and inspiring environment.</p>
-      <div class="ea-social-icons">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  <!-- FOOTER -->
+  <footer class="ea-footer">
+    <div class="ea-container ea-footer-grid">
+      <div class="ea-footer-col">
+        <h3>Eastgate Academy</h3>
+        <p>Eastgate Academy is a premier school located near Magna Terris Estates, New Dawhenya, Tema, Ghana. Founded in February 2023, we are committed to providing quality education that nurtures future leaders in a safe, supportive and inspiring environment.</p>
+        <div class="ea-social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="academics.html">Academics</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ea-footer-col">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt"></i> Near Magna Terris Estates, New Dawhenya, Tema</p>
+        <p><i class="fas fa-phone"></i> 0303962585</p>
+        <p><i class="fas fa-envelope"></i> info@eastgateschool.com</p>
+      </div>
+      <div class="ea-footer-col">
+        <h3>School Hours</h3>
+        <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
+        <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
+        <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
       </div>
     </div>
-    <div class="ea-footer-col">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="academics.html">Academics</a></li>
-        <li><a href="admissions.html">Admissions</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+    <div class="ea-footer-bottom">
+      <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
+      <p>Built by KyKal Technologies.</p>
     </div>
-    <div class="ea-footer-col">
-      <h3>Contact Info</h3>
-      <p><i class="fas fa-map-marker-alt"></i> Near Magna Terris Estate, New Dawhenya, Tema</p>
-      <p><i class="fas fa-phone"></i> 0303962585</p>
-      <p><i class="fas fa-envelope"></i> info@eastgateschool.com</p>
-    </div>
-    <div class="ea-footer-col">
-      <h3>School Hours</h3>
-      <p><i class="fas fa-clock"></i> Mon – Fri: 7:30am – 3:00pm</p>
-      <p><i class="fas fa-times-circle"></i> Saturday: Closed</p>
-      <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
-    </div>
-  </div>
-  <div class="ea-footer-bottom">
-    <p>&copy; 2026 Eastgate Academy. All Rights Reserved.</p>
-    <p>Built by KyKal Technologies.</p>
-  </div>
-</footer>
-
-
-
+  </footer>
 
   <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/233244512123" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
-  <span class="ea-whatsapp-tooltip">Chat with us</span>
-  <div class="ea-whatsapp-icon">
-    <i class="fab fa-whatsapp"></i>
-  </div>
-</a>
-
-
-<!-- AI Chat Widget -->
-<div class="ea-ai-chat" id="ea-ai-chat">
-
-  <!-- Chat Button -->
-<button class="ea-ai-chat-btn" id="ea-ai-chat-btn" aria-label="Chat with AI Assistant">
-    <img src="images/mascot.png" alt="EA" class="ea-ai-icon-open" style="width:42px;height:42px;border-radius:50%;object-fit:cover;" />
-    <i class="fas fa-times ea-ai-icon-close" style="display:none;color:white;"></i>
-</button>
-
-  <!-- Chat Window -->
-  <div class="ea-ai-chat-window" id="ea-ai-chat-window" style="display:none;">
-    <div class="ea-ai-chat-header">
-      <div class="ea-ai-chat-header-info">
-        <div class="ea-ai-avatar">
-          <img src="images/mascot.png" alt="EA" style="width:42px;height:42px;border-radius:50%;object-fit:cover;" />
-        </div>
-        <div>
-          <p class="ea-ai-chat-name">Eastgate Assistant</p>
-          <p class="ea-ai-chat-status">
-            <span class="ea-ai-status-dot"></span> Online
-          </p>
-        </div>
-      </div>
-      <button class="ea-ai-chat-close" id="ea-ai-chat-close">
-        <i class="fas fa-times"></i>
-      </button>
+  <a href="https://wa.me/233244506796" target="_blank" class="ea-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <span class="ea-whatsapp-tooltip">Chat with us</span>
+    <div class="ea-whatsapp-icon">
+      <i class="fab fa-whatsapp"></i>
     </div>
+  </a>
 
-    <div class="ea-ai-chat-messages" id="ea-ai-chat-messages">
-      <div class="ea-ai-message ea-ai-message-bot">
-
-        <div class="ea-ai-message-avatar"><img src="images/mascot.png" alt="EA" style="width:42px;height:42px;border-radius:50%;object-fit:cover;" /></div>
-        <div class="ea-ai-message-bubble">
-          <p>👋 Hello! I'm the Eastgate Academy AI Assistant. I can help you with information about our school, admissions, fees and more. How can I help you today?</p>
+  <!-- AI Chat Widget -->
+  <div class="ea-ai-chat" id="ea-ai-chat">
+    <button class="ea-ai-chat-btn" id="ea-ai-chat-btn" aria-label="Chat with AI Assistant">
+      <img src="images/mascot.png" alt="EA" class="ea-ai-icon-open" style="width:42px;height:42px;border-radius:50%;object-fit:cover;" />
+      <i class="fas fa-times ea-ai-icon-close" style="display:none;color:white;"></i>
+    </button>
+    <div class="ea-ai-chat-window" id="ea-ai-chat-window" style="display:none;">
+      <div class="ea-ai-chat-header">
+        <div class="ea-ai-chat-header-info">
+          <div class="ea-ai-avatar">
+            <img src="images/mascot.png" alt="EA" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" />
+          </div>
+          <div>
+            <p class="ea-ai-chat-name">Eastgate Assistant</p>
+            <p class="ea-ai-chat-status"><span class="ea-ai-status-dot"></span> Online</p>
+          </div>
+        </div>
+        <button class="ea-ai-chat-close" id="ea-ai-chat-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="ea-ai-chat-messages" id="ea-ai-chat-messages">
+        <div class="ea-ai-message ea-ai-message-bot">
+          <div class="ea-ai-message-avatar"><img src="images/mascot.png" alt="EA" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" /></div>
+          <div class="ea-ai-message-bubble">
+            <p>👋 Hello! I'm the Eastgate Academy AI Assistant. How can I help you today?</p>
+          </div>
+        </div>
+        <div class="ea-ai-quick-btns">
+          <button class="ea-ai-quick-btn" data-question="What are the school fees?">School Fees</button>
+          <button class="ea-ai-quick-btn" data-question="How do I enroll my child?">Admissions</button>
+          <button class="ea-ai-quick-btn" data-question="Where is the school located?">Location</button>
+          <button class="ea-ai-quick-btn" data-question="How do I access the parent portal?">Parent Portal</button>
         </div>
       </div>
-
-      <!-- Quick question buttons -->
-      <div class="ea-ai-quick-btns">
-        <button class="ea-ai-quick-btn" data-question="What are the school fees?">School Fees</button>
-        <button class="ea-ai-quick-btn" data-question="How do I enroll my child?">Admissions</button>
-        <button class="ea-ai-quick-btn" data-question="Where is the school located?">Location</button>
-        <button class="ea-ai-quick-btn" data-question="How do I access the parent portal?">Parent Portal</button>
+      <div class="ea-ai-chat-input-wrap">
+        <input type="text" class="ea-ai-chat-input" id="ea-ai-chat-input" placeholder="Ask me anything..." maxlength="500" />
+        <button class="ea-ai-chat-send" id="ea-ai-chat-send">
+          <i class="fas fa-paper-plane"></i>
+        </button>
       </div>
     </div>
+  </div>
 
-    <div class="ea-ai-chat-input-wrap">
-      <input
-        type="text"
-        class="ea-ai-chat-input"
-        id="ea-ai-chat-input"
-        placeholder="Ask me anything..."
-        maxlength="500"
-      />
-      <button class="ea-ai-chat-send" id="ea-ai-chat-send">
-        <i class="fas fa-paper-plane"></i>
-      </button>
+  <!-- Back to Top -->
+  <button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Cookie Consent -->
+  <div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
+    <div class="ea-cookie-text">
+      <span class="ea-cookie-icon">🍪</span>
+      <div class="ea-cookie-text-content">
+        <p>We use cookies to improve your experience. By using this site you agree to our use of cookies. <a href="terms.html">Learn more</a></p>
+      </div>
+    </div>
+    <div class="ea-cookie-btns">
+      <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
+      <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
     </div>
   </div>
-
-</div>
-
-
-<!-- Back to Top Button -->
-<button class="ea-back-to-top" id="ea-back-to-top" aria-label="Back to top">
-  <i class="fas fa-arrow-up"></i>
-</button>
-
-
-<!-- Cookie Consent Banner -->
-<div class="ea-cookie-banner" id="ea-cookie-banner" style="display:none;">
-  <div class="ea-cookie-text">
-    <span class="ea-cookie-icon">🍪</span>
-    <div class="ea-cookie-text-content">
-      <p>We use cookies to improve your experience, keep you logged in and remember your preferences like dark mode. By using this site you agree to our use of cookies. <a href="terms.html">Learn more</a></p>
-    </div>
-  </div>
-  <div class="ea-cookie-btns">
-    <button class="ea-cookie-decline" id="ea-cookie-decline">Decline</button>
-    <button class="ea-cookie-accept" id="ea-cookie-accept">Accept All</button>
-  </div>
-</div>
-
+  
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
   <script src="ai-chat.js"></script>
+  <script src="admissions-form.js"></script>
 </body>
 </html>

@@ -1,0 +1,300 @@
+/* ============================================
+   EASTGATE ACADEMY — ONLINE ADMISSION FORM
+   ============================================ */
+
+.ea-admission-form-section {
+  background: #faf7f6;
+  padding: 5rem 0;
+}
+
+.ea-admission-form-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* Form Header with Logo */
+.ea-admission-form-header {
+  background: linear-gradient(135deg, #7A1E0A 0%, #D94E2A 60%, #F5916E 100%);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.ea-admission-form-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: white;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.ea-admission-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.ea-admission-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: white;
+  padding: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  border: 3px solid rgba(255,255,255,0.3);
+}
+
+.ea-admission-school-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: white;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.ea-admission-school-info p {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.88rem;
+  margin: 4px 0 0;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.ea-admission-form-title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  padding-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* Form Body */
+.ea-admission-form-body {
+  padding: 2.5rem 2.5rem 2rem;
+}
+
+.ea-admission-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: #D94E2A;
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #FDF0EC;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ea-admission-section-title:first-of-type {
+  margin-top: 0;
+}
+
+.ea-adm-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.ea-adm-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ea-adm-form-group.full {
+  grid-column: 1 / -1;
+}
+
+.ea-adm-form-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.ea-adm-form-group label span {
+  color: #D94E2A;
+  margin-left: 2px;
+}
+
+.ea-adm-form-group input,
+.ea-adm-form-group select,
+.ea-adm-form-group textarea {
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+  color: #333;
+  transition: all 0.3s ease;
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ea-adm-form-group input:focus,
+.ea-adm-form-group select:focus,
+.ea-adm-form-group textarea:focus {
+  outline: none;
+  border-color: #D94E2A;
+  box-shadow: 0 0 0 3px rgba(217,78,42,0.1);
+}
+
+.ea-adm-form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Declaration */
+.ea-adm-declaration {
+  background: #FDF0EC;
+  border: 1.5px solid #F5916E;
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ea-adm-declaration input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: #D94E2A;
+  flex-shrink: 0;
+}
+
+.ea-adm-declaration label {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.ea-adm-declaration label strong {
+  color: #D94E2A;
+}
+
+/* Submit Button */
+.ea-adm-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #D94E2A 0%, #7A1E0A 100%);
+  color: white;
+  border: none;
+  padding: 15px 28px;
+  border-radius: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(217,78,42,0.3);
+}
+
+.ea-adm-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(217,78,42,0.4);
+}
+
+.ea-adm-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Success Message */
+.ea-adm-success {
+  display: none;
+  background: #e8f5e9;
+  border: 2px solid #388E3C;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.ea-adm-success i {
+  font-size: 3rem;
+  color: #388E3C;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.ea-adm-success h3 {
+  color: #2E7D32;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.ea-adm-success p {
+  color: #388E3C;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+/* Error Message */
+.ea-adm-error {
+  display: none;
+  background: #ffebee;
+  border: 1.5px solid #c62828;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  color: #c62828;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Reference Number */
+.ea-adm-ref {
+  background: #FDF0EC;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.85rem;
+  color: #7A1E0A;
+  margin-top: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ea-adm-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ea-adm-form-group.full {
+    grid-column: 1;
+  }
+
+  .ea-admission-form-body {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .ea-admission-logo-wrap {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .ea-admission-school-info h2 {
+    font-size: 1.4rem;
+  }
+}

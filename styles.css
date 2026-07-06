@@ -5707,3 +5707,17 @@ body.dark-mode .ea-sk-ann { background: #1a0e0a; }
 @media (max-width: 480px) {
   .ea-sk-stat-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ============================================
+   FONT AWESOME ICON FIX FOR IPAD / IOS
+   ============================================ */
+
+.fa, .fas, .far, .fab, .fal, .fad {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif !important;
+}

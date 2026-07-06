@@ -999,3 +999,195 @@ if (saveParentBtn) {
     }, 4000);
   });
 }
+
+// ---- Load Admissions ----
+async function loadAdmissions() {
+  const tbody = document.getElementById('ea-adm-tbody');
+  const countEl = document.getElementById('ea-adm-count');
+  if (!tbody) return;
+
+  const { data: admissions, error } = await supabaseClient
+    .from('admissions')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error || !admissions) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding:2rem; color:#aaa;">
+          Error loading applications. Please try again.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  if (admissions.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding:2rem; color:#aaa;">
+          <i class="fas fa-file-alt" style="font-size:2rem; display:block; margin-bottom:0.5rem; color:#ddd;"></i>
+          No admission applications yet.
+        </td>
+      </tr>`;
+    if (countEl) countEl.textContent = '0 applications';
+    return;
+  }
+
+  if (countEl) countEl.textContent = `${admissions.length} application${admissions.length > 1 ? 's' : ''}`;
+
+  tbody.innerHTML = admissions.map(a => {
+    const date = new Date(a.created_at).toLocaleDateString('en-GB', {
+      day: 'numeric', month: 'short', year: 'numeric'
+    });
+
+    const statusColor = a.status === 'Accepted' ? '#388E3C'
+      : a.status === 'Rejected' ? '#c62828'
+      : a.status === 'Reviewed' ? '#1976D2'
+      : '#D94E2A';
+
+    const statusBg = a.status === 'Accepted' ? '#e8f5e9'
+      : a.status === 'Rejected' ? '#ffebee'
+      : a.status === 'Reviewed' ? '#e3f2fd'
+      : '#FDF0EC';
+
+    return `
+      <tr>
+        <td><strong>${a.child_full_name}</strong></td>
+        <td>${a.class_applying_for}</td>
+        <td>${a.parent_name}</td>
+        <td>${a.phone}</td>
+        <td>${date}</td>
+        <td>
+          <span style="
+            background:${statusBg};
+            color:${statusColor};
+            padding:4px 10px;
+            border-radius:20px;
+            font-size:0.8rem;
+            font-weight:700;
+          ">${a.status}</span>
+        </td>
+        <td>
+          <button class="ea-view-btn" onclick="viewAdmission('${a.id}')">View</button>
+          <button class="ea-view-btn" style="background:#388E3C; color:white; border:none;" onclick="updateAdmissionStatus('${a.id}', 'Accepted')">Accept</button>
+          <button class="ea-del-btn" onclick="updateAdmissionStatus('${a.id}', 'Rejected')">Reject</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  // Filter by status
+  const statusFilter = document.getElementById('ea-adm-filter-status');
+  if (statusFilter) {
+    statusFilter.addEventListener('change', function () {
+      const status = this.value;
+      document.querySelectorAll('#ea-adm-tbody tr').forEach(row => {
+        if (!status) {
+          row.style.display = '';
+        } else {
+          row.style.display = row.textContent.includes(status) ? '' : 'none';
+        }
+      });
+    });
+  }
+}
+
+// ---- View Admission Details ----
+async function viewAdmission(id) {
+  const modal = document.getElementById('ea-adm-modal');
+  const modalBody = document.getElementById('ea-adm-modal-body');
+
+  const { data: a } = await supabaseClient
+    .from('admissions')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (!a) return;
+
+  const date = new Date(a.created_at).toLocaleDateString('en-GB', {
+    day: 'numeric', month: 'long', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
+
+  modalBody.innerHTML = `
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+
+      <div style="background:#FDF0EC; border-radius:8px; padding:1rem;">
+        <p style="font-size:0.75rem; text-transform:uppercase; color:#D94E2A; font-weight:700; margin-bottom:0.8rem;">
+          <i class="fas fa-child"></i> Child Information
+        </p>
+        <p><strong>Name:</strong> ${a.child_full_name}</p>
+        <p><strong>Date of Birth:</strong> ${a.date_of_birth}</p>
+        <p><strong>Gender:</strong> ${a.gender}</p>
+        <p><strong>Class Applying For:</strong> ${a.class_applying_for}</p>
+        <p><strong>Previous School:</strong> ${a.previous_school || 'None'}</p>
+      </div>
+
+      <div style="background:#f5f5f5; border-radius:8px; padding:1rem;">
+        <p style="font-size:0.75rem; text-transform:uppercase; color:#D94E2A; font-weight:700; margin-bottom:0.8rem;">
+          <i class="fas fa-user"></i> Parent / Guardian Information
+        </p>
+        <p><strong>Name:</strong> ${a.parent_name}</p>
+        <p><strong>Relationship:</strong> ${a.relationship}</p>
+        <p><strong>Phone:</strong> ${a.phone}</p>
+        <p><strong>Email:</strong> ${a.email}</p>
+        <p><strong>Address:</strong> ${a.home_address || 'Not provided'}</p>
+        <p><strong>Heard About Us:</strong> ${a.heard_from || 'Not specified'}</p>
+      </div>
+
+      ${a.additional_info ? `
+      <div style="background:#fff; border:1px solid #eee; border-radius:8px; padding:1rem;">
+        <p style="font-size:0.75rem; text-transform:uppercase; color:#D94E2A; font-weight:700; margin-bottom:0.5rem;">
+          <i class="fas fa-info-circle"></i> Additional Information
+        </p>
+        <p style="color:#555; font-size:0.9rem;">${a.additional_info}</p>
+      </div>` : ''}
+
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+        <p style="font-size:0.82rem; color:#999;">Submitted: ${date}</p>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="ea-view-btn" style="background:#388E3C; color:white; border:none;" onclick="updateAdmissionStatus('${a.id}', 'Accepted'); document.getElementById('ea-adm-modal').style.display='none';">
+            <i class="fas fa-check"></i> Accept
+          </button>
+          <button class="ea-view-btn" style="background:#1976D2; color:white; border:none;" onclick="updateAdmissionStatus('${a.id}', 'Reviewed'); document.getElementById('ea-adm-modal').style.display='none';">
+            <i class="fas fa-eye"></i> Mark Reviewed
+          </button>
+          <button class="ea-del-btn" onclick="updateAdmissionStatus('${a.id}', 'Rejected'); document.getElementById('ea-adm-modal').style.display='none';">
+            <i class="fas fa-times"></i> Reject
+          </button>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  modal.style.display = 'flex';
+}
+
+// ---- Update Admission Status ----
+async function updateAdmissionStatus(id, status) {
+  const { error } = await supabaseClient
+    .from('admissions')
+    .update({ status: status })
+    .eq('id', id);
+
+  if (!error) {
+    loadAdmissions();
+  }
+}
+
+// ---- Close Admission Modal ----
+document.getElementById('ea-adm-modal-close')?.addEventListener('click', function () {
+  document.getElementById('ea-adm-modal').style.display = 'none';
+});
+
+// ---- Load admissions when section is clicked ----
+document.querySelectorAll('.ea-nav-link').forEach(link => {
+  link.addEventListener('click', function () {
+    if (this.getAttribute('data-section') === 'admissions') {
+      loadAdmissions();
+    }
+  });
+});
+
