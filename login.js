@@ -1,331 +1,267 @@
+// ============================================
+// EASTGATE ACADEMY — LOGIN SYSTEM
+// ============================================
+
+// ---- Splash Screen ----
 document.addEventListener('DOMContentLoaded', function () {
+  const splash = document.getElementById('ea-splash');
+  if (!splash) return;
 
-  // ---- Tab Switching ----
-  window.switchTab = function(tab) {
-    const portalPanel = document.getElementById('panel-portal');
-    const adminPanel = document.getElementById('panel-admin');
-    const portalTab = document.getElementById('tab-portal');
-    const adminTab = document.getElementById('tab-admin');
-
-    if (tab === 'portal') {
-      portalPanel.style.display = 'block';
-      adminPanel.style.display = 'none';
-      portalTab.classList.add('active');
-      adminTab.classList.remove('active');
-    } else {
-      portalPanel.style.display = 'none';
-      adminPanel.style.display = 'block';
-      adminTab.classList.add('active');
-      portalTab.classList.remove('active');
-    }
+  if (sessionStorage.getItem('ea-splash-shown')) {
+    splash.style.display = 'none';
+    document.body.style.overflow = '';
+    return;
   }
 
-  // ---- PIN visibility toggle ----
-  const togglePin = document.getElementById('ea-toggle-pin');
-  const pinInput = document.getElementById('ea-portal-pin');
+  sessionStorage.setItem('ea-splash-shown', 'true');
 
-  if (togglePin && pinInput) {
-    togglePin.addEventListener('click', function () {
-      const isPassword = pinInput.type === 'password';
-      pinInput.type = isPassword ? 'text' : 'password';
-      this.querySelector('i').classList.toggle('fa-eye');
-      this.querySelector('i').classList.toggle('fa-eye-slash');
-    });
+  function hideSplash() {
+    splash.classList.add('ea-splash-hide');
+    setTimeout(() => {
+      splash.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 600);
   }
 
-  // ---- Password visibility toggle ----
-  const togglePassword = document.getElementById('ea-toggle-password');
-  const passwordInput = document.getElementById('ea-admin-password');
+  setTimeout(hideSplash, 2800);
 
-  if (togglePassword && passwordInput) {
-    togglePassword.addEventListener('click', function () {
-      const isPassword = passwordInput.type === 'password';
-      passwordInput.type = isPassword ? 'text' : 'password';
-      this.querySelector('i').classList.toggle('fa-eye');
-      this.querySelector('i').classList.toggle('fa-eye-slash');
-    });
-  }
+  setTimeout(() => {
+    splash.style.display = 'none';
+    document.body.style.overflow = '';
+  }, 4000);
+});
 
-  // ---- Portal Login (Parent & Teacher) ----
-  const portalForm = document.getElementById('ea-portal-form');
-  const portalError = document.getElementById('ea-portal-error');
-  const portalErrorText = document.getElementById('ea-portal-error-text');
-  const portalBtn = document.getElementById('ea-portal-btn');
-  const portalBtnText = document.getElementById('ea-portal-btn-text');
-
-  if (portalForm) {
-    portalForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      portalError.style.display = 'none';
-
-      const id = document.getElementById('ea-portal-id').value.trim().toUpperCase();
-      const password = document.getElementById('ea-portal-pin').value.trim();
-
-      if (!id || !password) {
-        portalErrorText.textContent = 'Please enter both your ID and password.';
-        portalError.style.display = 'flex';
-        return;
-      }
-
-      portalBtn.disabled = true;
-      portalBtnText.textContent = 'Signing in...';
-
-      try {
-
-        // ---- TEACHER LOGIN ----
-        if (id.startsWith('EAT-')) {
-
-          const { data: teacherData, error: teacherError } = await supabaseClient
-            .from('users')
-            .select('*')
-            .eq('staff_id', id)
-            .eq('role', 'teacher');
-
-          console.log('Teacher lookup:', teacherData, teacherError);
-
-          if (teacherError || !teacherData || teacherData.length === 0) {
-            portalErrorText.textContent = 'Staff ID not found. Please check and try again.';
-            portalError.style.display = 'flex';
-            portalBtn.disabled = false;
-            portalBtnText.textContent = 'Sign In';
-            return;
-          }
-
-          const teacher = teacherData[0];
-
-          if (teacher.portal_password !== password) {
-            portalErrorText.textContent = 'Incorrect password. Please try again.';
-            portalError.style.display = 'flex';
-            portalBtn.disabled = false;
-            portalBtnText.textContent = 'Sign In';
-            return;
-          }
-
-       // Sign in with Supabase Auth for RLS
-          await supabaseClient.auth.signInWithPassword({
-          email: teacher.email,
-          password: password
-           });
-
-          localStorage.setItem('ea-user-role', 'teacher');
-          localStorage.setItem('ea-user-name', teacher.full_name);
-          localStorage.setItem('ea-user-email', teacher.email);
-          localStorage.setItem('ea-user-id', teacher.id);
-
-          window.location.href = 'dashboard-teacher.html';
-
-        } else {
-
-          // ---- PARENT LOGIN ----
-          // ID is Student ID — password is student's last name
-
-          const { data: studentData, error: studentError } = await supabaseClient
-            .from('students')
-            .select('*')
-            .eq('student_code', id);
-
-          console.log('Student lookup:', studentData, studentError);
-
-          if (studentError || !studentData || studentData.length === 0) {
-            portalErrorText.textContent = 'Student ID not found. Please check and try again.';
-            portalError.style.display = 'flex';
-            portalBtn.disabled = false;
-            portalBtnText.textContent = 'Sign In';
-            return;
-          }
-
-          const student = studentData[0];
-
-          // Get student last name
-          const studentLastName = student.full_name.split(' ').pop().toLowerCase();
-          const enteredPassword = password.toLowerCase();
-
-          console.log('Student last name:', studentLastName, 'Entered:', enteredPassword);
-
-          if (studentLastName !== enteredPassword) {
-            portalErrorText.textContent = 'Incorrect password. Your password is your child\'s last name.';
-            portalError.style.display = 'flex';
-            portalBtn.disabled = false;
-            portalBtnText.textContent = 'Sign In';
-            return;
-          }
-
-          if (!student.parent_id) {
-            portalErrorText.textContent = 'No parent account linked to this student. Contact the school.';
-            portalError.style.display = 'flex';
-            portalBtn.disabled = false;
-            portalBtnText.textContent = 'Sign In';
-            return;
-          }
-
-          // Get parent details
-          const { data: parentData, error: parentError } = await supabaseClient
-            .from('users')
-            .select('*')
-            .eq('id', student.parent_id)
-            .eq('role', 'parent');
-
-          console.log('Parent lookup:', parentData, parentError);
-
-          if (parentError || !parentData || parentData.length === 0) {
-            portalErrorText.textContent = 'Parent account not found. Contact the school.';
-            portalError.style.display = 'flex';
-            portalBtn.disabled = false;
-            portalBtnText.textContent = 'Sign In';
-            return;
-          }
-
-          const parent = parentData[0];
-
-          // Sign in with Supabase Auth for RLS
-          await supabaseClient.auth.signInWithPassword({
-            email: parent.email,
-            password: 'Parent@2026'
-          });
-
-          localStorage.setItem('ea-user-role', 'parent');
-          localStorage.setItem('ea-user-name', parent.full_name);
-          localStorage.setItem('ea-user-email', parent.email);
-          localStorage.setItem('ea-user-id', parent.id);
-          localStorage.setItem('ea-student-id', student.id);
-
-          window.location.href = 'dashboard-parent.html';
-        }
-
-      } catch (err) {
-        console.error('Login error:', err);
-        portalErrorText.textContent = 'Something went wrong. Please try again.';
-        portalError.style.display = 'flex';
-        portalBtn.disabled = false;
-        portalBtnText.textContent = 'Sign In';
-      }
-    });
-  }
-
-  // ---- Admin Login ----
-  const adminForm = document.getElementById('ea-admin-form');
-  const adminError = document.getElementById('ea-admin-error');
-  const adminErrorText = document.getElementById('ea-admin-error-text');
-  const adminBtn = document.getElementById('ea-admin-btn');
-  const adminBtnText = document.getElementById('ea-admin-btn-text');
-
-  if (adminForm) {
-    adminForm.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      adminError.style.display = 'none';
-
-      const email = document.getElementById('ea-admin-email').value.trim();
-      const password = document.getElementById('ea-admin-password').value.trim();
-
-      if (!email || !password) {
-        adminErrorText.textContent = 'Please enter your email and password.';
-        adminError.style.display = 'flex';
-        return;
-      }
-
-      adminBtn.disabled = true;
-      adminBtnText.textContent = 'Signing in...';
-
-      try {
-        const { data: authData, error: authError } = await supabaseClient.auth.signInWithPassword({
-          email,
-          password
-        });
-
-        if (authError) {
-          adminErrorText.textContent = 'Invalid email or password.';
-          adminError.style.display = 'flex';
-          adminBtn.disabled = false;
-          adminBtnText.textContent = 'Sign In as Admin';
-          return;
-        }
-
-        const { data: userData } = await supabaseClient
-          .from('users')
-          .select('full_name, role')
-          .eq('email', email)
-          .single();
-
-        if (!userData || userData.role !== 'admin') {
-          adminErrorText.textContent = 'You do not have admin access.';
-          adminError.style.display = 'flex';
-          adminBtn.disabled = false;
-          adminBtnText.textContent = 'Sign In as Admin';
-          await supabaseClient.auth.signOut();
-          return;
-        }
-
-        localStorage.setItem('ea-user-role', 'admin');
-        localStorage.setItem('ea-user-name', userData.full_name);
-        localStorage.setItem('ea-user-email', email);
-
-        window.location.href = 'dashboard-admin.html';
-
-      } catch (err) {
-        adminErrorText.textContent = 'Something went wrong. Please try again.';
-        adminError.style.display = 'flex';
-        adminBtn.disabled = false;
-        adminBtnText.textContent = 'Sign In as Admin';
-      }
-    });
-  }
-
-
-// ---- Forgot Password ----
-const forgotLink = document.getElementById('ea-forgot-link');
-const forgotForm = document.getElementById('ea-forgot-form');
-const forgotSubmit = document.getElementById('ea-forgot-submit');
-const forgotSuccess = document.getElementById('ea-forgot-success');
-
-if (forgotLink) {
-  forgotLink.addEventListener('click', function (e) {
-    e.preventDefault();
-    forgotForm.style.display = forgotForm.style.display === 'none' ? 'flex' : 'none';
-    forgotForm.style.flexDirection = 'column';
-  });
+// ---- Tab Switching ----
+function switchTab(tab) {
+  document.getElementById('panel-portal').style.display = tab === 'portal' ? 'block' : 'none';
+  document.getElementById('panel-admin').style.display = tab === 'admin' ? 'block' : 'none';
+  document.getElementById('tab-portal').classList.toggle('active', tab === 'portal');
+  document.getElementById('tab-admin').classList.toggle('active', tab === 'admin');
 }
 
-if (forgotSubmit) {
-  forgotSubmit.addEventListener('click', async function () {
-    const id = document.getElementById('ea-forgot-id').value.trim().toUpperCase();
+// ---- Toggle Password Visibility ----
+document.getElementById('ea-toggle-pin')?.addEventListener('click', function () {
+  const input = document.getElementById('ea-portal-pin');
+  const icon = this.querySelector('i');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.classList.replace('fa-eye', 'fa-eye-slash');
+  } else {
+    input.type = 'password';
+    icon.classList.replace('fa-eye-slash', 'fa-eye');
+  }
+});
 
-    if (!id) {
-      alert('Please enter your Staff ID or Student ID.');
+document.getElementById('ea-toggle-password')?.addEventListener('click', function () {
+  const input = document.getElementById('ea-admin-password');
+  const icon = this.querySelector('i');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.classList.replace('fa-eye', 'fa-eye-slash');
+  } else {
+    input.type = 'password';
+    icon.classList.replace('fa-eye-slash', 'fa-eye');
+  }
+});
+
+// ---- Forgot Password ----
+document.getElementById('ea-forgot-link')?.addEventListener('click', function (e) {
+  e.preventDefault();
+  const forgotForm = document.getElementById('ea-forgot-form');
+  forgotForm.style.display = forgotForm.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById('ea-forgot-submit')?.addEventListener('click', async function () {
+  const id = document.getElementById('ea-forgot-id').value.trim();
+  if (!id) return;
+
+  await supabaseClient
+    .from('messages')
+    .insert({
+      sender_role: 'parent',
+      content: `Password reset request for ID: ${id}`,
+      created_at: new Date().toISOString()
+    });
+
+  document.getElementById('ea-forgot-success').style.display = 'block';
+});
+
+// ============================================
+// PARENT / TEACHER LOGIN
+// ============================================
+document.getElementById('ea-portal-form')?.addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const id = document.getElementById('ea-portal-id').value.trim();
+  const password = document.getElementById('ea-portal-pin').value.trim();
+  const btn = document.getElementById('ea-portal-btn');
+  const btnText = document.getElementById('ea-portal-btn-text');
+  const errorEl = document.getElementById('ea-portal-error');
+  const errorText = document.getElementById('ea-portal-error-text');
+
+  errorEl.style.display = 'none';
+  btn.disabled = true;
+  btnText.textContent = 'Signing in...';
+
+  try {
+
+    // ---- Check if TEACHER ----
+    const { data: teacher } = await supabaseClient
+      .from('users')
+      .select('*')
+      .eq('staff_id', id)
+      .eq('role', 'teacher')
+      .single();
+
+    if (teacher) {
+      if (password !== teacher.portal_password) {
+        showPortalError('Incorrect password. Please try again.');
+        return;
+      }
+
+      localStorage.setItem('ea-authenticated', 'true');
+      localStorage.setItem('ea-user-role', 'teacher');
+      localStorage.setItem('ea-user-id', teacher.id);
+      localStorage.setItem('ea-user-name', teacher.full_name);
+      localStorage.setItem('ea-staff-id', teacher.staff_id);
+      localStorage.setItem('ea-user-email', teacher.email);
+
+      const { error: authError } = await supabaseClient.auth.signInWithPassword({
+        email: teacher.email,
+        password: password
+      });
+
+      if (authError) {
+        console.warn('Supabase auth sign-in optional warning:', authError.message);
+      }
+
+      window.location.href = 'dashboard-teacher.html';
       return;
     }
 
-    this.textContent = 'Sending...';
-    this.disabled = true;
+    // ---- Check if PARENT (via student family_name) ----
+    const { data: student } = await supabaseClient
+      .from('students')
+      .select('*, classes(name)')
+      .eq('student_code', id)
+      .single();
 
-    // Log the reset request to Supabase messages table
-    // Find the admin user first
-    const { data: adminData } = await supabaseClient
+    if (student) {
+      const familyName = student.family_name || '';
+      const passwordMatch = password.toLowerCase() === familyName.toLowerCase();
+
+      if (!passwordMatch) {
+        showPortalError('Incorrect password. Please use your child\'s family name.');
+        return;
+      }
+
+      // Find linked parent user
+      const { data: parentUser } = await supabaseClient
+        .from('users')
+        .select('*')
+        .eq('pin', student.pin)
+        .eq('role', 'parent')
+        .single();
+
+      if (parentUser?.email) {
+        await supabaseClient.auth.signInWithPassword({
+          email: parentUser.email,
+          password: password
+        }).catch(() => {});
+      }
+
+      localStorage.setItem('ea-authenticated', 'true');
+      localStorage.setItem('ea-user-role', 'parent');
+      localStorage.setItem('ea-user-id', parentUser?.id || student.id);
+      localStorage.setItem('ea-user-name', parentUser?.full_name || student.full_name);
+      localStorage.setItem('ea-student-id', student.id);
+      localStorage.setItem('ea-student-code', student.student_code);
+      localStorage.setItem('ea-student-name', student.full_name);
+      localStorage.setItem('ea-student-class', student.classes?.name || '');
+      localStorage.setItem('ea-user-email', parentUser?.email || '');
+
+      window.location.href = 'dashboard-parent.html';
+      return;
+    }
+
+    showPortalError('ID not found. Please check your Student ID or Staff ID.');
+
+  } catch (err) {
+    console.error('Login error:', err);
+    showPortalError('Something went wrong. Please try again.');
+  }
+
+  function showPortalError(message) {
+    errorText.textContent = message;
+    errorEl.style.display = 'flex';
+    btn.disabled = false;
+    btnText.textContent = 'Sign In';
+  }
+
+  btn.disabled = false;
+  btnText.textContent = 'Sign In';
+});
+
+// ============================================
+// ADMIN LOGIN
+// ============================================
+document.getElementById('ea-admin-form')?.addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById('ea-admin-email').value.trim();
+  const password = document.getElementById('ea-admin-password').value.trim();
+  const btn = document.getElementById('ea-admin-btn');
+  const btnText = document.getElementById('ea-admin-btn-text');
+  const errorEl = document.getElementById('ea-admin-error');
+  const errorText = document.getElementById('ea-admin-error-text');
+
+  errorEl.style.display = 'none';
+  btn.disabled = true;
+  btnText.textContent = 'Signing in...';
+
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      errorText.textContent = 'Invalid email or password. Please try again.';
+      errorEl.style.display = 'flex';
+      btn.disabled = false;
+      btnText.textContent = 'Sign In as Admin';
+      return;
+    }
+
+    const { data: adminUser } = await supabaseClient
       .from('users')
-      .select('id')
+      .select('*')
+      .eq('email', email)
       .eq('role', 'admin')
       .single();
 
-    if (adminData) {
-      await supabaseClient.from('messages').insert({
-        sender_id: adminData.id,
-        receiver_id: adminData.id,
-        body: `PASSWORD RESET REQUEST: User with ID "${id}" has requested a password reset. Please update their password from the Manage Teachers section.`,
-        is_read: false
-      });
+    if (!adminUser) {
+      errorText.textContent = 'Access denied. Admin only.';
+      errorEl.style.display = 'flex';
+      await supabaseClient.auth.signOut();
+      btn.disabled = false;
+      btnText.textContent = 'Sign In as Admin';
+      return;
     }
 
-    forgotSuccess.style.display = 'flex';
-    this.innerHTML = '<span>Request Sent</span> <i class="fas fa-check"></i>';
-    this.disabled = true;
-  });
-}
+    localStorage.setItem('ea-authenticated', 'true');
+    localStorage.setItem('ea-user-role', 'admin');
+    localStorage.setItem('ea-user-name', adminUser.full_name);
+    localStorage.setItem('ea-user-id', adminUser.id);
+    localStorage.setItem('ea-user-email', email);
 
-// ---- Splash Screen ----
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const splash = document.getElementById('ea-splash');
-      if (splash) splash.classList.add('hidden');
-    }, 2000);
-  });
+    window.location.href = 'dashboard-admin.html';
 
+  } catch (err) {
+    console.error('Admin login error:', err);
+    errorText.textContent = 'Something went wrong. Please try again.';
+    errorEl.style.display = 'flex';
+    btn.disabled = false;
+    btnText.textContent = 'Sign In as Admin';
+  }
 });

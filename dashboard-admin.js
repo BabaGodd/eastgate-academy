@@ -23,10 +23,30 @@ function showAdminSkeleton() {
 }
 
 showAdminSkeleton();
+function isPortalSessionActive() {
+  return localStorage.getItem('ea-authenticated') === 'true';
+}
+
 // ---- Check Auth & Load User ----
 // ---- Check Auth & Load User ----
 async function checkAuth() {
   showAdminSkeleton();
+
+  const storedRole = localStorage.getItem('ea-user-role');
+  const storedName = localStorage.getItem('ea-user-name');
+
+  if (isPortalSessionActive() && storedRole === 'admin') {
+    const pageTitle = document.getElementById('ea-page-title');
+    const userName = document.querySelector('.ea-user-name');
+    const userAvatar = document.querySelector('.ea-user-avatar');
+    const firstName = (storedName || 'Admin').split(' ')[0];
+
+    if (pageTitle) pageTitle.textContent = `Welcome, ${firstName}`;
+    if (userName) userName.textContent = storedName || 'Admin';
+    if (userAvatar) userAvatar.textContent = (storedName || 'A').charAt(0).toUpperCase();
+    return;
+  }
+
   const { data: { user } } = await supabaseClient.auth.getUser();
 
   if (!user) {

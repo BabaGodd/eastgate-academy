@@ -84,9 +84,29 @@ function showAttendanceSkeleton() {
   });
 }
 
+function isPortalSessionActive() {
+  return localStorage.getItem('ea-authenticated') === 'true';
+}
+
 // ---- Check Auth & Load User ----
 async function checkParentAuth() {
-   showDashboardSkeleton();
+  showDashboardSkeleton();
+
+  const storedRole = localStorage.getItem('ea-user-role');
+  const storedName = localStorage.getItem('ea-user-name');
+
+  if (isPortalSessionActive() && storedRole === 'parent') {
+    const pageTitle = document.getElementById('ea-parent-page-title');
+    const userName = document.querySelector('.ea-user-name');
+    const userAvatar = document.querySelector('.ea-user-avatar');
+    const firstName = (storedName || 'Parent').split(' ')[0];
+
+    if (pageTitle) pageTitle.textContent = `Welcome, ${firstName}`;
+    if (userName) userName.textContent = storedName || 'Parent';
+    if (userAvatar) userAvatar.textContent = (storedName || 'P').charAt(0).toUpperCase();
+    return;
+  }
+
   const { data: { user } } = await supabaseClient.auth.getUser();
 
   if (!user) {
