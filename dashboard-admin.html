@@ -163,53 +163,174 @@
         </div>
       </section>
 
+ 
       <!-- Add Student Modal -->
-      <div class="ea-modal-overlay" id="ea-add-student-modal" style="display:none;">
-        <div class="ea-modal-box">
-          <div class="ea-modal-header">
-            <h3>Add New Student</h3>
-            <button class="ea-modal-close" id="ea-close-student-modal"><i class="fas fa-times"></i></button>
-          </div>
-          <div class="ea-modal-body">
-            <div class="ea-form-group-modal">
-              <label>Full Name</label>
-              <input type="text" id="ea-new-student-name" class="ea-input" placeholder="e.g. Kofi Mensah" />
-            </div>
-            <div class="ea-form-group-modal">
-              <label>Class</label>
-              <select id="ea-new-student-class" class="ea-input">
-                <option value="">Select Class</option>
-                <option value="fbf7d26e-f621-4b2f-92df-3ee51955c8b5">Creche</option>
-                <option value="b03b87ce-7218-40dd-8e1c-2ce74d317439">Pre-Nursery</option>
-                <option value="27a3a8a6-3133-449d-8d09-8765b31456b4">Nursery</option>
-                <option value="494c5eec-80e8-49b7-a7c9-2c93e5e65a51">KG 1</option>
-                <option value="a13072cb-acc5-4df0-8717-1be83ae9bd17">KG 2</option>
-                <option value="e1f47076-ae7a-4296-b095-e6407edeeb1a">Basic 1</option>
-                <option value="d00d8cdf-dcc1-4e48-8e08-e30c2b180ea7">Basic 2</option>
-                <option value="eaa86daf-957a-439b-8c3a-0d03c9045f05">Basic 3</option>
-                <option value="17d28a1e-e428-4a22-bef5-7e9957b93b85">Basic 4</option>
-                <option value="1b5251b1-6d1f-4f01-a341-8bef7837237d">Basic 5</option>
-                <option value="40382504-df95-4a4a-8e1f-a5fe32130e89">Basic 6</option>
-                <option value="da5d7969-c4b9-4326-a244-6876a32dc063">JHS 1</option>
-              </select>
-            </div>
-            <div class="ea-form-group-modal">
-              <label>Date of Birth</label>
-              <input type="date" id="ea-new-student-dob" class="ea-input" />
-            </div>
-            <div class="ea-modal-btns">
-              <button class="ea-add-user-btn" id="ea-save-student-btn">Add Student</button>
-              <button class="ea-cancel-btn" id="ea-cancel-student-modal">Cancel</button>
-            </div>
-            <p class="ea-modal-success" id="ea-student-success" style="display:none; color:#D94E2A; font-weight:700; margin-top:1rem;">
-              <i class="fas fa-check-circle"></i> Student added successfully!
-            </p>
-            <p class="ea-modal-error" id="ea-student-error" style="display:none; color:#c62828; font-weight:700; margin-top:1rem;">
-              <i class="fas fa-exclamation-circle"></i> <span id="ea-student-error-text"></span>
-            </p>
-          </div>
+<div class="ea-modal-overlay" id="ea-add-student-modal" style="display:none;">
+  <div class="ea-modal-box" style="max-width:680px;">
+    <div class="ea-modal-header">
+      <h3>Add New Student</h3>
+      <button class="ea-modal-close" id="ea-close-student-modal"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="ea-modal-body" style="max-height:70vh; overflow-y:auto;">
+
+      <!-- Student Information -->
+      <p style="font-size:0.78rem; text-transform:uppercase; color:#D94E2A; font-weight:700; margin-bottom:0.8rem;">
+        <i class="fas fa-child"></i> Student Information
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+        <div class="ea-form-group-modal">
+          <label>First Name <span style="color:#D94E2A;">*</span></label>
+          <input type="text" id="ea-student-firstname" class="ea-input" placeholder="e.g. Ama" />
+        </div>
+        <div class="ea-form-group-modal">
+          <label>Last Name <span style="color:#D94E2A;">*</span></label>
+          <input type="text" id="ea-student-lastname" class="ea-input" placeholder="e.g. Boateng" />
         </div>
       </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+        <div class="ea-form-group-modal">
+          <label>Middle Name <span style="color:#888; font-size:0.78rem;">(optional)</span></label>
+          <input type="text" id="ea-student-middlename" class="ea-input" placeholder="e.g. Kofi" />
+        </div>
+        <div class="ea-form-group-modal">
+          <label>Gender <span style="color:#D94E2A;">*</span></label>
+          <select id="ea-student-gender" class="ea-input">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+        <div class="ea-form-group-modal">
+          <label>Date of Birth <span style="color:#D94E2A;">*</span></label>
+          <input type="date" id="ea-new-student-dob" class="ea-input" />
+        </div>
+        <div class="ea-form-group-modal">
+          <label>Class <span style="color:#D94E2A;">*</span></label>
+          <select id="ea-new-student-class" class="ea-input">
+            <option value="">Select Class</option>
+            <option value="fbf7d26e-f621-4b2f-92df-3ee51955c8b5">Creche</option>
+            <option value="b03b87ce-7218-40dd-8e1c-2ce74d317439">Pre-Nursery</option>
+            <option value="27a3a8a6-3133-449d-8d09-8765b31456b4">Nursery</option>
+            <option value="8929e0c1-e505-4256-bdb5-68ab201c347e">Pre-Reception</option>
+            <option value="55efc324-5157-4695-bf95-2774230655c6">Reception</option>
+            <option value="494c5eec-80e8-49b7-a7c9-2c93e5e65a51">KG 1</option>
+            <option value="a13072cb-acc5-4df0-8717-1be83ae9bd17">KG 2</option>
+            <option value="e1f47076-ae7a-4296-b095-e6407edeeb1a">Basic 1</option>
+            <option value="d00d8cdf-dcc1-4e48-8e08-e30c2b180ea7">Basic 2</option>
+            <option value="eaa86daf-957a-439b-8c3a-0d03c9045f05">Basic 3</option>
+            <option value="17d28a1e-e428-4a22-bef5-7e9957b93b85">Basic 4</option>
+            <option value="1b5251b1-6d1f-4f01-a341-8bef7837237d">Basic 5</option>
+            <option value="40382504-df95-4a4a-8e1f-a5fe32130e89">Basic 6</option>
+            <option value="da5d7969-c4b9-4326-a244-6876a32dc063">JHS 1</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem;">
+        <div class="ea-form-group-modal">
+          <label>Date of Enrollment</label>
+          <input type="date" id="ea-student-enrollment" class="ea-input" />
+        </div>
+        <div class="ea-form-group-modal">
+          <label>Previous School</label>
+          <input type="text" id="ea-student-prevschool" class="ea-input" placeholder="e.g. Sunshine School" />
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div style="border-top:2px solid #FDF0EC; margin-bottom:1rem;"></div>
+
+      <!-- Parent Information -->
+      <p style="font-size:0.78rem; text-transform:uppercase; color:#D94E2A; font-weight:700; margin-bottom:0.8rem;">
+        <i class="fas fa-user"></i> Parent / Guardian Information
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+        <div class="ea-form-group-modal">
+          <label>Parent / Guardian Name <span style="color:#D94E2A;">*</span></label>
+          <input type="text" id="ea-student-parentname" class="ea-input" placeholder="e.g. Kweku Boateng" />
+        </div>
+        <div class="ea-form-group-modal">
+          <label>Relationship <span style="color:#D94E2A;">*</span></label>
+          <select id="ea-student-relationship" class="ea-input">
+            <option value="">Select relationship</option>
+            <option value="Father">Father</option>
+            <option value="Mother">Mother</option>
+            <option value="Guardian">Guardian</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+        <div class="ea-form-group-modal">
+          <label>Primary Phone <span style="color:#D94E2A;">*</span></label>
+          <input type="tel" id="ea-student-phone1" class="ea-input" placeholder="e.g. 0244512123" />
+        </div>
+        <div class="ea-form-group-modal">
+          <label>Secondary Phone <span style="color:#888; font-size:0.78rem;">(optional)</span></label>
+          <input type="tel" id="ea-student-phone2" class="ea-input" placeholder="e.g. 0554321234" />
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem;">
+        <div class="ea-form-group-modal">
+          <label>Parent Email <span style="color:#888; font-size:0.78rem;">(optional)</span></label>
+          <input type="email" id="ea-student-parentemail" class="ea-input" placeholder="parent@gmail.com" />
+        </div>
+        <div class="ea-form-group-modal">
+          <label>Home Address</label>
+          <input type="text" id="ea-student-address" class="ea-input" placeholder="e.g. New Dawhenya, Tema" />
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div style="border-top:2px solid #FDF0EC; margin-bottom:1rem;"></div>
+
+      <!-- Emergency & Medical -->
+      <p style="font-size:0.78rem; text-transform:uppercase; color:#D94E2A; font-weight:700; margin-bottom:0.8rem;">
+        <i class="fas fa-heartbeat"></i> Emergency & Medical
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+        <div class="ea-form-group-modal">
+          <label>Emergency Contact Name</label>
+          <input type="text" id="ea-student-emergname" class="ea-input" placeholder="e.g. Auntie Grace" />
+        </div>
+        <div class="ea-form-group-modal">
+          <label>Emergency Contact Number</label>
+          <input type="tel" id="ea-student-emergphone" class="ea-input" placeholder="e.g. 0201234567" />
+        </div>
+      </div>
+
+      <div class="ea-form-group-modal" style="margin-bottom:1.2rem;">
+        <label>Medical Conditions / Special Needs <span style="color:#888; font-size:0.78rem;">(optional)</span></label>
+        <textarea id="ea-student-medical" class="ea-input" rows="2" placeholder="e.g. Asthma, Allergic to peanuts..." style="resize:vertical;"></textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="ea-modal-btns">
+        <button class="ea-add-user-btn" id="ea-save-student-btn">
+          <i class="fas fa-user-plus"></i> Add Student
+        </button>
+        <button class="ea-cancel-btn" id="ea-cancel-student-modal">Cancel</button>
+      </div>
+
+      <p class="ea-modal-success" id="ea-student-success" style="display:none; color:#388E3C; font-weight:700; margin-top:1rem;">
+        <i class="fas fa-check-circle"></i> Student added successfully!
+      </p>
+      <p class="ea-modal-error" id="ea-student-error" style="display:none; color:#c62828; font-weight:700; margin-top:1rem;">
+        <i class="fas fa-exclamation-circle"></i> <span id="ea-student-error-text"></span>
+      </p>
+
+    </div>
+  </div>
+</div>
 
       <!-- Add Parent Modal -->
       <div class="ea-modal-overlay" id="ea-add-parent-modal" style="display:none;">

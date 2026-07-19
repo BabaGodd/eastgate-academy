@@ -865,61 +865,159 @@ if (cancelStudentModal) {
 
 if (saveStudentBtn) {
   saveStudentBtn.addEventListener('click', async function () {
-    const name = document.getElementById('ea-new-student-name').value.trim();
-    const classId = document.getElementById('ea-new-student-class').value;
-    const dob = document.getElementById('ea-new-student-dob').value;
+    const firstName = document.getElementById('ea-student-firstname')?.value.trim() || '';
+    const lastName = document.getElementById('ea-student-lastname')?.value.trim() || '';
+    const middleName = document.getElementById('ea-student-middlename')?.value.trim() || '';
+    const gender = document.getElementById('ea-student-gender')?.value || '';
+    const dob = document.getElementById('ea-new-student-dob')?.value || '';
+    const classId = document.getElementById('ea-new-student-class')?.value || '';
+    const enrollment = document.getElementById('ea-student-enrollment')?.value || '';
+    const prevSchool = document.getElementById('ea-student-prevschool')?.value.trim() || '';
+    const parentName = document.getElementById('ea-student-parentname')?.value.trim() || '';
+    const relationship = document.getElementById('ea-student-relationship')?.value || '';
+    const phone1 = document.getElementById('ea-student-phone1')?.value.trim() || '';
+    const phone2 = document.getElementById('ea-student-phone2')?.value.trim() || '';
+    const parentEmail = document.getElementById('ea-student-parentemail')?.value.trim() || '';
+    const address = document.getElementById('ea-student-address')?.value.trim() || '';
+    const emergName = document.getElementById('ea-student-emergname')?.value.trim() || '';
+    const emergPhone = document.getElementById('ea-student-emergphone')?.value.trim() || '';
+    const medical = document.getElementById('ea-student-medical')?.value.trim() || '';
+
     const successMsg = document.getElementById('ea-student-success');
     const errorMsg = document.getElementById('ea-student-error');
     const errorText = document.getElementById('ea-student-error-text');
 
-    successMsg.style.display = 'none';
-    errorMsg.style.display = 'none';
+    if (successMsg) successMsg.style.display = 'none';
+    if (errorMsg) errorMsg.style.display = 'none';
 
-    if (!name || !classId) {
-      errorText.textContent = 'Please fill in name and class.';
-      errorMsg.style.display = 'block';
+    if (!firstName) {
+      if (errorText) errorText.textContent = "Please enter the student's first name.";
+      if (errorMsg) errorMsg.style.display = 'block';
       return;
     }
 
-    // Generate student code
+    if (!lastName) {
+      if (errorText) errorText.textContent = "Please enter the student's last name.";
+      if (errorMsg) errorMsg.style.display = 'block';
+      return;
+    }
+
+    if (!gender) {
+      if (errorText) errorText.textContent = 'Please select a gender.';
+      if (errorMsg) errorMsg.style.display = 'block';
+      return;
+    }
+
+    if (!dob) {
+      if (errorText) errorText.textContent = 'Please enter date of birth.';
+      if (errorMsg) errorMsg.style.display = 'block';
+      return;
+    }
+
+    if (!classId) {
+      if (errorText) errorText.textContent = 'Please select a class.';
+      if (errorMsg) errorMsg.style.display = 'block';
+      return;
+    }
+
+    if (!parentName) {
+      if (errorText) errorText.textContent = 'Please enter parent or guardian name.';
+      if (errorMsg) errorMsg.style.display = 'block';
+      return;
+    }
+
+    if (!relationship) {
+      if (errorText) errorText.textContent = 'Please select relationship to child.';
+      if (errorMsg) errorMsg.style.display = 'block';
+      return;
+    }
+
+    if (!phone1) {
+      if (errorText) errorText.textContent = 'Please enter a primary phone number.';
+      if (errorMsg) errorMsg.style.display = 'block';
+      return;
+    }
+
+    const fullName = middleName
+      ? `${lastName} ${firstName} ${middleName}`
+      : `${lastName} ${firstName}`;
+
     const { count } = await supabaseClient
       .from('students')
       .select('*', { count: 'exact', head: true });
 
-    const newCount = (count || 0) + 1;
+    const nextNum = String((count || 0) + 1).padStart(3, '0');
     const year = new Date().getFullYear();
-    const studentCode = `EA-${year}-${String(newCount).padStart(3, '0')}`;
+    const studentCode = `EA-${year}-${nextNum}`;
 
-    const { error } = await supabaseClient
+    const { error: studentError } = await supabaseClient
       .from('students')
       .insert({
-        full_name: name,
+        full_name: fullName,
+        first_name: firstName,
+        last_name: lastName,
+        middle_name: middleName || null,
+        gender: gender,
+        date_of_birth: dob,
         class_id: classId,
         student_code: studentCode,
-        date_of_birth: dob || null
-      });
+        family_name: lastName,
+        enrollment_date: enrollment || null,
+        previous_school: prevSchool || null,
+        parent_name: parentName,
+        parent_relationship: relationship,
+        parent_phone: phone1,
+        parent_phone2: phone2 || null,
+        parent_email: parentEmail || null,
+        home_address: address || null,
+        emergency_contact_name: emergName || null,
+        emergency_contact_phone: emergPhone || null,
+        medical_notes: medical || null,
+      })
+      .select()
+      .single();
 
-    if (error) {
-      errorText.textContent = 'Error adding student. Please try again.';
-      errorMsg.style.display = 'block';
+    if (studentError) {
+      console.error('Error adding student:', studentError);
+      if (errorText) errorText.textContent = 'Error adding student. Please try again.';
+      if (errorMsg) errorMsg.style.display = 'block';
       return;
     }
 
-    successMsg.innerHTML = `<i class="fas fa-check-circle"></i> Student added! Student ID: <strong>${studentCode}</strong>`;
-    successMsg.style.display = 'block';
+    if (successMsg) {
+      successMsg.innerHTML = `<i class="fas fa-check-circle"></i> Student added! ID: <strong>${studentCode}</strong> — Password: <strong>${lastName}</strong>`;
+      successMsg.style.display = 'block';
+    }
 
-    // Clear form
-    document.getElementById('ea-new-student-name').value = '';
-    document.getElementById('ea-new-student-class').value = '';
-    document.getElementById('ea-new-student-dob').value = '';
+    const clearField = (id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    };
 
-    // Refresh stats
+    clearField('ea-student-firstname');
+    clearField('ea-student-lastname');
+    clearField('ea-student-middlename');
+    clearField('ea-student-gender');
+    clearField('ea-new-student-dob');
+    clearField('ea-new-student-class');
+    clearField('ea-student-enrollment');
+    clearField('ea-student-prevschool');
+    clearField('ea-student-parentname');
+    clearField('ea-student-relationship');
+    clearField('ea-student-phone1');
+    clearField('ea-student-phone2');
+    clearField('ea-student-parentemail');
+    clearField('ea-student-address');
+    clearField('ea-student-emergname');
+    clearField('ea-student-emergphone');
+    clearField('ea-student-medical');
+
     loadStats();
 
     setTimeout(() => {
-      addStudentModal.style.display = 'none';
-      successMsg.style.display = 'none';
-    }, 3000);
+      if (addStudentModal) addStudentModal.style.display = 'none';
+      if (successMsg) successMsg.style.display = 'none';
+    }, 5000);
   });
 }
 
