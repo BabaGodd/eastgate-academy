@@ -2244,6 +2244,27 @@ ul { list-style: none; }
   gap: 1.5rem;
 }
 
+.ea-staff-management-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.ea-staff-management-top {
+  display: flex;
+  justify-content: center;
+}
+
+.ea-staff-management-top .ea-staff-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.ea-staff-management-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
 .ea-staff-grid-support {
   grid-template-columns: repeat(2, 1fr);
   max-width: 800px;

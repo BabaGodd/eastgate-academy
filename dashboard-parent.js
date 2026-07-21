@@ -104,7 +104,12 @@ async function checkParentAuth() {
     if (pageTitle) pageTitle.textContent = `Welcome, ${firstName}`;
     if (userName) userName.textContent = storedName || 'Parent';
     if (userAvatar) userAvatar.textContent = (storedName || 'P').charAt(0).toUpperCase();
-    return;
+
+    const storedParentId = localStorage.getItem('ea-user-id') || localStorage.getItem('ea-student-id');
+    if (storedParentId) {
+      loadParentData(storedParentId);
+      return;
+    }
   }
 
   const { data: { user } } = await supabaseClient.auth.getUser();
@@ -149,7 +154,7 @@ checkParentAuth();
 
 // ---- Load Parent Data ----
 async function loadParentData(parentId) {
-  // Get child linked to this parent
+  // Get child linked to this parent (allow fallback when only student ID is available)
   const { data: child } = await supabaseClient
     .from('students')
     .select(`
@@ -158,10 +163,46 @@ async function loadParentData(parentId) {
         users (full_name)
       )
     `)
-    .eq('parent_id', parentId)
+    .or(`parent_id.eq.${parentId},id.eq.${parentId}`)
     .single();
 
-  if (!child) return;
+  if (!child) {
+    const statsGrid = document.querySelector('.ea-p-stats-grid');
+    const childCard = document.querySelector('.ea-p-child-card');
+
+    if (statsGrid) {
+      statsGrid.innerHTML = `
+        <div class="ea-p-stat-card ea-p-purple">
+          <p class="ea-p-stat-label">Child's Class</p>
+          <p class="ea-p-stat-value">—</p>
+        </div>
+        <div class="ea-p-stat-card ea-p-green">
+          <p class="ea-p-stat-label">Average Grade</p>
+          <p class="ea-p-stat-value">—</p>
+        </div>
+        <div class="ea-p-stat-card ea-p-blue">
+          <p class="ea-p-stat-label">Attendance Rate</p>
+          <p class="ea-p-stat-value">—</p>
+        </div>
+        <div class="ea-p-stat-card ea-p-orange">
+          <p class="ea-p-stat-label">Fees Status</p>
+          <p class="ea-p-stat-value ea-p-fees-due">Pending</p>
+        </div>
+      `;
+    }
+
+    if (childCard) {
+      childCard.innerHTML = `
+        <div class="ea-p-child-avatar">—</div>
+        <div class="ea-p-child-info">
+          <p class="ea-p-child-name">No linked student found</p>
+          <p class="ea-p-child-detail">Please contact the school to link your account.</p>
+        </div>
+      `;
+    }
+
+    return;
+  }
 
       localStorage.setItem('ea-student-name', child.full_name);
       localStorage.setItem('ea-student-code', child.student_code || 'N/A');
