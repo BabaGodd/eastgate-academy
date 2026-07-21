@@ -2432,10 +2432,25 @@ ul { list-style: none; }
   .ea-staff-philosophy-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .ea-staff-grid { grid-template-columns: 1fr; }
   .ea-staff-grid-support { grid-template-columns: 1fr; }
+  .ea-staff-management-grid { gap: 1rem; }
+  .ea-staff-management-row { grid-template-columns: 1fr; }
+  .ea-staff-management-top .ea-staff-card { max-width: 100%; }
   .ea-join-team-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .ea-join-team-icons { grid-template-columns: repeat(2, 1fr); }
   .ea-staff-card { flex-direction: column; align-items: center; text-align: center; }
   .ea-staff-qual { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .ea-staff-section { padding: 4rem 0; }
+  .ea-staff-management-top .ea-staff-card,
+  .ea-staff-management-row .ea-staff-card {
+    padding: 1.15rem;
+  }
+  .ea-staff-avatar {
+    width: 72px;
+    height: 72px;
+  }
 }
 
 /* ============================================
