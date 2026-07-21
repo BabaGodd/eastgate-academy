@@ -2321,6 +2321,14 @@ ul { list-style: none; }
   object-fit: cover;
 }
 
+.ea-staff-card-frank .ea-staff-avatar img {
+  object-fit: cover;
+  object-position: center 18%;
+  transform: scale(1.06);
+  background: #fff;
+  box-sizing: border-box;
+}
+
 .ea-staff-avatar-sm {
   width: 80px;
   height: 80px;
