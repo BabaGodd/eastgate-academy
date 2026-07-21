@@ -472,6 +472,70 @@ async function loadParentAnnouncements() {
   }).join('');
 }
 
+// ---- Change Parent Password ----
+async function changeParentPassword(studentId, newPassword, confirmPassword) {
+  const successEl = document.getElementById('ea-parent-pwd-success');
+  const errorEl = document.getElementById('ea-parent-pwd-error');
+
+  if (successEl) successEl.style.display = 'none';
+  if (errorEl) errorEl.style.display = 'none';
+
+  if (!newPassword) {
+    if (errorEl) {
+      errorEl.textContent = 'Please enter a new password.';
+      errorEl.style.display = 'block';
+    }
+    return;
+  }
+
+  if (newPassword.length < 6) {
+    if (errorEl) {
+      errorEl.textContent = 'Password must be at least 6 characters.';
+      errorEl.style.display = 'block';
+    }
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    if (errorEl) {
+      errorEl.textContent = 'Passwords do not match.';
+      errorEl.style.display = 'block';
+    }
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from('students')
+    .update({ family_name: newPassword })
+    .eq('id', studentId);
+
+  if (error) {
+    if (errorEl) {
+      errorEl.textContent = 'Something went wrong. Please try again.';
+      errorEl.style.display = 'block';
+    }
+    return;
+  }
+
+  if (successEl) {
+    successEl.textContent = '✅ Password changed successfully! Use your new password next time you log in.';
+    successEl.style.display = 'block';
+  }
+
+  const newPwdInput = document.getElementById('ea-new-parent-pwd');
+  const confirmPwdInput = document.getElementById('ea-confirm-parent-pwd');
+  if (newPwdInput) newPwdInput.value = '';
+  if (confirmPwdInput) confirmPwdInput.value = '';
+}
+
+// ---- Attach password change listener ----
+document.getElementById('ea-change-parent-pwd-btn')?.addEventListener('click', function () {
+  const studentId = sessionStorage.getItem('ea-student-id') || localStorage.getItem('ea-student-id');
+  const newPassword = document.getElementById('ea-new-parent-pwd')?.value.trim() || '';
+  const confirmPassword = document.getElementById('ea-confirm-parent-pwd')?.value.trim() || '';
+  changeParentPassword(studentId, newPassword, confirmPassword);
+});
+
 // ---- Sidebar Navigation ----
 const parentLinks = document.querySelectorAll('.ea-parent-link');
 const parentSections = document.querySelectorAll('.ea-parent-section');

@@ -34,6 +34,12 @@
           <li><a href="#" class="ea-nav-link" data-section="results" data-title="View Results">View Results</a></li>
           <li><a href="#" class="ea-nav-link" data-section="announcements" data-title="Announcements">Announcements</a></li>
           <li><a href="#" class="ea-nav-link" data-section="teachers" data-title="Manage Teachers">Manage Teachers</a></li>
+          <li>
+            <a href="#" class="ea-nav-link" data-section="parent-passwords" data-title="Parent Passwords">
+              Parent Passwords
+            </a>
+          </li>
+          <li><a href="#" class="ea-nav-link" data-section="parent-passwords" data-title="Parent Passwords">Parent Passwords</a></li>
           <li><a href="#" id="ea-admin-logout">Logout</a></li>
         </ul>
       </nav>
@@ -593,6 +599,61 @@
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- PARENT PASSWORDS -->
+      <section class="ea-admin-content ea-section" id="section-parent-passwords" style="display:none;">
+        <div class="ea-users-top">
+          <h2>Parent Passwords</h2>
+        </div>
+        <div class="ea-table-wrap">
+          <table class="ea-table" id="ea-parent-pwd-table">
+            <thead>
+              <tr>
+                <th>Parent/Student Name</th>
+                <th>Student Code</th>
+                <th>Class</th>
+                <th>Current Password</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="ea-parent-pwd-tbody">
+              <tr>
+                <td colspan="5" style="text-align:center; padding:2rem; color:#aaa;">
+                  Loading parent passwords...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Parent Passwords Section -->
+      <section class="ea-admin-content ea-section" id="section-parent-passwords" style="display:none;">
+        <div class="ea-users-top">
+          <h2>Parent Portal Passwords</h2>
+          <p style="font-size:0.85rem; color:#666;">View and reset parent portal passwords for all students.</p>
+        </div>
+        <div class="ea-table-wrap">
+          <table class="ea-table">
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>Class</th>
+                <th>Current Password</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="ea-parent-pwd-tbody">
+              <tr>
+                <td colspan="5" style="text-align:center; padding:2rem; color:#aaa;">
+                  Loading...
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 

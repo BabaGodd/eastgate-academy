@@ -53,6 +53,7 @@
           <li><a href="#" class="ea-parent-link" data-section="fees" data-title="Pay School Fees">Pay School Fees</a></li>
           <li><a href="#" class="ea-parent-link" data-section="messages" data-title="Messages">Messages</a></li>
           <li><a href="#" class="ea-parent-link" data-section="events" data-title="School Events">School Events</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="settings" data-title="Account Settings">Settings</a></li>
           <li><a href="#" id="ea-parent-logout">Logout</a></li>
         </ul>
       </nav>
@@ -371,6 +372,39 @@
               <p class="ea-p-event-detail">Upcoming events will appear here once they are published by the school.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="ea-admin-content ea-section ea-parent-content ea-parent-section" id="section-settings" style="display:none;">
+        <h2>Account Settings</h2>
+
+        <div class="ea-inner-form" style="max-width:500px;">
+          <h3 style="color:#D94E2A; font-family:'Playfair Display',serif; margin-bottom:1.2rem;">
+            <i class="fas fa-key"></i> Change Password
+          </h3>
+          <p style="font-size:0.88rem; color:#666; margin-bottom:1.2rem;">
+            Your default password is your child's family name. We recommend changing it to something more secure.
+          </p>
+
+          <div class="ea-inner-group">
+            <label>New Password</label>
+            <input type="password" id="ea-new-parent-pwd" class="ea-input"
+              placeholder="Enter new password (min 6 characters)" />
+          </div>
+
+          <div class="ea-inner-group">
+            <label>Confirm New Password</label>
+            <input type="password" id="ea-confirm-parent-pwd" class="ea-input"
+              placeholder="Confirm new password" />
+          </div>
+
+          <button class="ea-add-user-btn" id="ea-change-parent-pwd-btn" style="margin-top:1rem;">
+            <i class="fas fa-save"></i> Save New Password
+          </button>
+
+          <p id="ea-parent-pwd-success" style="display:none; color:#388E3C; font-weight:600; margin-top:1rem;"></p>
+          <p id="ea-parent-pwd-error" style="display:none; color:#c62828; font-weight:600; margin-top:1rem;"></p>
         </div>
       </section>
 

@@ -740,6 +740,58 @@ function highlightCells(row, query) {
 // ---- Manage Teachers ----
 let selectedTeacherId = null;
 
+async function loadParentPasswords() {
+  const { data: students, error } = await supabaseClient
+    .from('students')
+    .select('full_name, student_code, family_name, class_id, classes(name)')
+    .order('student_code');
+
+  if (error || !students) return;
+
+  const tbody = document.getElementById('ea-parent-pwd-tbody');
+  if (!tbody) return;
+
+  tbody.innerHTML = students.map(s => `
+    <tr>
+      <td>${s.full_name || '-'}</td>
+      <td>${s.student_code || '-'}</td>
+      <td>${s.classes?.name || '-'}</td>
+      <td>${s.family_name || '-'}</td>
+      <td>
+        <button class="ea-view-btn reset-parent-pwd-btn"
+          data-student-code="${s.student_code || ''}"
+          data-family-name="${(s.family_name || '').replace(/"/g, '&quot;')}">
+          Reset
+        </button>
+      </td>
+    </tr>
+  `).join('');
+
+  document.querySelectorAll('.reset-parent-pwd-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const studentCode = this.getAttribute('data-student-code');
+      const familyName = this.getAttribute('data-family-name');
+      resetParentPassword(studentCode, familyName);
+    });
+  });
+}
+
+async function resetParentPassword(studentCode, familyName) {
+  if (!confirm(`Reset password for ${studentCode} back to "${familyName}"?`)) return;
+
+  const { error } = await supabaseClient
+    .from('students')
+    .update({ family_name: familyName })
+    .eq('student_code', studentCode);
+
+  if (!error) {
+    alert('Password reset successfully!');
+    loadParentPasswords();
+  } else {
+    alert('Failed to reset password. Please try again.');
+  }
+}
+
 async function loadTeachers() {
   const { data: teachers, error } = await supabaseClient
     .from('users')
@@ -792,8 +844,12 @@ async function loadTeachers() {
 // Load teachers when section is shown
 document.querySelectorAll('.ea-nav-link').forEach(link => {
   link.addEventListener('click', function () {
-    if (this.getAttribute('data-section') === 'teachers') {
+    const section = this.getAttribute('data-section');
+    if (section === 'teachers') {
       loadTeachers();
+    }
+    if (section === 'parent-passwords') {
+      loadParentPasswords();
     }
   });
 });
