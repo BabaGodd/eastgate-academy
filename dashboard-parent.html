@@ -246,9 +246,17 @@
 
         <!-- Fees Summary -->
         <div class="ea-p-fees-summary">
-          <div class="ea-p-fees-info">
+          <div class="ea-p-fees-info ea-p-fees-identity-card">
             <p class="ea-p-fees-label">Student</p>
-            <p class="ea-p-fees-value">Student Name — Class —</p>
+            <p class="ea-p-fees-value ea-p-fees-identity" id="ea-fees-student-summary">Student Name — Class —</p>
+          </div>
+          <div class="ea-p-fees-info">
+            <p class="ea-p-fees-label">Student ID</p>
+            <p class="ea-p-fees-value" id="ea-fees-student-id">—</p>
+          </div>
+          <div class="ea-p-fees-info">
+            <p class="ea-p-fees-label">Class</p>
+            <p class="ea-p-fees-value" id="ea-fees-student-class">—</p>
           </div>
           <div class="ea-p-fees-info">
             <p class="ea-p-fees-label">Term</p>
@@ -376,35 +384,38 @@
       </section>
 
       <!-- SETTINGS -->
-      <section class="ea-admin-content ea-section ea-parent-content ea-parent-section" id="section-settings" style="display:none;">
-        <h2>Account Settings</h2>
-
-        <div class="ea-inner-form" style="max-width:500px;">
-          <h3 style="color:#D94E2A; font-family:'Playfair Display',serif; margin-bottom:1.2rem;">
-            <i class="fas fa-key"></i> Change Password
-          </h3>
-          <p style="font-size:0.88rem; color:#666; margin-bottom:1.2rem;">
-            Your default password is your child's family name. We recommend changing it to something more secure.
-          </p>
-
-          <div class="ea-inner-group">
-            <label>New Password</label>
-            <input type="password" id="ea-new-parent-pwd" class="ea-input"
-              placeholder="Enter new password (min 6 characters)" />
+      <section class="ea-admin-content ea-section ea-parent-content ea-parent-section ea-p-settings-section" id="section-settings" style="display:none;">
+        <div class="ea-p-settings-card">
+          <div class="ea-p-settings-header">
+            <div class="ea-p-settings-icon">
+              <i class="fas fa-key"></i>
+            </div>
+            <div>
+              <h2>Account Settings</h2>
+              <p>Your default password is your child's family name. We recommend changing it to something more secure.</p>
+            </div>
           </div>
 
-          <div class="ea-inner-group">
-            <label>Confirm New Password</label>
-            <input type="password" id="ea-confirm-parent-pwd" class="ea-input"
-              placeholder="Confirm new password" />
+          <div class="ea-p-settings-form">
+            <div class="ea-inner-group ea-p-form-group">
+              <label for="ea-new-parent-pwd">New Password</label>
+              <input type="password" id="ea-new-parent-pwd" class="ea-input ea-p-input"
+                placeholder="Enter new password (min 6 characters)" />
+            </div>
+
+            <div class="ea-inner-group ea-p-form-group">
+              <label for="ea-confirm-parent-pwd">Confirm New Password</label>
+              <input type="password" id="ea-confirm-parent-pwd" class="ea-input ea-p-input"
+                placeholder="Confirm new password" />
+            </div>
+
+            <button class="ea-add-user-btn ea-p-settings-btn" id="ea-change-parent-pwd-btn">
+              <i class="fas fa-save"></i> Save New Password
+            </button>
+
+            <p id="ea-parent-pwd-success" class="ea-p-settings-message ea-p-settings-success" style="display:none;"></p>
+            <p id="ea-parent-pwd-error" class="ea-p-settings-message ea-p-settings-error" style="display:none;"></p>
           </div>
-
-          <button class="ea-add-user-btn" id="ea-change-parent-pwd-btn" style="margin-top:1rem;">
-            <i class="fas fa-save"></i> Save New Password
-          </button>
-
-          <p id="ea-parent-pwd-success" style="display:none; color:#388E3C; font-weight:600; margin-top:1rem;"></p>
-          <p id="ea-parent-pwd-error" style="display:none; color:#c62828; font-weight:600; margin-top:1rem;"></p>
         </div>
       </section>
 

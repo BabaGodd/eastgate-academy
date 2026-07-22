@@ -11,7 +11,7 @@ body {
 
 /* Sidebar */
 .ea-parent-sidebar {
-  background-color: #6A1B9A;
+  background: linear-gradient(180deg, #D94E2A 0%, #7A1E0A 100%);
   color: white;
   width: 240px;
   padding: 2rem 1rem;
@@ -48,7 +48,7 @@ body {
 
 .ea-parent-nav a:hover,
 .ea-parent-link.active {
-  background-color: #8E24AA;
+  background-color: #F5916E;
 }
 
 /* Main */
@@ -61,7 +61,7 @@ body {
 .ea-parent-header h1 {
   text-align: center;
   font-size: 1.8rem;
-  color: #6A1B9A;
+  color: #D94E2A;
   margin-bottom: 1.5rem;
 }
 
@@ -79,7 +79,7 @@ body {
   background: white;
   border-radius: 10px;
   padding: 1rem 1.2rem;
-  border-left: 4px solid #6A1B9A;
+  border-left: 4px solid #D94E2A;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
@@ -95,8 +95,8 @@ body {
   margin: 0;
 }
 
-.ea-p-purple { border-left-color: #6A1B9A; }
-.ea-p-purple .ea-p-stat-value { color: #6A1B9A; }
+.ea-p-purple { border-left-color: #D94E2A; }
+.ea-p-purple .ea-p-stat-value { color: #D94E2A; }
 .ea-p-green { border-left-color: #388E3C; }
 .ea-p-green .ea-p-stat-value { color: #388E3C; }
 .ea-p-blue { border-left-color: #1976D2; }
@@ -121,11 +121,11 @@ body {
   align-items: center;
   gap: 1.2rem;
   margin-bottom: 1rem;
-  border-left: 4px solid #6A1B9A;
+  border-left: 4px solid #D94E2A;
 }
 
 .ea-p-child-avatar {
-  background: #6A1B9A;
+  background: #D94E2A;
   color: white;
   font-size: 1.2rem;
   font-weight: bold;
@@ -164,7 +164,7 @@ body {
   border-radius: 10px;
   padding: 1rem 1.2rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  border-left: 4px solid #6A1B9A;
+  border-left: 4px solid #D94E2A;
 }
 
 .ea-p-ann-top {
@@ -201,7 +201,7 @@ body {
 .ea-p-top-bar h2 { margin: 0; color: #333; }
 
 .ea-p-primary-btn {
-  background: #6A1B9A;
+  background: #D94E2A;
   color: white;
   border: none;
   padding: 0.5rem 1.2rem;
@@ -213,7 +213,7 @@ body {
   display: inline-block;
 }
 
-.ea-p-primary-btn:hover { background: #8E24AA; }
+.ea-p-primary-btn:hover { background: #7A1E0A; }
 
 /* Filter bar */
 .ea-p-filter-bar {
@@ -245,11 +245,11 @@ body {
   font-size: 14px;
 }
 
-.ea-p-table thead { background: #6A1B9A; color: white; }
+.ea-p-table thead { background: #D94E2A; color: white; }
 .ea-p-table th { padding: 12px 16px; text-align: left; font-weight: 600; }
 .ea-p-table td { padding: 11px 16px; border-bottom: 1px solid #f0f0f0; color: #444; }
 .ea-p-table tr:last-child td { border-bottom: none; }
-.ea-p-table tr:hover td { background: #f9f4fc; }
+.ea-p-table tr:hover td { background: #FDF0EC; }
 
 /* Grade badges */
 .ea-p-grade {
@@ -307,10 +307,18 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1rem;
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1.2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
   margin-bottom: 1rem;
+}
+
+.ea-p-fees-identity-card {
+  grid-column: 1 / -1;
+  border: 1px solid #fce2d8;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff8f5 0%, #fdf0eb 100%);
+  padding: 0.95rem 1rem;
 }
 
 .ea-p-fees-label {
@@ -326,7 +334,61 @@ body {
   margin: 0;
 }
 
-.ea-p-amount { color: #6A1B9A; font-size: 1.3rem !important; }
+.ea-p-fees-identity {
+  margin-top: 0.15rem;
+}
+
+.ea-fees-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.ea-fees-profile-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D94E2A 0%, #7A1E0A 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.ea-fees-profile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.ea-fees-profile-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2b2b2b;
+}
+
+.ea-fees-profile-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.ea-fees-tag {
+  display: inline-flex;
+  align-items: center;
+  background: #FDF0EC;
+  color: #7A1E0A;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.ea-p-amount { color: #D94E2A; font-size: 1.3rem !important; }
 
 .ea-p-fees-badge {
   font-size: 12px;
@@ -358,13 +420,13 @@ body {
 }
 
 .ea-p-network-card:hover {
-  border-color: #6A1B9A;
+  border-color: #D94E2A;
   transform: translateY(-2px);
 }
 
 .ea-p-network-card.selected {
-  border-color: #6A1B9A;
-  background: #f9f4fc;
+  border-color: #D94E2A;
+  background: #FDF0EC;
 }
 
 .ea-p-network-icon {
@@ -398,7 +460,7 @@ body {
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   margin-bottom: 1.5rem;
-  border-top: 4px solid #6A1B9A;
+  border-top: 4px solid #D94E2A;
 }
 
 .ea-p-form-group {
@@ -425,7 +487,7 @@ body {
 
 .ea-p-input:focus {
   outline: none;
-  border-color: #6A1B9A;
+  border-color: #D94E2A;
 }
 
 .ea-p-input[readonly] {
@@ -440,7 +502,7 @@ body {
 }
 
 .ea-p-pay-btn {
-  background: #6A1B9A;
+  background: #D94E2A;
   color: white;
   border: none;
   padding: 0.7rem 1.5rem;
@@ -450,7 +512,7 @@ body {
   cursor: pointer;
 }
 
-.ea-p-pay-btn:hover { background: #8E24AA; }
+.ea-p-pay-btn:hover { background: #7A1E0A; }
 
 .ea-p-cancel-btn {
   background: #eee;
@@ -476,6 +538,121 @@ body {
 .ea-p-pay-success { background: #e8f5e9; color: #388E3C; }
 .ea-p-pay-pending { background: #fff8e1; color: #F57C00; }
 
+/* Settings */
+.ea-p-settings-section {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.ea-p-settings-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(106, 27, 154, 0.12);
+  border: 1px solid #efe5f8;
+  max-width: 560px;
+  width: 100%;
+}
+
+.ea-p-settings-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.ea-p-settings-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #D94E2A, #7A1E0A);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ea-p-settings-header h2 {
+  margin: 0 0 0.25rem 0;
+  color: #D94E2A;
+  font-size: 1.25rem;
+}
+
+.ea-p-settings-header p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.ea-p-settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.ea-p-form-group {
+  margin-bottom: 0;
+}
+
+.ea-p-settings-card .ea-p-input {
+  padding: 0.8rem 0.95rem;
+  border-radius: 10px;
+  border: 1.5px solid #e2d7eb;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.ea-p-settings-card .ea-p-input:focus {
+  border-color: #D94E2A;
+  box-shadow: 0 0 0 3px rgba(217, 78, 42, 0.12);
+}
+
+.ea-p-settings-btn {
+  margin-top: 0.2rem;
+  align-self: flex-start;
+  background: #D94E2A;
+  border-radius: 10px;
+  padding: 0.75rem 1.2rem;
+}
+
+.ea-p-settings-btn:hover {
+  background: #7A1E0A;
+}
+
+.ea-p-settings-message {
+  margin: 0.2rem 0 0 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.ea-p-settings-success {
+  color: #388E3C;
+}
+
+.ea-p-settings-error {
+  color: #c62828;
+}
+
+@media (max-width: 768px) {
+  .ea-p-settings-card {
+    padding: 1.2rem;
+  }
+
+  .ea-p-settings-header {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .ea-p-settings-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Messages */
 .ea-p-messages-list {
   display: flex;
@@ -491,7 +668,7 @@ body {
   border-left: 4px solid #ccc;
 }
 
-.ea-p-msg-unread { border-left-color: #6A1B9A; }
+.ea-p-msg-unread { border-left-color: #D94E2A; }
 
 .ea-p-msg-top {
   display: flex;
@@ -500,7 +677,7 @@ body {
   margin-bottom: 6px;
 }
 
-.ea-p-msg-sender { font-weight: bold; font-size: 14px; color: #6A1B9A; }
+.ea-p-msg-sender { font-weight: bold; font-size: 14px; color: #D94E2A; }
 .ea-p-msg-time { font-size: 12px; color: #999; }
 
 .ea-p-msg-body {
@@ -517,7 +694,7 @@ body {
   font-weight: bold;
 }
 
-.ea-p-badge-unread { background: #f3e5f5; color: #6A1B9A; }
+.ea-p-badge-unread { background: #FDF0EC; color: #D94E2A; }
 .ea-p-badge-read { background: #f0f0f0; color: #888; }
 
 /* Events */
@@ -535,11 +712,11 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  border-left: 4px solid #6A1B9A;
+  border-left: 4px solid #D94E2A;
 }
 
 .ea-p-event-date {
-  background: #6A1B9A;
+  background: #D94E2A;
   color: white;
   border-radius: 8px;
   padding: 0.5rem 0.8rem;
@@ -587,7 +764,7 @@ body {
 
 .ea-parent-header h1 {
   font-size: 1.4rem;
-  color: #6A1B9A;
+  color: #D94E2A;
   margin: 0;
   text-align: left;
 }
@@ -598,7 +775,7 @@ body {
   gap: 1rem;
 }
 
-/* Notification bell — purple theme */
+/* Notification bell — theme accent */
 .ea-notif-wrap { position: relative; }
 
 .ea-notif-btn {
@@ -619,8 +796,8 @@ body {
 
 .ea-notif-btn:hover,
 .ea-p-notif-btn.active {
-  background: #f3e5f5;
-  color: #6A1B9A;
+  background: #FDF0EC;
+  color: #D94E2A;
 }
 
 .ea-notif-badge {
@@ -688,7 +865,7 @@ body {
 .ea-notif-mark-all {
   background: none;
   border: none;
-  color: #6A1B9A;
+  color: #D94E2A;
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
@@ -714,7 +891,7 @@ body {
 }
 
 .ea-notif-item:hover { background: #f9f9f9; }
-.ea-notif-unread { background: #fdf5ff; }
+.ea-notif-unread { background: #FDF0EC; }
 
 .ea-notif-icon {
   width: 36px;
@@ -730,7 +907,7 @@ body {
 .ea-notif-icon-green { background: #e8f5e9; color: #388E3C; }
 .ea-notif-icon-blue { background: #e3f2fd; color: #1976D2; }
 .ea-notif-icon-orange { background: #fff8e1; color: #F57C00; }
-.ea-notif-icon-purple { background: #f3e5f5; color: #7B1FA2; }
+.ea-notif-icon-purple { background: #FDF0EC; color: #D94E2A; }
 
 .ea-notif-content { flex: 1; }
 
@@ -749,7 +926,7 @@ body {
 .ea-notif-dot {
   width: 8px;
   height: 8px;
-  background: #6A1B9A;
+  background: #D94E2A;
   border-radius: 50%;
   flex-shrink: 0;
   margin-top: 4px;
@@ -762,7 +939,7 @@ body {
 }
 
 .ea-notif-footer a {
-  color: #6A1B9A;
+  color: #D94E2A;
   font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
@@ -770,7 +947,7 @@ body {
 
 .ea-notif-footer a:hover { text-decoration: underline; }
 
-/* User Chip — purple theme */
+/* User Chip — theme accent */
 .ea-user-chip {
   display: flex;
   align-items: center;
@@ -784,12 +961,12 @@ body {
   user-select: none;
 }
 
-.ea-user-chip:hover { background: #f3e5f5; }
+.ea-user-chip:hover { background: #FDF0EC; }
 
 .ea-user-avatar {
   width: 32px;
   height: 32px;
-  background: #6A1B9A;
+  background: #D94E2A;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -855,7 +1032,7 @@ body {
 
 .ea-user-dropdown a:hover {
   background: #f5f5f5;
-  color: #6A1B9A;
+  color: #D94E2A;
 }
 
 .ea-user-dropdown a i {
@@ -886,7 +1063,7 @@ body {
   display: block;
   width: 24px;
   height: 2.5px;
-  background: #6A1B9A;
+  background: #D94E2A;
   border-radius: 2px;
   transition: all 0.3s ease;
 }

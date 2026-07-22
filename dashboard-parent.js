@@ -152,6 +152,55 @@ async function checkParentAuth() {
 
 checkParentAuth();
 
+let currentParentChild = null;
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function renderFeesSummary(child) {
+  const summaryEl = document.getElementById('ea-fees-student-summary');
+  const studentIdEl = document.getElementById('ea-fees-student-id');
+  const studentClassEl = document.getElementById('ea-fees-student-class');
+
+  const studentName = child?.full_name || localStorage.getItem('ea-student-name') || 'Student Name';
+  const studentCode = child?.student_code || localStorage.getItem('ea-student-code') || 'N/A';
+  const className = child?.classes?.name || 'N/A';
+  const initials = (studentName || 'Student')
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part[0])
+    .join('')
+    .toUpperCase() || 'ST';
+
+  if (summaryEl) {
+    summaryEl.innerHTML = `
+      <div class="ea-fees-profile-card">
+        <div class="ea-fees-profile-badge">${escapeHtml(initials)}</div>
+        <div class="ea-fees-profile-meta">
+          <div class="ea-fees-profile-name">${escapeHtml(studentName)}</div>
+          <div class="ea-fees-profile-tags">
+            <span class="ea-fees-tag">ID ${escapeHtml(studentCode)}</span>
+            <span class="ea-fees-tag">Class ${escapeHtml(className)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  if (studentIdEl) {
+    studentIdEl.textContent = studentCode;
+  }
+  if (studentClassEl) {
+    studentClassEl.textContent = className;
+  }
+}
+
 // ---- Load Parent Data ----
 async function loadParentData(parentId) {
   // Get child linked to this parent (allow fallback when only student ID is available)
@@ -204,8 +253,11 @@ async function loadParentData(parentId) {
     return;
   }
 
-      localStorage.setItem('ea-student-name', child.full_name);
-      localStorage.setItem('ea-student-code', child.student_code || 'N/A');
+  currentParentChild = child;
+  localStorage.setItem('ea-student-id', child.id);
+  localStorage.setItem('ea-student-name', child.full_name);
+  localStorage.setItem('ea-student-code', child.student_code || 'N/A');
+  renderFeesSummary(child);
 
   // Update child overview card
   const childName = document.querySelector('.ea-p-child-name');
@@ -552,6 +604,10 @@ parentLinks.forEach(link => {
     parentSections.forEach(section => {
       section.style.display = section.id === 'section-' + target ? 'block' : 'none';
     });
+
+    if (target === 'fees') {
+      renderFeesSummary(currentParentChild);
+    }
   });
 });
 
