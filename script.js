@@ -200,9 +200,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const backToTop = document.getElementById('ea-back-to-top');
 
   if (backToTop) {
-    window.addEventListener('scroll', function () {
+    const toggleVisibility = () => {
       backToTop.classList.toggle('show', window.scrollY > 400);
-    });
+    };
+
+    toggleVisibility();
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    window.addEventListener('load', toggleVisibility);
 
     backToTop.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });

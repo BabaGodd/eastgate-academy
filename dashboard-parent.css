@@ -304,49 +304,106 @@ body {
 /* ---- FEES SECTION ---- */
 .ea-p-fees-summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: 1.55fr repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  background: white;
-  border-radius: 12px;
-  padding: 1.2rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  background: linear-gradient(135deg, #fffaf7 0%, #fff4ee 100%);
+  border: 1px solid #f4d5c7;
+  border-radius: 18px;
+  padding: 1.1rem;
+  box-shadow: 0 12px 30px rgba(217, 78, 42, 0.08);
   margin-bottom: 1rem;
 }
 
-.ea-p-fees-identity-card {
-  grid-column: 1 / -1;
-  border: 1px solid #fce2d8;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #fff8f5 0%, #fdf0eb 100%);
+.ea-p-fees-info {
+  background: #fff;
+  border: 1px solid #f0dfd7;
+  border-radius: 14px;
   padding: 0.95rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 110px;
+}
+
+.ea-p-fees-identity-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #f2c4af;
+  background: linear-gradient(135deg, #fff7f2 0%, #fde8df 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.ea-p-fees-identity-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, #D94E2A 0%, #7A1E0A 100%);
+}
+
+.ea-p-fees-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.9rem;
+}
+
+.ea-p-fees-card-top > div:first-child {
+  flex: 1;
+}
+
+.ea-p-fees-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D94E2A 0%, #7A1E0A 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 10px 20px rgba(217, 78, 42, 0.22);
 }
 
 .ea-p-fees-label {
   font-size: 12px;
-  color: #888;
+  color: #8a5b45;
   margin: 0 0 4px 0;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .ea-p-fees-value {
   font-size: 15px;
   font-weight: bold;
-  color: #222;
+  color: #2f241f;
   margin: 0;
 }
 
-.ea-p-fees-identity {
-  margin-top: 0.15rem;
+.ea-p-fees-mini-card {
+  min-height: 112px;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.ea-p-fees-summary-body {
+  margin-top: 0.25rem;
+}
+
+.ea-p-fees-mini-card {
+  min-height: 112px;
 }
 
 .ea-fees-profile-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.8rem;
 }
 
 .ea-fees-profile-badge {
-  width: 46px;
-  height: 46px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background: linear-gradient(135deg, #D94E2A 0%, #7A1E0A 100%);
   color: #fff;
@@ -354,8 +411,9 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   flex-shrink: 0;
+  box-shadow: 0 8px 16px rgba(217, 78, 42, 0.23);
 }
 
 .ea-fees-profile-meta {
@@ -366,26 +424,68 @@ body {
 }
 
 .ea-fees-profile-name {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.02rem;
+  font-weight: 800;
   color: #2b2b2b;
+  letter-spacing: -0.01em;
+}
+
+.ea-fees-profile-subtitle {
+  font-size: 0.8rem;
+  color: #995b43;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ea-fees-profile-subtitle::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #D94E2A;
+  display: inline-block;
 }
 
 .ea-fees-profile-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
+  margin-top: 0.1rem;
 }
 
 .ea-fees-tag {
   display: inline-flex;
   align-items: center;
-  background: #FDF0EC;
+  gap: 0.35rem;
+  background: rgba(255,255,255,0.92);
   color: #7A1E0A;
-  padding: 0.28rem 0.55rem;
+  border: 1px solid #f4d2c1;
+  padding: 0.34rem 0.62rem;
   border-radius: 999px;
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(217, 78, 42, 0.06);
+}
+
+@media (max-width: 900px) {
+  .ea-p-fees-summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ea-p-fees-identity-card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .ea-p-fees-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .ea-p-fees-card-top {
+    align-items: center;
+  }
 }
 
 .ea-p-amount { color: #D94E2A; font-size: 1.3rem !important; }

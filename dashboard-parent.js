@@ -165,8 +165,6 @@ function escapeHtml(value) {
 
 function renderFeesSummary(child) {
   const summaryEl = document.getElementById('ea-fees-student-summary');
-  const studentIdEl = document.getElementById('ea-fees-student-id');
-  const studentClassEl = document.getElementById('ea-fees-student-class');
 
   const studentName = child?.full_name || localStorage.getItem('ea-student-name') || 'Student Name';
   const studentCode = child?.student_code || localStorage.getItem('ea-student-code') || 'N/A';
@@ -185,19 +183,14 @@ function renderFeesSummary(child) {
         <div class="ea-fees-profile-badge">${escapeHtml(initials)}</div>
         <div class="ea-fees-profile-meta">
           <div class="ea-fees-profile-name">${escapeHtml(studentName)}</div>
+          <div class="ea-fees-profile-subtitle">Fee account ready</div>
           <div class="ea-fees-profile-tags">
-            <span class="ea-fees-tag">ID ${escapeHtml(studentCode)}</span>
-            <span class="ea-fees-tag">Class ${escapeHtml(className)}</span>
+            <span class="ea-fees-tag"><i class="fas fa-id-card"></i> ID ${escapeHtml(studentCode)}</span>
+            <span class="ea-fees-tag"><i class="fas fa-school"></i> Class ${escapeHtml(className)}</span>
           </div>
         </div>
       </div>
     `;
-  }
-  if (studentIdEl) {
-    studentIdEl.textContent = studentCode;
-  }
-  if (studentClassEl) {
-    studentClassEl.textContent = className;
   }
 }
 
