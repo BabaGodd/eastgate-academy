@@ -4054,10 +4054,51 @@ body.dark-mode .ea-fees-faq-section { background: #121212; }
   .ea-financial-aid-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .ea-fees-table-wrap { overflow-x: auto; }
   .ea-fees-security-inner { flex-direction: column; }
+  .ea-fees-table {
+    table-layout: fixed;
+    min-width: 320px;
+  }
+  .ea-fees-table th,
+  .ea-fees-table td {
+    padding: 12px 10px;
+    white-space: normal;
+    word-break: break-word;
+  }
+  .ea-fees-table th:first-child,
+  .ea-fees-table td:first-child {
+    width: 58%;
+  }
+  .ea-fees-table th:last-child,
+  .ea-fees-table td:last-child {
+    width: 42%;
+    padding-left: 16px;
+  }
+  .ea-fees-level {
+    display: inline-block;
+    line-height: 1.35;
+    white-space: normal;
+  }
 }
 
 @media (max-width: 480px) {
   .ea-fees-additional-grid { grid-template-columns: 1fr; }
+  .ea-fees-table {
+    min-width: 280px;
+  }
+  .ea-fees-table th,
+  .ea-fees-table td {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+  .ea-fees-table th:first-child,
+  .ea-fees-table td:first-child {
+    width: 62%;
+  }
+  .ea-fees-table th:last-child,
+  .ea-fees-table td:last-child {
+    width: 38%;
+    padding-left: 12px;
+  }
 }
 
 /* ============================================
