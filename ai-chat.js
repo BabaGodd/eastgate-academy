@@ -32,7 +32,7 @@ SCHOOL INFORMATION:
 - Type: Private, co-educational school from Creche to JHS
 - Phone: 0303962585
 - Email: info@eastgateschool.com
-- Website: eastgateacademy.netlify.app
+- Website: eastgateacademy.vercel.app
 
 SCHOOL HOURS:
 - Monday to Friday: 7:30am - 3:00pm
@@ -125,7 +125,7 @@ FEES INFORMATION — 2025/2026 ACADEMIC YEAR:
 - Fees can be paid through the official parent portal online
 
 PARENT PORTAL:
-- Access at: eastgateacademy.netlify.app/login.html
+- Access at: eastgateacademy.vercel.app/login.html
 - Parents log in using their child's Student ID as username
 - Password is the child's last name
 - Parents can view academic results
@@ -159,7 +159,7 @@ CONTACT THE SCHOOL:
 - Digital Address: GN-0295-0876
 - Postal Address: P.O. Box BT 212, Tema
 - Visit: Near Magna Terris Estates, New Dawhenya, Tema
-- Contact form: eastgateacademy.netlify.app/contact.html
+- Contact form: eastgateacademy.vercel.app/contact.html
 - Office hours: Monday to Friday 7:30am to 4:00pm
 
 RULES FOR YOUR RESPONSES:
@@ -363,7 +363,7 @@ RULES FOR YOUR RESPONSES:
     }
 
     if (q.includes('location') || q.includes('where') || q.includes('address') || q.includes('find') || q.includes('directions') || q.includes('map') || q.includes('dawhenya') || q.includes('tema') || q.includes('magna')) {
-      return 'Eastgate Academy is located:\n\n📍 Near Magna Terris Estates, New Dawhenya, Tema, Greater Accra, Ghana\n🗺️ Digital Address: GN-0295-0876\n📮 Postal Address: P.O. Box BT 212, Tema\n\nYou can find us on the map on our Contact page at eastgateacademy.netlify.app/contact.html or call us on 0303962585 for specific directions.';
+      return 'Eastgate Academy is located:\n\n📍 Near Magna Terris Estates, New Dawhenya, Tema, Greater Accra, Ghana\n🗺️ Digital Address: GN-0295-0876\n📮 Postal Address: P.O. Box BT 212, Tema\n\nYou can find us on the map on our Contact page at eastgateacademy.vercel.app/contact.html or call us on 0303962585 for specific directions.';
     }
 
     if (q.includes('enroll') || q.includes('admission') || q.includes('apply') || q.includes('join') || q.includes('register') || q.includes('start') || q.includes('new student')) {
@@ -390,12 +390,12 @@ RULES FOR YOUR RESPONSES:
         return 'If you have forgotten your login details please contact the school at info@eastgateschool.com or call 0303962585. The admin will reset your access.\n\nRemember:\n• Username: Your child\'s Student ID\n• Password: Your child\'s last name';
       }
       if (q.includes('result') || q.includes('grade') || q.includes('score') || q.includes('mark')) {
-        return 'To view your child\'s results log in to the parent portal at eastgateacademy.netlify.app/login.html\n\n• Username: Your child\'s Student ID\n• Password: Your child\'s last name\n\nThen click "Results" in the sidebar.';
+        return 'To view your child\'s results log in to the parent portal at eastgateacademy.vercel.app/login.html\n\n• Username: Your child\'s Student ID\n• Password: Your child\'s last name\n\nThen click "Results" in the sidebar.';
       }
       if (q.includes('attendance')) {
-        return 'To check your child\'s attendance log in to the parent portal at eastgateacademy.netlify.app/login.html\n\n• Username: Your child\'s Student ID\n• Password: Your child\'s last name\n\nThen click "Attendance" in the sidebar.';
+        return 'To check your child\'s attendance log in to the parent portal at eastgateacademy.vercel.app/login.html\n\n• Username: Your child\'s Student ID\n• Password: Your child\'s last name\n\nThen click "Attendance" in the sidebar.';
       }
-      return 'The Eastgate Academy parent portal is at:\n🌐 eastgateacademy.netlify.app/login.html\n\n• Username: Your child\'s Student ID\n• Password: Your child\'s last name\n\nThrough the portal you can:\n✅ View results\n✅ Check attendance\n✅ Pay fees\n✅ Read announcements\n✅ Message teachers';
+      return 'The Eastgate Academy parent portal is at:\n🌐 eastgateacademy.vercel.app/login.html\n\n• Username: Your child\'s Student ID\n• Password: Your child\'s last name\n\nThrough the portal you can:\n✅ View results\n✅ Check attendance\n✅ Pay fees\n✅ Read announcements\n✅ Message teachers';
     }
 
     if (q.includes('hour') || q.includes('time') || q.includes('open') || q.includes('close') || q.includes('start') || q.includes('finish') || q.includes('end')) {
@@ -431,7 +431,7 @@ RULES FOR YOUR RESPONSES:
     }
 
     if (q.includes('tour') || q.includes('visit') || q.includes('come') || q.includes('see the school') || q.includes('open house')) {
-      return 'We would love to welcome you to Eastgate Academy! 😊\n\nTo schedule a visit:\n📞 Call: 0303962585\n📧 Email: info@eastgateschool.com\n🌐 Contact form: eastgateacademy.netlify.app/contact.html\n\nWe are located near Magna Terris Estates, New Dawhenya, Tema.';
+      return 'We would love to welcome you to Eastgate Academy! 😊\n\nTo schedule a visit:\n📞 Call: 0303962585\n📧 Email: info@eastgateschool.com\n🌐 Contact form: eastgateacademy.vercel.app/contact.html\n\nWe are located near Magna Terris Estates, New Dawhenya, Tema.';
     }
 
     if (q.includes('whatsapp') || q.includes('fraud') || q.includes('scam') || q.includes('fake') || q.includes('suspicious') || q.includes('someone asking') || q.includes('requested payment')) {
@@ -439,7 +439,7 @@ RULES FOR YOUR RESPONSES:
     }
 
     if (q.includes('contact') || q.includes('email') || q.includes('call') || q.includes('phone') || q.includes('reach') || q.includes('speak') || q.includes('number')) {
-      return 'You can reach Eastgate Academy through:\n\n📞 Phone: 0303962585\n📧 Email: info@eastgateschool.com\n📍 Location: Near Magna Terris Estates, New Dawhenya, Tema\n🗺️ Digital Address: GN-0295-0876\n🌐 Website: eastgateacademy.netlify.app/contact.html\n\nOffice hours: Monday to Friday 7:30am to 4:00pm';
+      return 'You can reach Eastgate Academy through:\n\n📞 Phone: 0303962585\n📧 Email: info@eastgateschool.com\n📍 Location: Near Magna Terris Estates, New Dawhenya, Tema\n🗺️ Digital Address: GN-0295-0876\n🌐 Website: eastgateacademy.vercel.app/contact.html\n\nOffice hours: Monday to Friday 7:30am to 4:00pm';
     }
 
     if (q.includes('about') || q.includes('history') || q.includes('founded') || q.includes('established') || q.includes('when') || q.includes('how long') || q.includes('old is')) {
@@ -458,7 +458,7 @@ RULES FOR YOUR RESPONSES:
       return 'You\'re very welcome! 😊 It\'s a pleasure helping you. If you have any more questions feel free to ask. We look forward to welcoming you to the Eastgate Academy family! 🏫';
     }
 
-    return 'Thank you for your question! For the most accurate and up to date information please contact us directly:\n\n📞 Phone: 0303962585\n📧 Email: info@eastgateschool.com\n🌐 Website: eastgateacademy.netlify.app/contact.html\n\nOur team is available Monday to Friday from 7:30am to 4:00pm and will be happy to help you! 😊';
+    return 'Thank you for your question! For the most accurate and up to date information please contact us directly:\n\n📞 Phone: 0303962585\n📧 Email: info@eastgateschool.com\n🌐 Website: eastgateacademy.vercel.app/contact.html\n\nOur team is available Monday to Friday from 7:30am to 4:00pm and will be happy to help you! 😊';
   }
 
 });

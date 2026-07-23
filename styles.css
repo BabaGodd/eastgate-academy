@@ -3295,7 +3295,7 @@ ul { list-style: none; }
 }
 
 @media (max-width: 480px) {
-  .ea-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .ea-gallery-grid { grid-template-columns: 1fr; }
   .ea-gallery-filters { gap: 0.5rem; }
   .ea-gallery-filter { padding: 6px 14px; font-size: 0.8rem; }
 }
