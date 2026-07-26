@@ -12,36 +12,23 @@
 </head>
 <body>
 
-  <!-- Page Header with Return Button -->
+  <!-- Page Header -->
   <div class="ea-page-header">
     <button class="ea-return-btn" onclick="history.back()">
       <i class="fas fa-arrow-left"></i> Return to Dashboard
     </button>
-    <h1><i class="fas fa-pen"></i> Enter Student Result</h1>
+    <h1><i class="fas fa-pen"></i> Enter Student Results</h1>
   </div>
 
   <div class="ea-inner-content">
     <div class="ea-inner-form">
       <h2>New Result Entry</h2>
+
       <form id="ea-results-form">
 
+        <!-- Term Selection -->
         <div class="ea-inner-group">
-          <label for="ea-student-name">Student Name</label>
-          <input type="text" id="ea-student-name" placeholder="e.g. Amy Osei" required />
-        </div>
-
-        <div class="ea-inner-group">
-          <label for="ea-subject">Subject</label>
-          <input type="text" id="ea-subject" placeholder="e.g. Mathematics" required />
-        </div>
-
-        <div class="ea-inner-group">
-          <label for="ea-score">Score (%)</label>
-          <input type="number" id="ea-score" min="0" max="100" placeholder="e.g. 85" required />
-        </div>
-
-        <div class="ea-inner-group">
-          <label for="ea-term">Term</label>
+          <label for="ea-term">Term <span style="color:#D94E2A;">*</span></label>
           <select id="ea-term" required>
             <option value="">Select Term</option>
             <option value="Term 1">Term 1</option>
@@ -50,11 +37,58 @@
           </select>
         </div>
 
+        <!-- Class Selection -->
         <div class="ea-inner-group">
-          <label for="ea-remark">Remark</label>
-          <input type="text" id="ea-remark" placeholder="e.g. Excellent, Good, Needs Improvement" />
+          <label for="ea-class">Class <span style="color:#D94E2A;">*</span></label>
+          <select id="ea-class" required>
+            <option value="">Select Class</option>
+          </select>
         </div>
 
+        <!-- Student Selection -->
+        <div class="ea-inner-group">
+          <label for="ea-student">Student <span style="color:#D94E2A;">*</span></label>
+          <select id="ea-student" required disabled>
+            <option value="">Select class first</option>
+          </select>
+        </div>
+
+        <!-- Subject Selection -->
+        <div class="ea-inner-group">
+          <label for="ea-subject">Subject <span style="color:#D94E2A;">*</span></label>
+          <select id="ea-subject" required disabled>
+            <option value="">Select class first</option>
+          </select>
+        </div>
+
+        <!-- Score -->
+        <div class="ea-inner-group">
+          <label for="ea-score">Score (%) <span style="color:#D94E2A;">*</span></label>
+          <input type="number" id="ea-score" min="0" max="100" placeholder="e.g. 85" required />
+        </div>
+
+        <!-- Auto Grade Display -->
+        <div class="ea-inner-group" id="ea-grade-display" style="display:none;">
+          <label>Grade</label>
+          <div id="ea-grade-badge" style="
+            display:inline-block;
+            padding:8px 20px;
+            border-radius:8px;
+            font-weight:700;
+            font-size:1.1rem;
+            background:#FDF0EC;
+            color:#D94E2A;
+            border:2px solid #D94E2A;
+          ">-</div>
+        </div>
+
+        <!-- Remark -->
+        <div class="ea-inner-group">
+          <label for="ea-remark">Teacher's Remark</label>
+          <input type="text" id="ea-remark" placeholder="e.g. Excellent effort this term!" />
+        </div>
+
+        <!-- Buttons -->
         <div class="ea-inner-btn-row">
           <button type="submit" class="ea-inner-submit-btn">
             <i class="fas fa-save"></i> Save Result
@@ -64,9 +98,35 @@
           </button>
         </div>
 
-        <p id="ea-results-success"></p>
+        <!-- Success / Error -->
+        <div id="ea-results-success" style="display:none; background:#e8f5e9; border:1.5px solid #388E3C; border-radius:8px; padding:1rem; margin-top:1rem; color:#2E7D32; font-weight:600;">
+          <i class="fas fa-check-circle"></i> Result saved successfully!
+        </div>
+        <div id="ea-results-error" style="display:none; background:#ffebee; border:1.5px solid #c62828; border-radius:8px; padding:1rem; margin-top:1rem; color:#c62828; font-weight:600;">
+          <i class="fas fa-exclamation-circle"></i> <span id="ea-results-error-text"></span>
+        </div>
 
       </form>
+
+      <!-- Results entered this session -->
+      <div id="ea-session-results" style="margin-top:2rem; display:none;">
+        <h3 style="color:#D94E2A; font-family:'Playfair Display',serif; margin-bottom:1rem;">
+          Results Entered This Session
+        </h3>
+        <table style="width:100%; border-collapse:collapse; font-size:0.88rem;">
+          <thead>
+            <tr style="background:#D94E2A; color:white;">
+              <th style="padding:8px 12px; text-align:left;">Student</th>
+              <th style="padding:8px 12px; text-align:left;">Subject</th>
+              <th style="padding:8px 12px; text-align:left;">Score</th>
+              <th style="padding:8px 12px; text-align:left;">Grade</th>
+              <th style="padding:8px 12px; text-align:left;">Term</th>
+            </tr>
+          </thead>
+          <tbody id="ea-session-results-tbody"></tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 
