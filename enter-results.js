@@ -156,36 +156,87 @@ document.addEventListener('DOMContentLoaded', async function () {
     const className = classSelect.options[classSelect.selectedIndex]?.getAttribute('data-name') || '';
     const studentId = studentSelect.value;
     const studentName = studentSelect.options[studentSelect.selectedIndex]?.textContent || '';
-    const subject = subjectSelect.value;
+    const subjectName = subjectSelect.value;
     const score = parseInt(scoreInput.value);
     const term = document.getElementById('ea-term').value;
     const remark = remarkInput.value.trim();
+    const academicYear = new Date().getFullYear().toString();
 
     // Validation
     if (!term) { errorText.textContent = 'Please select a term.'; errorEl.style.display = 'block'; return; }
     if (!classId) { errorText.textContent = 'Please select a class.'; errorEl.style.display = 'block'; return; }
     if (!studentId) { errorText.textContent = 'Please select a student.'; errorEl.style.display = 'block'; return; }
-    if (!subject) { errorText.textContent = 'Please select a subject.'; errorEl.style.display = 'block'; return; }
+    if (!subjectName) { errorText.textContent = 'Please select a subject.'; errorEl.style.display = 'block'; return; }
     if (isNaN(score) || score < 0 || score > 100) { errorText.textContent = 'Please enter a valid score between 0 and 100.'; errorEl.style.display = 'block'; return; }
 
     const { grade } = calculateGrade(score);
 
-    const { error } = await supabaseClient
+    // ---- GET TEACHER ID ----
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+      errorText.textContent = 'You must be logged in to save results.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    const { data: teacherData, error: teacherError } = await supabaseClient
+      .from('users')
+      .select('id')
+      .eq('email', user.email)
+      .single();
+
+    if (teacherError || !teacherData) {
+      console.error('Teacher lookup error:', teacherError);
+      errorText.textContent = 'Could not verify teacher account. Please log out and try again.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    // ---- GET SUBJECT ID FROM DATABASE ----
+    const { data: subjectData, error: subjectError } = await supabaseClient
+      .from('subjects')
+      .select('id')
+      .eq('name', subjectName)
+      .single();
+
+    if (subjectError || !subjectData) {
+      console.error('Subject lookup error:', subjectError);
+      errorText.textContent = `Subject "${subjectName}" not found in database. Please contact admin.`;
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    const subjectId = subjectData.id;
+
+    // ---- INSERT WITH CORRECT COLUMN NAME ----
+    const { data, error } = await supabaseClient
       .from('results')
       .insert({
         student_id: studentId,
-        subject: subject,
+        subject_id: subjectId,  // ✅ Changed from "subject" to "subject_id" with UUID
         score: score,
         grade: grade,
         term: term,
+        academic_year: academicYear,
         remark: remark || calculateRemark(score),
         class_id: classId,
+        teacher_id: teacherData.id,
         created_at: new Date().toISOString()
-      });
+      })
+      .select();
 
     if (error) {
-      console.error('Error saving result:', error);
-      errorText.textContent = 'Error saving result. Please try again.';
+      console.error('Supabase error saving result:', error);
+      
+      if (error.code === '23503') {
+        errorText.textContent = 'Foreign key error: The selected student, subject, or class may not exist.';
+      } else if (error.code === '23502') {
+        errorText.textContent = 'Missing required field. Please check all fields.';
+      } else if (error.code === '42501') {
+        errorText.textContent = 'Permission denied. Please log out and log in again.';
+      } else {
+        errorText.textContent = `Error saving result: ${error.message || 'Please try again.'}`;
+      }
       errorEl.style.display = 'block';
       return;
     }
@@ -194,7 +245,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     successEl.style.display = 'block';
 
     // Add to session results table
-    sessionResults.push({ studentName, subject, score, grade, term });
+    sessionResults.push({ studentName, subject: subjectName, score, grade, term });
     updateSessionTable();
 
     // Reset student and subject but keep class and term

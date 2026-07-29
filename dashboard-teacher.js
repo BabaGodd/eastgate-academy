@@ -19,14 +19,11 @@ function showTeacherSkeleton() {
   }
 }
 
-
-
 function isPortalSessionActive() {
   return localStorage.getItem('ea-authenticated') === 'true';
 }
 
 // ---- Check Auth & Load User ----
-
 async function checkTeacherAuth() {
   showTeacherSkeleton();
 
@@ -351,6 +348,11 @@ teacherLinks.forEach(link => {
     teacherSections.forEach(section => {
       section.style.display = section.id === 'section-' + target ? 'block' : 'none';
     });
+
+    // Load view results data when that section is clicked
+    if (target === 'view-results') {
+      loadViewResults();
+    }
   });
 });
 
@@ -708,4 +710,278 @@ if (savePasswordBtn) {
     successDiv.style.display = 'flex';
     setTimeout(() => { successDiv.style.display = 'none'; }, 3000);
   });
+}
+
+// ============================================
+// VIEW RESULTS SECTION
+// ============================================
+
+let allResults = [];
+let classStudents = [];
+
+
+async function loadViewResults() {
+  const tbody = document.getElementById('ea-vr-tbody');
+  const subjectFilter = document.getElementById('ea-vr-subject');
+  const studentFilter = document.getElementById('ea-vr-student');
+
+  if (!tbody) return;
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="7" style="text-align:center; padding:2rem;">
+        <div class="ea-sk" style="height:14px; width:60%; margin:0 auto 8px;"></div>
+        <div class="ea-sk" style="height:14px; width:40%; margin:0 auto;"></div>
+      </tr>`;
+
+  // Get current user
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding:2rem; color:#aaa;">
+          Please log in to view results.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  // Get teacher data with class
+  const { data: teacherData, error: teacherError } = await supabaseClient
+    .from('users')
+    .select('id, class_id')
+    .eq('email', user.email)
+    .single();
+
+  if (teacherError || !teacherData) {
+    console.error('Teacher lookup error:', teacherError);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding:2rem; color:#aaa;">
+          Could not find teacher data.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  // Get all students in teacher's class
+  const { data: students, error: studentError } = await supabaseClient
+    .from('students')
+    .select('id, full_name, student_code')
+    .eq('class_id', teacherData.class_id)
+    .order('full_name');
+
+  if (studentError) {
+    console.error('Student lookup error:', studentError);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding:2rem; color:#aaa;">
+          Could not load students.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  classStudents = students || [];
+
+  // Populate student filter
+  studentFilter.innerHTML = '<option value="">All Students</option>';
+  classStudents.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.id;
+    opt.textContent = s.full_name;
+    studentFilter.appendChild(opt);
+  });
+
+  // Get all results for these students
+  if (classStudents.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding:2rem; color:#aaa;">
+          No students found in your class.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  const studentIds = classStudents.map(s => s.id);
+
+  // ---- GET RESULTS WITH SUBJECT NAMES ----
+  const { data: results, error: resultsError } = await supabaseClient
+    .from('results')
+    .select(`
+      *,
+      students!inner (
+        full_name,
+        student_code
+      ),
+      subjects!inner (
+        name
+      )
+    `)
+    .in('student_id', studentIds)
+    .order('created_at', { ascending: false });
+
+  if (resultsError) {
+    console.error('Results lookup error:', resultsError);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding:2rem; color:#aaa;">
+          Could not load results.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  // Map results to include subject name from the joined data
+  allResults = (results || []).map(r => ({
+    ...r,
+    subject: r.subjects?.name || 'Unknown Subject',
+    student_name: r.students?.full_name || 'Unknown Student',
+    student_code: r.students?.student_code || ''
+  }));
+
+  // Populate subject filter from the joined data
+  const subjects = [...new Set(allResults.map(r => r.subject))].sort();
+  subjectFilter.innerHTML = '<option value="">All Subjects</option>';
+  subjects.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s;
+    opt.textContent = s;
+    subjectFilter.appendChild(opt);
+  });
+
+  renderResults(allResults);
+}
+
+
+function renderResults(results) {
+  const tbody = document.getElementById('ea-vr-tbody');
+  const totalEl = document.getElementById('ea-vr-total');
+  const avgEl = document.getElementById('ea-vr-average');
+  const highEl = document.getElementById('ea-vr-highest');
+
+  if (results.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding:2rem; color:#aaa;">
+          <i class="fas fa-clipboard" style="font-size:2rem; display:block; margin-bottom:0.5rem; color:#ddd;"></i>
+          No results found.
+        </td>
+      </tr>`;
+    totalEl.textContent = '0';
+    avgEl.textContent = '0%';
+    highEl.textContent = '0%';
+    return;
+  }
+
+  // Stats
+  const total = results.length;
+  const avg = Math.round(results.reduce((sum, r) => sum + r.score, 0) / total);
+  const highest = Math.max(...results.map(r => r.score));
+
+  totalEl.textContent = total;
+  avgEl.textContent = avg + '%';
+  highEl.textContent = highest + '%';
+
+  const gradeColors = { A: '#388E3C', B: '#1976D2', C: '#F57C00', D: '#7B1FA2', F: '#c62828' };
+
+  tbody.innerHTML = results.map((r, i) => `
+    <tr style="background:${i % 2 === 0 ? 'white' : '#FDF0EC'};">
+      <td>
+        <strong>${r.student_name || r.students?.full_name || 'Unknown'}</strong>
+        <br><span style="font-size:0.78rem; color:#888;">${r.student_code || r.students?.student_code || ''}</span>
+      </td>
+      <td>${r.subject}</td>
+      <td><strong>${r.score}%</strong></td>
+      <td>
+        <span style="
+          background:${gradeColors[r.grade] || '#888'}22;
+          color:${gradeColors[r.grade] || '#888'};
+          padding:3px 10px;
+          border-radius:20px;
+          font-weight:700;
+          font-size:0.85rem;
+        ">${r.grade}</span>
+      </td>
+      <td>${r.term}</td>
+      <td style="font-size:0.85rem; color:#555;">${r.remark || '-'}</td>
+      <td>
+        <button class="ea-view-btn" onclick="openEditResult('${r.id}', ${r.score}, '${r.remark || ''}')">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+        <button class="ea-del-btn" onclick="deleteResult('${r.id}')" style="margin-left:4px;">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+
+// ---- Filter Results ----
+document.getElementById('ea-vr-filter-btn')?.addEventListener('click', function () {
+  const term = document.getElementById('ea-vr-term').value;
+  const subject = document.getElementById('ea-vr-subject').value;
+  const studentId = document.getElementById('ea-vr-student').value;
+
+  let filtered = allResults;
+  if (term) filtered = filtered.filter(r => r.term === term);
+  if (subject) filtered = filtered.filter(r => r.subject === subject);
+  if (studentId) filtered = filtered.filter(r => r.student_id === studentId);
+
+  renderResults(filtered);
+});
+
+// ---- Open Edit Modal ----
+function openEditResult(id, score, remark) {
+  document.getElementById('ea-vr-edit-id').value = id;
+  document.getElementById('ea-vr-edit-score').value = score;
+  document.getElementById('ea-vr-edit-remark').value = remark;
+  document.getElementById('ea-vr-edit-success').style.display = 'none';
+  document.getElementById('ea-vr-edit-modal').style.display = 'flex';
+}
+
+// ---- Close Edit Modal ----
+document.getElementById('ea-vr-modal-close')?.addEventListener('click', () => {
+  document.getElementById('ea-vr-edit-modal').style.display = 'none';
+});
+document.getElementById('ea-vr-cancel-edit')?.addEventListener('click', () => {
+  document.getElementById('ea-vr-edit-modal').style.display = 'none';
+});
+
+// ---- Save Edit ----
+document.getElementById('ea-vr-save-edit')?.addEventListener('click', async function () {
+  const id = document.getElementById('ea-vr-edit-id').value;
+  const score = parseInt(document.getElementById('ea-vr-edit-score').value);
+  const remark = document.getElementById('ea-vr-edit-remark').value.trim();
+
+  if (isNaN(score) || score < 0 || score > 100) return;
+
+  const gradeMap = score >= 80 ? 'A' : score >= 70 ? 'B' : score >= 60 ? 'C' : score >= 50 ? 'D' : 'F';
+
+  const { error } = await supabaseClient
+    .from('results')
+    .update({ score, grade: gradeMap, remark })
+    .eq('id', id);
+
+  if (!error) {
+    document.getElementById('ea-vr-edit-success').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('ea-vr-edit-modal').style.display = 'none';
+      loadViewResults();
+    }, 1500);
+  }
+});
+
+// ---- Delete Result ----
+async function deleteResult(id) {
+  if (!confirm('Are you sure you want to delete this result?')) return;
+
+  const { error } = await supabaseClient
+    .from('results')
+    .delete()
+    .eq('id', id);
+
+  if (!error) loadViewResults();
 }
