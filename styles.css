@@ -3702,13 +3702,26 @@ ul { list-style: none; }
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  margin-bottom: 3rem;
+  margin: 0 auto 3rem;
+  max-width: 640px;
 }
 
 .ea-fees-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
+  table-layout: fixed;
+}
+
+.ea-fees-table th:first-child,
+.ea-fees-table td:first-child {
+  width: 62%;
+}
+
+.ea-fees-table th:last-child,
+.ea-fees-table td:last-child {
+  width: 38%;
+  text-align: right;
 }
 
 .ea-fees-table thead {
@@ -3716,17 +3729,22 @@ ul { list-style: none; }
   color: white;
 }
 
+
 .ea-fees-table th {
-  padding: 14px 18px;
+  padding: 13px 20px;
   text-align: left;
   font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .ea-fees-table td {
-  padding: 14px 18px;
+  padding: 12px 20px;
   border-bottom: 1px solid var(--border);
   color: var(--text);
 }
+
 
 .ea-fees-table tr:last-child td { border-bottom: none; }
 .ea-fees-table tr:hover td { background: var(--primary-bg); }
