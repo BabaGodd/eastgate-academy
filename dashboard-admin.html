@@ -482,6 +482,7 @@
       </section>
 
       <!-- VIEW RESULTS -->
+<!-- VIEW RESULTS -->
       <section class="ea-admin-content ea-section" id="section-results" style="display:none;">
         <div class="ea-users-top">
           <h2>View Results</h2>
@@ -490,13 +491,9 @@
         <div class="ea-filter-bar">
           <select class="ea-filter-select" id="ea-results-class">
             <option value="">All Classes</option>
-            <option value="Class 4B">Class 4B</option>
-            <option value="Class 5A">Class 5A</option>
           </select>
           <select class="ea-filter-select" id="ea-results-subject">
             <option value="">All Subjects</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="English">English</option>
           </select>
           <select class="ea-filter-select" id="ea-results-term">
             <option value="">All Terms</option>
@@ -504,7 +501,16 @@
             <option value="Term 2">Term 2</option>
             <option value="Term 3">Term 3</option>
           </select>
+          <select class="ea-filter-select" id="ea-results-status">
+            <option value="">All Statuses</option>
+            <option value="published">Published</option>
+            <option value="unpublished">Unpublished</option>
+          </select>
+          <button class="ea-add-user-btn" id="ea-publish-visible-btn" style="background:#388E3C;">
+            <i class="fas fa-check-double"></i> Publish All Filtered
+          </button>
         </div>
+        <p id="ea-results-count" style="font-size:0.85rem; color:#666; margin-bottom:0.8rem;"></p>
         <div class="ea-table-wrap">
           <table class="ea-table">
             <thead>
@@ -515,14 +521,15 @@
                 <th>Score</th>
                 <th>Grade</th>
                 <th>Term</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="ea-results-tbody">
-              <tr data-class="Class 4B" data-subject="Mathematics" data-term="Term 1">
-                <td>Amy Osei</td><td>Class 4B</td><td>Mathematics</td>
-                <td>87/100</td>
-                <td><span class="ea-grade ea-grade-a">A</span></td>
-                <td>Term 1</td>
+              <tr>
+                <td colspan="8" style="text-align:center; padding:2rem; color:#aaa;">
+                  Loading results...
+                </td>
               </tr>
             </tbody>
           </table>

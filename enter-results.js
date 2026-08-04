@@ -227,8 +227,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (error) {
       console.error('Supabase error saving result:', error);
-      
-      if (error.code === '23503') {
+
+      if (error.code === '23505') {
+        errorText.textContent = `A result for ${studentName.split(' (')[0]} in ${subjectName} (${term}, ${academicYear}) already exists. Please edit the existing entry instead of creating a new one.`;
+      } else if (error.code === '23503') {
         errorText.textContent = 'Foreign key error: The selected student, subject, or class may not exist.';
       } else if (error.code === '23502') {
         errorText.textContent = 'Missing required field. Please check all fields.';

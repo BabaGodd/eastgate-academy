@@ -160,6 +160,8 @@ async function loadTeacherAssignments(teacherId) {
   const tbody = document.getElementById('ea-t-assign-tbody');
   if (!tbody || !assignments) return;
 
+  populateAssignmentFilters(assignments);
+
   if (assignments.length === 0) {
     tbody.innerHTML = `
       <tr>
@@ -196,6 +198,26 @@ async function loadTeacherAssignments(teacherId) {
   attachTeacherAssignmentDelete();
 }
 
+function populateAssignmentFilters(assignments) {
+  const filters = [
+    ['ea-t-assign-class', 'All Classes', assignments.map(assignment => assignment.classes?.name)],
+    ['ea-t-assign-subject', 'All Subjects', assignments.map(assignment => assignment.subjects?.name)]
+  ];
+
+  filters.forEach(([id, defaultLabel, values]) => {
+    const select = document.getElementById(id);
+    if (!select) return;
+
+    select.innerHTML = `<option value="">${defaultLabel}</option>`;
+    [...new Set(values.filter(Boolean))].sort().forEach(value => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  });
+}
+
 // ---- Load Results ----
 async function loadTeacherResults(teacherId) {
   const { data: results } = await supabaseClient
@@ -209,6 +231,20 @@ async function loadTeacherResults(teacherId) {
 
   const tbody = document.getElementById('ea-t-results-tbody');
   if (!tbody || !results) return;
+
+  const classFilter = document.getElementById('ea-t-results-class');
+  if (classFilter) {
+    const classes = [...new Set(results
+      .map(result => result.students?.classes?.name)
+      .filter(Boolean))].sort();
+    classFilter.innerHTML = '<option value="">All Classes</option>';
+    classes.forEach(className => {
+      const option = document.createElement('option');
+      option.value = className;
+      option.textContent = className;
+      classFilter.appendChild(option);
+    });
+  }
 
   if (results.length === 0) {
     tbody.innerHTML = `
@@ -241,7 +277,29 @@ async function loadTeacherResults(teacherId) {
 
 // ---- Load Attendance ----
 async function loadTeacherAttendance(classes) {
-  if (!classes || classes.length === 0) return;
+  const tbody = document.getElementById('ea-t-att-tbody');
+  if (!tbody) return;
+
+  const classFilter = document.getElementById('ea-t-att-class');
+  if (classFilter) {
+    classFilter.innerHTML = '<option value="">All Classes</option>';
+    (classes || []).forEach(classItem => {
+      const option = document.createElement('option');
+      option.value = classItem.name;
+      option.textContent = classItem.name;
+      classFilter.appendChild(option);
+    });
+  }
+
+  if (!classes || classes.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="4" style="text-align:center; padding:2rem; color:#aaa;">
+          No classes assigned yet.
+        </td>
+      </tr>`;
+    return;
+  }
 
   const classIds = classes.map(c => c.id);
 
@@ -256,8 +314,7 @@ async function loadTeacherAttendance(classes) {
     .order('date', { ascending: false })
     .limit(20);
 
-  const tbody = document.getElementById('ea-t-att-tbody');
-  if (!tbody || !attendance) return;
+  if (!attendance) return;
 
   if (attendance.length === 0) {
     tbody.innerHTML = `

@@ -160,7 +160,6 @@
         <h3 class="ea-t-section-title">Recent Activity</h3>
         <div class="ea-t-recent-box">
           <div class="ea-t-recent-item"><span>Assignment uploaded: Math Week 3</span><span class="ea-t-badge ea-t-badge-blue">Upload</span></div>
-          <div class="ea-t-recent-item"><span>Results entered for Class 4B — Term 1</span><span class="ea-t-badge ea-t-badge-green">Results</span></div>
           <div class="ea-t-recent-item"><span>Attendance taken for Class 5A</span><span class="ea-t-badge ea-t-badge-orange">Attendance</span></div>
           <div class="ea-t-recent-item"><span>Message received from Parent — Kofi Asante</span><span class="ea-t-badge ea-t-badge-purple">Message</span></div>
         </div>
@@ -176,15 +175,9 @@
         <div class="ea-t-filter-bar">
           <select class="ea-t-select" id="ea-t-assign-class">
             <option value="">All Classes</option>
-            <option value="Class 3A">Class 3A</option>
-            <option value="Class 4B">Class 4B</option>
-            <option value="Class 5A">Class 5A</option>
           </select>
           <select class="ea-t-select" id="ea-t-assign-subject">
             <option value="">All Subjects</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="English">English</option>
-            <option value="Science">Science</option>
           </select>
         </div>
 
@@ -201,31 +194,9 @@
               </tr>
             </thead>
             <tbody id="ea-t-assign-tbody">
-              <tr data-class="Class 4B" data-subject="Mathematics">
-                <td>Math Week 3 Worksheet</td><td>Class 4B</td><td>Mathematics</td>
-                <td>10 May 2026</td>
-                <td><span class="ea-t-status ea-t-status-active">Active</span></td>
-                <td>
-                  <a href="view-assignment.html" class="ea-t-view-btn">View</a>
-                  <button class="ea-t-del-btn ea-t-assign-del">Delete</button>
-                </td>
-              </tr>
-              <tr data-class="Class 5A" data-subject="English">
-                <td>English Essay — My Hero</td><td>Class 5A</td><td>English</td>
-                <td>8 May 2026</td>
-                <td><span class="ea-t-status ea-t-status-due">Due Soon</span></td>
-                <td>
-                  <a href="view-assignment.html" class="ea-t-view-btn">View</a>
-                  <button class="ea-t-del-btn ea-t-assign-del">Delete</button>
-                </td>
-              </tr>
-              <tr data-class="Class 3A" data-subject="Science">
-                <td>Science Diagram — Plants</td><td>Class 3A</td><td>Science</td>
-                <td>15 May 2026</td>
-                <td><span class="ea-t-status ea-t-status-active">Active</span></td>
-                <td>
-                  <a href="view-assignment.html" class="ea-t-view-btn">View</a>
-                  <button class="ea-t-del-btn ea-t-assign-del">Delete</button>
+              <tr>
+                <td colspan="6" style="text-align:center; padding:2rem; color:#aaa;">
+                  Loading assignments...
                 </td>
               </tr>
             </tbody>
@@ -243,9 +214,6 @@
         <div class="ea-t-filter-bar">
           <select class="ea-t-select" id="ea-t-results-class">
             <option value="">All Classes</option>
-            <option value="Class 3A">Class 3A</option>
-            <option value="Class 4B">Class 4B</option>
-            <option value="Class 5A">Class 5A</option>
           </select>
           <select class="ea-t-select" id="ea-t-results-term">
             <option value="">All Terms</option>
@@ -268,21 +236,10 @@
               </tr>
             </thead>
             <tbody id="ea-t-results-tbody">
-              <tr data-class="Class 4B" data-term="Term 1">
-                <td>Amy Osei</td><td>Class 4B</td><td>Mathematics</td>
-                <td>87/100</td><td><span class="ea-t-grade ea-t-grade-a">A</span></td><td>Term 1</td>
-              </tr>
-              <tr data-class="Class 5A" data-term="Term 1">
-                <td>Kofi Asante</td><td>Class 5A</td><td>English</td>
-                <td>74/100</td><td><span class="ea-t-grade ea-t-grade-b">B</span></td><td>Term 1</td>
-              </tr>
-              <tr data-class="Class 3A" data-term="Term 1">
-                <td>Esi Boateng</td><td>Class 3A</td><td>Science</td>
-                <td>61/100</td><td><span class="ea-t-grade ea-t-grade-c">C</span></td><td>Term 1</td>
-              </tr>
-              <tr data-class="Class 4B" data-term="Term 1">
-                <td>James Mensah</td><td>Class 4B</td><td>Mathematics</td>
-                <td>92/100</td><td><span class="ea-t-grade ea-t-grade-a">A</span></td><td>Term 1</td>
+              <tr>
+                <td colspan="6" style="text-align:center; padding:2rem; color:#aaa;">
+                  Loading results...
+                </td>
               </tr>
             </tbody>
           </table>
@@ -299,9 +256,6 @@
         <div class="ea-t-filter-bar">
           <select class="ea-t-select" id="ea-t-att-class">
             <option value="">All Classes</option>
-            <option value="Class 3A">Class 3A</option>
-            <option value="Class 4B">Class 4B</option>
-            <option value="Class 5A">Class 5A</option>
           </select>
         </div>
 
@@ -316,21 +270,10 @@
               </tr>
             </thead>
             <tbody id="ea-t-att-tbody">
-              <tr data-class="Class 4B">
-                <td>Amy Osei</td><td>Class 4B</td><td>2 May 2026</td>
-                <td><span class="ea-t-att-status ea-t-att-present">Present</span></td>
-              </tr>
-              <tr data-class="Class 4B">
-                <td>James Mensah</td><td>Class 4B</td><td>2 May 2026</td>
-                <td><span class="ea-t-att-status ea-t-att-absent">Absent</span></td>
-              </tr>
-              <tr data-class="Class 5A">
-                <td>Kofi Asante</td><td>Class 5A</td><td>2 May 2026</td>
-                <td><span class="ea-t-att-status ea-t-att-present">Present</span></td>
-              </tr>
-              <tr data-class="Class 3A">
-                <td>Esi Boateng</td><td>Class 3A</td><td>2 May 2026</td>
-                <td><span class="ea-t-att-status ea-t-att-late">Late</span></td>
+              <tr>
+                <td colspan="4" style="text-align:center; padding:2rem; color:#aaa;">
+                  Loading attendance...
+                </td>
               </tr>
             </tbody>
           </table>
@@ -345,29 +288,9 @@
         </div>
 
         <div class="ea-t-messages-list">
-          <div class="ea-t-message-card ea-t-msg-unread">
-            <div class="ea-t-msg-top">
-              <span class="ea-t-msg-sender">Parent — Kofi Asante</span>
-              <span class="ea-t-msg-time">Today, 9:14am</span>
-            </div>
-            <p class="ea-t-msg-body">Good morning, I wanted to ask about Kofi's performance in the last Mathematics test. Is there anything we can do to help him improve?</p>
-            <span class="ea-t-msg-badge ea-t-badge-unread">Unread</span>
-          </div>
-          <div class="ea-t-message-card">
-            <div class="ea-t-msg-top">
-              <span class="ea-t-msg-sender">Admin — Eastgate Academy</span>
-              <span class="ea-t-msg-time">Yesterday, 3:45pm</span>
-            </div>
-            <p class="ea-t-msg-body">Please ensure all Term 1 results are submitted by Friday 9th May. Contact admin if you have any issues.</p>
-            <span class="ea-t-msg-badge ea-t-badge-read">Read</span>
-          </div>
-          <div class="ea-t-message-card">
-            <div class="ea-t-msg-top">
-              <span class="ea-t-msg-sender">Parent — Amy Osei</span>
-              <span class="ea-t-msg-time">30 Apr 2026, 11:20am</span>
-            </div>
-            <p class="ea-t-msg-body">Thank you for the positive feedback on Amy's progress. She has been working very hard at home as well.</p>
-            <span class="ea-t-msg-badge ea-t-badge-read">Read</span>
+          <div style="text-align:center; padding:2rem; color:#aaa;">
+            <i class="fas fa-spinner fa-spin" style="font-size:1.5rem; display:block; margin-bottom:0.5rem;"></i>
+            Loading messages...
           </div>
         </div>
       </section>
