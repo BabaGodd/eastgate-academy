@@ -28,7 +28,6 @@ function isPortalSessionActive() {
 }
 
 // ---- Check Auth & Load User ----
-// ---- Check Auth & Load User ----
 async function checkAuth() {
   showAdminSkeleton();
 
@@ -246,24 +245,196 @@ function checkAnnouncementsEmpty() {
   if (empty) empty.style.display = list.children.length === 0 ? 'block' : 'none';
 }
 
-// ---- Results Filtering ----
-['ea-results-class', 'ea-results-subject', 'ea-results-term'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('change', filterResults);
-});
+// ============================================
+// VIEW / PUBLISH RESULTS
+// ============================================
 
-function filterResults() {
-  const cls = document.getElementById('ea-results-class').value;
-  const subject = document.getElementById('ea-results-subject').value;
-  const term = document.getElementById('ea-results-term').value;
+let allResultsCache = [];
 
-  document.querySelectorAll('#ea-results-tbody tr').forEach(row => {
-    const matchClass = !cls || row.dataset.class === cls;
-    const matchSubject = !subject || row.dataset.subject === subject;
-    const matchTerm = !term || row.dataset.term === term;
-    row.style.display = matchClass && matchSubject && matchTerm ? '' : 'none';
+async function loadResults() {
+  const tbody = document.getElementById('ea-results-tbody');
+  if (!tbody) return;
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="8" style="text-align:center; padding:2rem; color:#aaa;">
+        Loading results...
+      </td>
+    </tr>`;
+
+  const { data: results, error } = await supabaseClient
+    .from('results')
+    .select(`
+      id, score, grade, term, academic_year, published,
+      students ( full_name, student_code ),
+      classes ( name ),
+      subjects ( name )
+    `)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error loading results:', error);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align:center; padding:2rem; color:#c62828;">
+          Error loading results. Please try again.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  allResultsCache = results || [];
+  populateResultsFilters(allResultsCache);
+  renderResultsTable(allResultsCache);
+}
+
+function populateResultsFilters(results) {
+  const classSelect = document.getElementById('ea-results-class');
+  const subjectSelect = document.getElementById('ea-results-subject');
+  if (!classSelect || !subjectSelect) return;
+
+  const currentClass = classSelect.value;
+  const currentSubject = subjectSelect.value;
+
+  const classNames = [...new Set(results.map(r => r.classes?.name).filter(Boolean))].sort();
+  const subjectNames = [...new Set(results.map(r => r.subjects?.name).filter(Boolean))].sort();
+
+  classSelect.innerHTML = '<option value="">All Classes</option>' +
+    classNames.map(n => `<option value="${n}">${n}</option>`).join('');
+  subjectSelect.innerHTML = '<option value="">All Subjects</option>' +
+    subjectNames.map(n => `<option value="${n}">${n}</option>`).join('');
+
+  classSelect.value = currentClass;
+  subjectSelect.value = currentSubject;
+}
+
+function renderResultsTable(results) {
+  const tbody = document.getElementById('ea-results-tbody');
+  const countEl = document.getElementById('ea-results-count');
+  if (!tbody) return;
+
+  if (!results || results.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align:center; padding:2rem; color:#aaa;">
+          <i class="fas fa-clipboard-list" style="font-size:2rem; display:block; margin-bottom:0.5rem; color:#ddd;"></i>
+          No results found.
+        </td>
+      </tr>`;
+    if (countEl) countEl.textContent = '';
+    return;
+  }
+
+  if (countEl) countEl.textContent = `${results.length} result${results.length > 1 ? 's' : ''}`;
+
+  tbody.innerHTML = results.map(r => {
+    const studentName = r.students?.full_name || 'Unknown';
+    const className = r.classes?.name || 'Unknown';
+    const subjectName = r.subjects?.name || 'Unknown';
+    const gradeLower = (r.grade || '').toLowerCase();
+    const statusLabel = r.published
+      ? '<span style="background:#e8f5e9; color:#388E3C; padding:4px 10px; border-radius:20px; font-size:0.8rem; font-weight:700;">Published</span>'
+      : '<span style="background:#FDF0EC; color:#D94E2A; padding:4px 10px; border-radius:20px; font-size:0.8rem; font-weight:700;">Unpublished</span>';
+    const actionBtn = r.published
+      ? `<button class="ea-del-btn ea-toggle-publish-btn" data-id="${r.id}" data-action="unpublish">Unpublish</button>`
+      : `<button class="ea-view-btn ea-toggle-publish-btn" data-id="${r.id}" data-action="publish" style="background:#388E3C; color:white; border:none;">Publish</button>`;
+
+    return `
+      <tr data-class="${className}" data-subject="${subjectName}" data-term="${r.term}" data-published="${r.published}">
+        <td>${studentName}</td>
+        <td>${className}</td>
+        <td>${subjectName}</td>
+        <td>${r.score}/100</td>
+        <td><span class="ea-grade ea-grade-${gradeLower}">${r.grade}</span></td>
+        <td>${r.term}</td>
+        <td>${statusLabel}</td>
+        <td>${actionBtn}</td>
+      </tr>
+    `;
+  }).join('');
+
+  attachPublishListeners();
+}
+
+function attachPublishListeners() {
+  document.querySelectorAll('.ea-toggle-publish-btn').forEach(btn => {
+    btn.onclick = async function () {
+      const id = this.getAttribute('data-id');
+      const action = this.getAttribute('data-action');
+      const publish = action === 'publish';
+
+      const { error } = await supabaseClient
+        .from('results')
+        .update({ published: publish })
+        .eq('id', id);
+
+      if (error) {
+        alert('Error updating result status. Please try again.');
+        return;
+      }
+
+      loadResults();
+    };
   });
 }
+
+function applyResultsFilter() {
+  const cls = document.getElementById('ea-results-class')?.value || '';
+  const subject = document.getElementById('ea-results-subject')?.value || '';
+  const term = document.getElementById('ea-results-term')?.value || '';
+  const status = document.getElementById('ea-results-status')?.value || '';
+
+  const filtered = allResultsCache.filter(r => {
+    const matchClass = !cls || r.classes?.name === cls;
+    const matchSubject = !subject || r.subjects?.name === subject;
+    const matchTerm = !term || r.term === term;
+    const matchStatus = !status || (status === 'published' ? r.published : !r.published);
+    return matchClass && matchSubject && matchTerm && matchStatus;
+  });
+
+  renderResultsTable(filtered);
+}
+
+['ea-results-class', 'ea-results-subject', 'ea-results-term', 'ea-results-status'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('change', applyResultsFilter);
+});
+
+// ---- Bulk Publish All Filtered ----
+document.getElementById('ea-publish-visible-btn')?.addEventListener('click', async function () {
+  const cls = document.getElementById('ea-results-class')?.value || '';
+  const subject = document.getElementById('ea-results-subject')?.value || '';
+  const term = document.getElementById('ea-results-term')?.value || '';
+
+  const toPublish = allResultsCache.filter(r => {
+    const matchClass = !cls || r.classes?.name === cls;
+    const matchSubject = !subject || r.subjects?.name === subject;
+    const matchTerm = !term || r.term === term;
+    return matchClass && matchSubject && matchTerm && !r.published;
+  });
+
+  if (toPublish.length === 0) {
+    alert('No unpublished results match the current filter.');
+    return;
+  }
+
+  if (!confirm(`Publish ${toPublish.length} result(s) matching the current filter? Parents will be able to see them immediately.`)) {
+    return;
+  }
+
+  const ids = toPublish.map(r => r.id);
+  const { error } = await supabaseClient
+    .from('results')
+    .update({ published: true })
+    .in('id', ids);
+
+  if (error) {
+    alert('Error publishing results. Please try again.');
+    return;
+  }
+
+  loadResults();
+});
 
 // ---- Assignments Filtering ----
 ['ea-assign-class', 'ea-assign-subject'].forEach(id => {
@@ -841,7 +1012,7 @@ async function loadTeachers() {
   });
 }
 
-// Load teachers when section is shown
+// Load section-specific data when section is shown
 document.querySelectorAll('.ea-nav-link').forEach(link => {
   link.addEventListener('click', function () {
     const section = this.getAttribute('data-section');
@@ -850,6 +1021,12 @@ document.querySelectorAll('.ea-nav-link').forEach(link => {
     }
     if (section === 'parent-passwords') {
       loadParentPasswords();
+    }
+    if (section === 'results') {
+      loadResults();
+    }
+    if (section === 'admissions') {
+      loadAdmissions();
     }
   });
 });
@@ -1355,13 +1532,3 @@ async function updateAdmissionStatus(id, status) {
 document.getElementById('ea-adm-modal-close')?.addEventListener('click', function () {
   document.getElementById('ea-adm-modal').style.display = 'none';
 });
-
-// ---- Load admissions when section is clicked ----
-document.querySelectorAll('.ea-nav-link').forEach(link => {
-  link.addEventListener('click', function () {
-    if (this.getAttribute('data-section') === 'admissions') {
-      loadAdmissions();
-    }
-  });
-});
-
