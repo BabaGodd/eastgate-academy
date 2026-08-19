@@ -286,11 +286,14 @@ async function loadParentData(parentId) {
 }
 
 // ---- Load Child Results ----
+// NOTE: Only published results are shown to parents. Results a teacher has
+// entered but admin has not yet approved/published stay hidden here.
 async function loadChildResults(studentId) {
   const { data: results } = await supabaseClient
     .from('results')
     .select(`*, subjects (name)`)
     .eq('student_id', studentId)
+    .eq('published', true)
     .order('created_at', { ascending: false });
 
   const tbody = document.getElementById('ea-p-results-tbody');
