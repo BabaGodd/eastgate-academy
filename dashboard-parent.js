@@ -252,20 +252,56 @@ async function loadParentData(parentId) {
   localStorage.setItem('ea-student-code', child.student_code || 'N/A');
   renderFeesSummary(child);
 
-  // Update child overview card
-  const childName = document.querySelector('.ea-p-child-name');
-  const childDetails = document.querySelectorAll('.ea-p-child-detail');
-  const childAvatar = document.querySelector('.ea-p-child-avatar');
+  const initials = (child.full_name || 'Student')
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(n => n[0])
+    .join('')
+    .toUpperCase() || 'ST';
 
-  if (childName) childName.textContent = child.full_name;
-  if (childAvatar) childAvatar.textContent = child.full_name.split(' ').map(n => n[0]).join('').toUpperCase();
-  if (childDetails[0]) childDetails[0].innerHTML = `${child.classes?.name || 'N/A'} &nbsp;|&nbsp; Student ID: ${child.student_code || 'N/A'}`;
-  if (childDetails[1]) childDetails[1].textContent = `Class Teacher: ${child.classes?.users?.full_name || 'N/A'}`;
+  // ---- Rebuild the Child's Overview card with real data ----
+  // The skeleton loader replaced the original elements entirely, so we
+  // recreate the card here (with the same classes) rather than trying to
+  // update elements that no longer exist in the DOM.
+  const childCard = document.querySelector('.ea-p-child-card');
+  if (childCard) {
+    childCard.innerHTML = `
+      <div class="ea-p-child-avatar">${escapeHtml(initials)}</div>
+      <div class="ea-p-child-info">
+        <p class="ea-p-child-name">${escapeHtml(child.full_name)}</p>
+        <p class="ea-p-child-detail">${escapeHtml(child.classes?.name || 'N/A')} &nbsp;|&nbsp; Student ID: ${escapeHtml(child.student_code || 'N/A')}</p>
+        <p class="ea-p-child-detail">Class Teacher: ${escapeHtml(child.classes?.users?.full_name || 'N/A')}</p>
+      </div>
+    `;
+  }
 
-  // Update stat cards
-  const statValues = document.querySelectorAll('.ea-p-stat-value');
-  if (statValues[0]) statValues[0].textContent = child.classes?.name || 'N/A';
-
+  // ---- Rebuild the stat cards with real data ----
+  // Same reasoning as above: rebuild rather than update, so this works
+  // regardless of what the skeleton left behind. Average grade, attendance
+  // rate, and fees status get filled in by their own loaders further down,
+  // but the classes below must stay the same so those loaders can find them.
+  const statsGrid = document.querySelector('.ea-p-stats-grid');
+  if (statsGrid) {
+    statsGrid.innerHTML = `
+      <div class="ea-p-stat-card ea-p-purple">
+        <p class="ea-p-stat-label">Child's Class</p>
+        <p class="ea-p-stat-value">${escapeHtml(child.classes?.name || 'N/A')}</p>
+      </div>
+      <div class="ea-p-stat-card ea-p-green">
+        <p class="ea-p-stat-label">Average Grade</p>
+        <p class="ea-p-stat-value">—</p>
+      </div>
+      <div class="ea-p-stat-card ea-p-blue">
+        <p class="ea-p-stat-label">Attendance Rate</p>
+        <p class="ea-p-stat-value">—</p>
+      </div>
+      <div class="ea-p-stat-card ea-p-orange">
+        <p class="ea-p-stat-label">Fees Status</p>
+        <p class="ea-p-stat-value ea-p-fees-due">Pending</p>
+      </div>
+    `;
+  }
 
   showResultsSkeleton();
   // Load child results

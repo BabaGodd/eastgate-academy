@@ -33,6 +33,7 @@
           <li><a href="#" class="ea-teacher-link" data-section="results" data-title="Manage Results">Manage Results</a></li>
           <li><a href="#" class="ea-teacher-link" data-section="view-results" data-title="View Results">View Results</a></li>
           <li><a href="#" class="ea-teacher-link" data-section="attendance" data-title="Attendance">Attendance</a></li>
+          <li><a href="#" class="ea-teacher-link" id="ea-t-announcements-link" data-section="announcements" data-title="Announcements">Announcements</a></li>
           <li><a href="#" class="ea-teacher-link" data-section="messages" data-title="Messages">Messages</a></li>
           <li><a href="#" class="ea-teacher-link" data-section="settings" data-title="Settings">Settings</a></li>
           <li><a href="#" id="ea-teacher-logout">Logout</a></li>
@@ -280,6 +281,23 @@
         </div>
       </section>
 
+      <!-- ANNOUNCEMENTS -->
+      <section class="ea-teacher-content ea-teacher-section" id="section-announcements" style="display:none;">
+        <div class="ea-t-top-bar">
+          <h2>Announcements</h2>
+        </div>
+        <p style="color:#888; font-size:0.85rem; margin-bottom:1.2rem;">
+          Notices posted by the school admin. This list is read-only for teachers.
+        </p>
+
+        <div id="ea-t-announcements-list">
+          <div style="text-align:center; padding:2rem; color:#aaa;">
+            <i class="fas fa-spinner fa-spin" style="font-size:1.5rem; display:block; margin-bottom:0.5rem;"></i>
+            Loading announcements...
+          </div>
+        </div>
+      </section>
+
       <!-- MESSAGES -->
       <section class="ea-teacher-content ea-teacher-section" id="section-messages" style="display:none;">
         <div class="ea-t-top-bar">
@@ -489,5 +507,6 @@
   </div>
 
   <script src="dashboard-teacher.js"></script>
+  <script src="teacher-announcements.js"></script>
 </body>
 </html>
