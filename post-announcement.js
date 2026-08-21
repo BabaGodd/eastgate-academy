@@ -2,16 +2,41 @@
 // EASTGATE ACADEMY — POST ANNOUNCEMENT
 // ============================================
 
+// ---- Populate the "Send To" class dropdown ----
+document.addEventListener('DOMContentLoaded', async function () {
+  const classSelect = document.getElementById('ea-ann-class');
+  if (!classSelect) return;
+
+  const { data: classes, error } = await supabaseClient
+    .from('classes')
+    .select('id, name')
+    .order('name');
+
+  if (error || !classes) {
+    console.error('Error loading classes:', error);
+    return;
+  }
+
+  classes.forEach(cls => {
+    const option = document.createElement('option');
+    option.value = cls.id;
+    option.textContent = cls.name;
+    classSelect.appendChild(option);
+  });
+});
+
 document.getElementById('ea-ann-form').addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const titleInput = document.getElementById('ea-ann-title');
   const bodyInput = document.getElementById('ea-ann-body');
+  const classInput = document.getElementById('ea-ann-class');
   const successEl = document.getElementById('ea-ann-success');
   const submitBtn = document.querySelector('.ea-inner-submit-btn');
 
   const title = titleInput.value.trim();
   const body = bodyInput.value.trim();
+  const classId = classInput.value || null; // empty selection = school-wide
 
   successEl.style.color = '';
   successEl.textContent = '';
@@ -31,6 +56,7 @@ document.getElementById('ea-ann-form').addEventListener('submit', async function
     .insert({
       title: title,
       body: body,
+      class_id: classId,
       created_at: new Date().toISOString()
     })
     .select();
@@ -52,11 +78,16 @@ document.getElementById('ea-ann-form').addEventListener('submit', async function
     return;
   }
 
+  const targetLabel = classId
+    ? classInput.options[classInput.selectedIndex].textContent
+    : 'all classes (school-wide)';
+
   successEl.style.color = '#2E7D32';
-  successEl.textContent = 'Announcement posted successfully!';
+  successEl.textContent = `Announcement posted successfully to ${targetLabel}!`;
 
   titleInput.value = '';
   bodyInput.value = '';
+  classInput.value = '';
 
   setTimeout(() => {
     successEl.textContent = '';

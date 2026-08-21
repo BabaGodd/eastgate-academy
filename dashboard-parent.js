@@ -243,6 +243,8 @@ async function loadParentData(parentId) {
       `;
     }
 
+    // Even with no linked child, still show school-wide announcements
+    loadParentAnnouncements(null);
     return;
   }
 
@@ -261,9 +263,6 @@ async function loadParentData(parentId) {
     .toUpperCase() || 'ST';
 
   // ---- Rebuild the Child's Overview card with real data ----
-  // The skeleton loader replaced the original elements entirely, so we
-  // recreate the card here (with the same classes) rather than trying to
-  // update elements that no longer exist in the DOM.
   const childCard = document.querySelector('.ea-p-child-card');
   if (childCard) {
     childCard.innerHTML = `
@@ -277,10 +276,6 @@ async function loadParentData(parentId) {
   }
 
   // ---- Rebuild the stat cards with real data ----
-  // Same reasoning as above: rebuild rather than update, so this works
-  // regardless of what the skeleton left behind. Average grade, attendance
-  // rate, and fees status get filled in by their own loaders further down,
-  // but the classes below must stay the same so those loaders can find them.
   const statsGrid = document.querySelector('.ea-p-stats-grid');
   if (statsGrid) {
     statsGrid.innerHTML = `
@@ -304,21 +299,16 @@ async function loadParentData(parentId) {
   }
 
   showResultsSkeleton();
-  // Load child results
   loadChildResults(child.id);
-  
+
   showAttendanceSkeleton();
-  // Load child attendance
   loadChildAttendance(child.id, child.class_id);
 
-  // Load fees
   loadChildFees(child.id);
-
-  // Load messages
   loadParentMessages(parentId);
 
-  // Load announcements
-  loadParentAnnouncements();
+  // Load announcements — school-wide ones plus any targeted at this child's class
+  loadParentAnnouncements(child.class_id);
 }
 
 // ---- Load Child Results ----
@@ -387,19 +377,15 @@ async function loadChildAttendance(studentId, classId) {
   const late = attendance.filter(a => a.status === 'Late').length;
   const total = attendance.length;
 
-  // Update attendance summary cards
   const attCounts = document.querySelectorAll('.ea-p-att-count');
   if (attCounts[0]) attCounts[0].textContent = present;
   if (attCounts[1]) attCounts[1].textContent = absent;
   if (attCounts[2]) attCounts[2].textContent = late;
 
-  // Update attendance rate stat
   const statValues = document.querySelectorAll('.ea-p-stat-value');
   const rate = total > 0 ? Math.round((present / total) * 100) : 0;
   if (statValues[2]) statValues[2].textContent = rate + '%';
 
-  // Update attendance table
-  const tbody = document.querySelector('.ea-p-table-wrap table tbody');
   const tables = document.querySelectorAll('.ea-p-table');
   if (tables.length < 1) return;
 
@@ -443,7 +429,6 @@ async function loadChildFees(studentId) {
 
   if (!fees) return;
 
-  // Update fees status stat card
   const statValues = document.querySelectorAll('.ea-p-stat-value');
   const latestFee = fees[0];
   if (latestFee && statValues[3]) {
@@ -457,7 +442,6 @@ async function loadChildFees(studentId) {
     }
   }
 
-  // Update payment history table
   const payHistoryTbody = document.getElementById('ea-p-payment-history');
   if (!payHistoryTbody || fees.length === 0) return;
 
@@ -522,17 +506,34 @@ async function loadParentMessages(parentId) {
 }
 
 // ---- Load Announcements ----
-async function loadParentAnnouncements() {
-  const { data: announcements } = await supabaseClient
-    .from('announcements')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(3);
-
+// Shows school-wide announcements (class_id is null) plus any announcement
+// targeted specifically at this child's class.
+async function loadParentAnnouncements(classId) {
   const annList = document.querySelector('.ea-p-announcements-list');
-  if (!annList || !announcements) return;
+  if (!annList) return;
 
-  if (announcements.length === 0) {
+  let query = supabaseClient
+    .from('announcements')
+    .select('*, classes(name)')
+    .order('created_at', { ascending: false })
+    .limit(5);
+
+  query = classId
+    ? query.or(`class_id.is.null,class_id.eq.${classId}`)
+    : query.is('class_id', null);
+
+  const { data: announcements, error } = await query;
+
+  if (error) {
+    console.error('Error loading announcements:', error);
+    annList.innerHTML = `
+      <div style="text-align:center; padding:1rem; color:#c62828;">
+        Error loading announcements.
+      </div>`;
+    return;
+  }
+
+  if (!announcements || announcements.length === 0) {
     annList.innerHTML = `
       <div style="text-align:center; padding:1rem; color:#aaa;">
         No announcements yet.
@@ -544,12 +545,20 @@ async function loadParentAnnouncements() {
     const date = new Date(a.created_at).toLocaleDateString('en-GB', {
       day: 'numeric', month: 'short', year: 'numeric'
     });
+    const audienceLabel = a.class_id
+      ? `${a.classes?.name || 'Your class'}`
+      : 'School-wide';
+    const audienceColor = a.class_id ? '#1976D2' : '#7A1E0A';
+
     return `
       <div class="ea-p-announcement-card">
         <div class="ea-p-ann-top">
           <p class="ea-p-ann-title">${a.title}</p>
           <span class="ea-p-ann-date">${date}</span>
         </div>
+        <span style="display:inline-block; background:${audienceColor}15; color:${audienceColor}; font-size:0.72rem; font-weight:700; padding:2px 9px; border-radius:20px; margin-bottom:6px;">
+          ${audienceLabel}
+        </span>
         <p class="ea-p-ann-body">${a.body}</p>
       </div>
     `;
@@ -704,7 +713,6 @@ document.getElementById('ea-p-pay-btn').addEventListener('click', async function
   const ref = 'EA-TXN-' + Math.floor(Math.random() * 90000 + 10000);
   const today = new Date();
 
-  // Save payment to Supabase
   const studentId = localStorage.getItem('ea-student-id');
   if (studentId) {
     await supabaseClient.from('fees').insert({
@@ -939,14 +947,12 @@ if (downloadReportBtn) {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      // Get student info from localStorage
       const studentName = localStorage.getItem('ea-student-name') || 'Student';
       const parentName = localStorage.getItem('ea-user-name') || 'Parent';
       const today = new Date().toLocaleDateString('en-GB', {
         day: 'numeric', month: 'long', year: 'numeric'
       });
 
-      // ---- HEADER ----
       doc.setFillColor(217, 78, 42);
       doc.rect(0, 0, 210, 35, 'F');
 
@@ -960,18 +966,15 @@ if (downloadReportBtn) {
       doc.text('Dawenya, Tema, Ghana  |  0244 512 123', 105, 22, { align: 'center' });
       doc.text('Nurturing Future Leaders', 105, 29, { align: 'center' });
 
-      // ---- TITLE ----
       doc.setTextColor(217, 78, 42);
       doc.setFontSize(16);
       doc.setFont('helvetica', 'bold');
       doc.text('STUDENT REPORT CARD', 105, 48, { align: 'center' });
 
-      // Divider line
       doc.setDrawColor(217, 78, 42);
       doc.setLineWidth(0.5);
       doc.line(14, 52, 196, 52);
 
-      // ---- STUDENT INFO ----
       doc.setTextColor(50, 50, 50);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'normal');
@@ -1008,18 +1011,15 @@ if (downloadReportBtn) {
       doc.setFont('helvetica', 'bold');
       doc.text(parentName, 161, 78);
 
-      // Divider
       doc.setDrawColor(220, 220, 220);
       doc.setLineWidth(0.3);
       doc.line(14, 84, 196, 84);
 
-      // ---- RESULTS TABLE ----
       doc.setTextColor(217, 78, 42);
       doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
       doc.text('Academic Results', 14, 93);
 
-      // Get results from the table
       const rows = [];
       document.querySelectorAll('#ea-p-results-tbody tr').forEach(row => {
         const cells = row.querySelectorAll('td');
@@ -1061,7 +1061,6 @@ if (downloadReportBtn) {
         margin: { left: 14, right: 14 }
       });
 
-      // ---- ATTENDANCE SUMMARY ----
       const finalY = doc.lastAutoTable.finalY + 10;
 
       doc.setTextColor(217, 78, 42);
@@ -1092,7 +1091,6 @@ if (downloadReportBtn) {
         margin: { left: 14, right: 14 }
       });
 
-      // ---- FOOTER ----
       const footerY = doc.lastAutoTable.finalY + 20;
 
       doc.setDrawColor(217, 78, 42);
@@ -1106,7 +1104,6 @@ if (downloadReportBtn) {
       doc.text('For queries contact: info@eastgateacademy.edu.gh  |  0244 512 123', 105, footerY + 11, { align: 'center' });
       doc.text(`Generated on ${today} by Eastgate Academy Portal`, 105, footerY + 16, { align: 'center' });
 
-      // ---- SAVE ----
       const fileName = `Eastgate_Report_Card_${studentName.replace(/ /g, '_')}_2026.pdf`;
       doc.save(fileName);
 
