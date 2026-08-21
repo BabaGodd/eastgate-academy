@@ -151,6 +151,61 @@ body {
   font-weight: bold;
 }
 
+.ea-sk,
+.ea-sk-dark {
+  display: inline-block;
+  background: #e8edf2;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ea-sk-dark { background: #d7dee6; }
+
+.ea-sk::after,
+.ea-sk-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
+  animation: ea-teacher-skeleton-shimmer 1.4s infinite;
+}
+
+.ea-sk-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  color: #888;
+  font-size: 13px;
+}
+
+.ea-sk-banner-text { margin: 0; }
+
+.ea-sk-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1976D2;
+  animation: ea-teacher-skeleton-pulse 1.2s infinite;
+}
+
+.ea-empty-state {
+  grid-column: 1 / -1;
+  padding: 2rem;
+  color: #888;
+  text-align: center;
+}
+
+@keyframes ea-teacher-skeleton-shimmer {
+  to { transform: translateX(100%); }
+}
+
+@keyframes ea-teacher-skeleton-pulse {
+  50% { opacity: 0.35; }
+}
+
 /* Recent Activity */
 .ea-t-recent-box {
   background: white;

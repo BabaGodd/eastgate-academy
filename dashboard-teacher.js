@@ -1,12 +1,18 @@
 // ---- Loading Skeleton ----
+let teacherSkeletonVisible = false;
+let teacherClassesMarkup = null;
+let teacherStatMarkup = [];
+
 function showTeacherSkeleton() {
   const statValues = document.querySelectorAll('.ea-t-stat-value');
+  teacherStatMarkup = Array.from(statValues, stat => stat.innerHTML);
   statValues.forEach(val => {
     val.innerHTML = '<div class="ea-sk-dark" style="height:28px; width:60px;"></div>';
   });
 
   const classesGrid = document.querySelector('.ea-t-classes-grid');
   if (classesGrid) {
+    teacherClassesMarkup = classesGrid.innerHTML;
     classesGrid.innerHTML = `
       <div class="ea-sk-banner" style="grid-column: 1/-1;">
         <span class="ea-sk-pulse-dot"></span>
@@ -17,6 +23,26 @@ function showTeacherSkeleton() {
       `).join('')}
     `;
   }
+
+  teacherSkeletonVisible = true;
+}
+
+function hideTeacherSkeleton() {
+  if (!teacherSkeletonVisible) return;
+
+  const statValues = document.querySelectorAll('.ea-t-stat-value');
+  statValues.forEach((stat, index) => {
+    if (teacherStatMarkup[index] !== undefined && stat.querySelector('.ea-sk-dark')) {
+      stat.innerHTML = teacherStatMarkup[index];
+    }
+  });
+
+  const classesGrid = document.querySelector('.ea-t-classes-grid');
+  if (classesGrid && teacherClassesMarkup !== null && classesGrid.querySelector('.ea-sk-banner')) {
+    classesGrid.innerHTML = teacherClassesMarkup;
+  }
+
+  teacherSkeletonVisible = false;
 }
 
 function isPortalSessionActive() {
@@ -29,6 +55,7 @@ async function checkTeacherAuth() {
 
   const storedRole = localStorage.getItem('ea-user-role');
   const storedName = localStorage.getItem('ea-user-name');
+  const storedEmail = localStorage.getItem('ea-user-email');
 
   if (isPortalSessionActive() && storedRole === 'teacher') {
     const pageTitle = document.getElementById('ea-teacher-page-title');
@@ -39,14 +66,16 @@ async function checkTeacherAuth() {
     if (pageTitle) pageTitle.textContent = `Welcome, ${firstName}`;
     if (userName) userName.textContent = storedName || 'Teacher';
     if (userAvatar) userAvatar.textContent = (storedName || 'T').charAt(0).toUpperCase();
-    return;
+    if (storedEmail) return storedEmail;
   }
+
+  if (!supabaseClient) throw new Error('Supabase client is unavailable.');
 
   const { data: { user } } = await supabaseClient.auth.getUser();
 
   if (!user) {
     window.location.href = 'login.html';
-    return;
+    return null;
   }
 
   const { data: userData } = await supabaseClient
@@ -57,7 +86,7 @@ async function checkTeacherAuth() {
 
   if (!userData || userData.role !== 'teacher') {
     window.location.href = 'login.html';
-    return;
+    return null;
   }
 
   // Update UI with real user name
@@ -74,11 +103,21 @@ async function checkTeacherAuth() {
   localStorage.setItem('ea-user-role', userData.role);
   localStorage.setItem('ea-user-email', user.email);
 
-  // Load teacher specific data
-  loadTeacherData(user.email);
+  return user.email;
 }
 
-checkTeacherAuth();
+async function initializeTeacherDashboard() {
+  try {
+    const teacherEmail = await checkTeacherAuth();
+    if (teacherEmail) await loadTeacherData(teacherEmail);
+  } catch (error) {
+    console.error('Error initializing teacher dashboard:', error);
+  } finally {
+    hideTeacherSkeleton();
+  }
+}
+
+initializeTeacherDashboard();
 
 // ---- Load Teacher Data ----
 async function loadTeacherData(email) {
@@ -107,6 +146,11 @@ async function loadTeacherData(email) {
         <span class="ea-t-class-badge">Active</span>
       </div>
     `).join('');
+  } else if (classesGrid) {
+    classesGrid.innerHTML = `
+      <div class="ea-t-empty-state">
+        No classes are currently assigned to you.
+      </div>`;
   }
 
   // Update stat cards

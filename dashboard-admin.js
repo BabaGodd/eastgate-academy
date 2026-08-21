@@ -1,5 +1,10 @@
 // ---- Loading Skeleton ----
+let adminSkeletonVisible = false;
+let recentActivityMarkup = null;
+
 function showAdminSkeleton() {
+  if (adminSkeletonVisible) return;
+
   const statValues = document.querySelectorAll('.ea-stat-value');
   statValues.forEach(val => {
     val.innerHTML = '<div class="ea-sk-dark" style="height:28px; width:60px;"></div>';
@@ -7,6 +12,7 @@ function showAdminSkeleton() {
 
   const recentBox = document.querySelector('.ea-recent-box');
   if (recentBox) {
+    recentActivityMarkup = recentBox.innerHTML;
     recentBox.innerHTML = `
       <div class="ea-sk-banner">
         <span class="ea-sk-pulse-dot"></span>
@@ -20,6 +26,19 @@ function showAdminSkeleton() {
       `).join('')}
     `;
   }
+
+  adminSkeletonVisible = true;
+}
+
+function hideAdminSkeleton() {
+  if (!adminSkeletonVisible) return;
+
+  const recentBox = document.querySelector('.ea-recent-box');
+  if (recentBox && recentActivityMarkup !== null) {
+    recentBox.innerHTML = recentActivityMarkup;
+  }
+
+  adminSkeletonVisible = false;
 }
 
 showAdminSkeleton();
@@ -43,14 +62,18 @@ async function checkAuth() {
     if (pageTitle) pageTitle.textContent = `Welcome, ${firstName}`;
     if (userName) userName.textContent = storedName || 'Admin';
     if (userAvatar) userAvatar.textContent = (storedName || 'A').charAt(0).toUpperCase();
-    return;
+    return true;
+  }
+
+  if (!supabaseClient) {
+    throw new Error('Supabase client is unavailable.');
   }
 
   const { data: { user } } = await supabaseClient.auth.getUser();
 
   if (!user) {
     window.location.href = 'login.html';
-    return;
+    return false;
   }
 
   const { data: userData } = await supabaseClient
@@ -61,7 +84,7 @@ async function checkAuth() {
 
   if (!userData || userData.role !== 'admin') {
     window.location.href = 'login.html';
-    return;
+    return false;
   }
 
   // Update welcome title
@@ -76,9 +99,24 @@ async function checkAuth() {
 
   localStorage.setItem('ea-user-name', userData.full_name);
   localStorage.setItem('ea-user-role', userData.role);
+
+  return true;
 }
 
-checkAuth();
+async function initializeAdminDashboard() {
+  try {
+    const isAuthorized = await checkAuth();
+    if (!isAuthorized) return;
+
+    await Promise.all([loadAnnouncements(), loadStats()]);
+  } catch (error) {
+    console.error('Error initializing admin dashboard:', error);
+  } finally {
+    hideAdminSkeleton();
+  }
+}
+
+initializeAdminDashboard();
 
 // ---- Sidebar Navigation ----
 const navLinks = document.querySelectorAll('.ea-nav-link');
@@ -214,8 +252,6 @@ async function loadAnnouncements() {
 
   attachAnnouncementDeleteListeners();
 }
-
-loadAnnouncements();
 
 function attachAnnouncementDeleteListeners() {
   document.querySelectorAll('.ea-an-del').forEach(btn => {
@@ -466,31 +502,23 @@ attachAssignmentDeleteListeners();
 
 // ---- Load Dashboard Stats ----
 async function loadStats() {
-  const { count: studentCount } = await supabaseClient
-    .from('students')
-    .select('*', { count: 'exact', head: true });
+  try {
+    const [students, teachers, classes, announcements] = await Promise.all([
+      supabaseClient.from('students').select('*', { count: 'exact', head: true }),
+      supabaseClient.from('users').select('*', { count: 'exact', head: true }).eq('role', 'teacher'),
+      supabaseClient.from('classes').select('*', { count: 'exact', head: true }),
+      supabaseClient.from('announcements').select('*', { count: 'exact', head: true })
+    ]);
 
-  const { count: teacherCount } = await supabaseClient
-    .from('users')
-    .select('*', { count: 'exact', head: true })
-    .eq('role', 'teacher');
-
-  const { count: classCount } = await supabaseClient
-    .from('classes')
-    .select('*', { count: 'exact', head: true });
-
-  const { count: announcementCount } = await supabaseClient
-    .from('announcements')
-    .select('*', { count: 'exact', head: true });
-
-  const statValues = document.querySelectorAll('.ea-stat-value');
-  if (statValues[0]) statValues[0].textContent = studentCount || 0;
-  if (statValues[1]) statValues[1].textContent = teacherCount || 0;
-  if (statValues[2]) statValues[2].textContent = classCount || 0;
-  if (statValues[3]) statValues[3].textContent = announcementCount || 0;
+    const statValues = document.querySelectorAll('.ea-stat-value');
+    if (statValues[0]) statValues[0].textContent = students.count || 0;
+    if (statValues[1]) statValues[1].textContent = teachers.count || 0;
+    if (statValues[2]) statValues[2].textContent = classes.count || 0;
+    if (statValues[3]) statValues[3].textContent = announcements.count || 0;
+  } catch (error) {
+    console.error('Error loading dashboard stats:', error);
+  }
 }
-
-loadStats();
 
 // ---- Charts ----
 window.addEventListener('load', function () {

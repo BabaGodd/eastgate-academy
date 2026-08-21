@@ -142,6 +142,54 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
+.ea-sk,
+.ea-sk-dark {
+  display: inline-block;
+  background: #e8edf2;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ea-sk-dark { background: #d7dee6; }
+
+.ea-sk::after,
+.ea-sk-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
+  animation: ea-skeleton-shimmer 1.4s infinite;
+}
+
+.ea-sk-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  color: #888;
+  font-size: 13px;
+}
+
+.ea-sk-banner-text { margin: 0; }
+
+.ea-sk-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D94E2A;
+  animation: ea-skeleton-pulse 1.2s infinite;
+}
+
+@keyframes ea-skeleton-shimmer {
+  to { transform: translateX(100%); }
+}
+
+@keyframes ea-skeleton-pulse {
+  50% { opacity: 0.35; }
+}
+
 .ea-recent-item {
   display: flex;
   justify-content: space-between;
