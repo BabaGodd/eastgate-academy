@@ -155,13 +155,17 @@ document.getElementById('ea-portal-form')?.addEventListener('submit', async func
         return;
       }
 
-      // Find linked parent user
-      const { data: parentUser } = await supabaseClient
-        .from('users')
-        .select('*')
-        .eq('pin', student.pin)
-        .eq('role', 'parent')
-        .single();
+      // Find the parent linked through the student's foreign key.
+      let parentUser = null;
+      if (student.parent_id) {
+        const { data } = await supabaseClient
+          .from('users')
+          .select('*')
+          .eq('id', student.parent_id)
+          .eq('role', 'parent')
+          .single();
+        parentUser = data;
+      }
 
       if (parentUser?.email) {
         await supabaseClient.auth.signInWithPassword({

@@ -106,8 +106,9 @@ async function checkParentAuth() {
     if (userAvatar) userAvatar.textContent = (storedName || 'P').charAt(0).toUpperCase();
 
     const storedParentId = localStorage.getItem('ea-user-id') || localStorage.getItem('ea-student-id');
+    const storedStudentId = localStorage.getItem('ea-student-id');
     if (storedParentId) {
-      loadParentData(storedParentId);
+      loadParentData(storedParentId, storedStudentId);
       return;
     }
   }
@@ -195,18 +196,24 @@ function renderFeesSummary(child) {
 }
 
 // ---- Load Parent Data ----
-async function loadParentData(parentId) {
-  // Get child linked to this parent (allow fallback when only student ID is available)
-  const { data: child } = await supabaseClient
+async function loadParentData(parentId, studentId = null) {
+  // Prefer the student selected at login; otherwise load a linked child by parent ID.
+  let childQuery = supabaseClient
     .from('students')
     .select(`
       *,
       classes (name, teacher_id,
         users (full_name)
       )
-    `)
-    .or(`parent_id.eq.${parentId},id.eq.${parentId}`)
-    .single();
+    `);
+
+  if (studentId) {
+    childQuery = childQuery.eq('id', studentId);
+  } else {
+    childQuery = childQuery.eq('parent_id', parentId).limit(1);
+  }
+
+  const { data: child } = await childQuery.maybeSingle();
 
   if (!child) {
     const statsGrid = document.querySelector('.ea-p-stats-grid');
