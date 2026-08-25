@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Eastgate Portal</title>
+    <title>Login - Eastgate Academy Portal</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,322 +21,321 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     >
 
-    <!-- Existing Supabase -->
+    <link rel="stylesheet" href="login.css">
+
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
 
-    <meta name="theme-color" content="#101010">
+    <meta name="theme-color" content="#D94E2A">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Eastgate Academy">
 
     <link rel="apple-touch-icon" href="images/icons/apple-touch-icon.png">
-
-    <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
-        href="images/icons/favicon-32x32.png"
-    >
-
-    <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="images/icons/favicon-16x16.png"
-    >
-
-    <link rel="stylesheet" href="login.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 </head>
 
 <body>
 
-    <!-- =====================================================
-         PREMIUM SPLASH SCREEN
-    ====================================================== -->
+<!-- =========================================================
+     SPLASH SCREEN
+========================================================= -->
 
-    <div class="ea-splash" id="ea-splash">
+<div class="ea-splash" id="ea-splash" aria-label="Eastgate Academy loading">
 
-        <div class="ea-splash-noise"></div>
+    <div class="ea-splash-orb ea-splash-orb-one"></div>
+    <div class="ea-splash-orb ea-splash-orb-two"></div>
+    <div class="ea-splash-orb ea-splash-orb-three"></div>
 
-        <div class="ea-splash-glow ea-splash-glow-one"></div>
-        <div class="ea-splash-glow ea-splash-glow-two"></div>
+    <div class="ea-splash-grid"></div>
 
-        <div class="ea-splash-content">
+    <div class="ea-splash-content">
 
-            <div class="ea-splash-logo-container">
+        <div class="ea-splash-logo-wrap">
 
-                <div class="ea-splash-logo-ring"></div>
+            <div class="ea-splash-halo"></div>
 
-                <div class="ea-splash-logo-inner">
-                    <img
-                        src="eastgateLogo.webp"
-                        alt="Eastgate Academy"
-                        class="ea-splash-logo"
-                    >
-                </div>
+            <div class="ea-splash-ring ea-splash-ring-one"></div>
+            <div class="ea-splash-ring ea-splash-ring-two"></div>
 
-            </div>
-
-            <div class="ea-splash-brand">
-                <span class="ea-splash-overline">WELCOME TO</span>
-
-                <h1>Eastgate Academy</h1>
-
-                <div class="ea-splash-line">
-                    <span></span>
-                    <i class="fa-solid fa-diamond"></i>
-                    <span></span>
-                </div>
-
-                <p>Nurturing Future Leaders.</p>
-            </div>
-
-            <div class="ea-splash-loader">
-
-                <div class="ea-splash-loader-track">
-                    <div class="ea-splash-loader-progress"></div>
-                </div>
-
-                <span>Preparing your portal</span>
-
+            <div class="ea-splash-logo-shell">
+                <img
+                    src="eastgateLogo.webp"
+                    alt="Eastgate Academy"
+                    class="ea-splash-logo"
+                >
             </div>
 
         </div>
 
-        <div class="ea-splash-bottom">
-            <span>EST. 2023</span>
-            <span class="ea-splash-bottom-dot"></span>
-            <span>EXCELLENCE • DISCIPLINE • LEADERSHIP</span>
+        <div class="ea-splash-brand">
+
+            <span class="ea-splash-eyebrow">
+                EST. 2023
+            </span>
+
+            <h1 class="ea-splash-name">
+                Eastgate Academy
+            </h1>
+
+            <div class="ea-splash-divider">
+                <span></span>
+                <i class="fas fa-star"></i>
+                <span></span>
+            </div>
+
+            <p class="ea-splash-tagline">
+                Nurturing Future Leaders.
+            </p>
+
+        </div>
+
+        <div class="ea-splash-loader">
+
+            <div class="ea-splash-loader-track">
+                <div class="ea-splash-loader-progress"></div>
+            </div>
+
+            <div class="ea-splash-loader-info">
+                <span>Preparing your experience</span>
+                <span class="ea-splash-loader-status">Loading</span>
+            </div>
+
         </div>
 
     </div>
 
+    <div class="ea-splash-footer">
+        <span>EXCELLENCE</span>
+        <span class="ea-splash-footer-dot"></span>
+        <span>DISCIPLINE</span>
+        <span class="ea-splash-footer-dot"></span>
+        <span>LEADERSHIP</span>
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LOGIN EXPERIENCE
+========================================================= -->
+
+<div class="ea-login-wrapper">
 
     <!-- =====================================================
-         MAIN LOGIN EXPERIENCE
+         LEFT BRAND PANEL
     ====================================================== -->
 
-    <main class="ea-login-wrapper">
+    <aside class="ea-login-left">
 
-        <!-- =================================================
-             LEFT BRAND PANEL
-        ================================================== -->
+        <div class="ea-login-left-pattern"></div>
+        <div class="ea-login-left-glow"></div>
 
-        <section class="ea-login-brand">
+        <div class="ea-login-left-content">
 
-            <div class="ea-brand-background">
+            <div class="ea-brand-mark">
 
-                <div class="ea-brand-orb ea-brand-orb-one"></div>
-                <div class="ea-brand-orb ea-brand-orb-two"></div>
+                <div class="ea-brand-logo-ring"></div>
 
-                <div class="ea-brand-grid"></div>
-
-                <div class="ea-brand-number">
-                    01
+                <div class="ea-brand-logo-shell">
+                    <img
+                        src="eastgateLogo.webp"
+                        alt="Eastgate Academy Logo"
+                        class="ea-login-logo"
+                    >
                 </div>
 
             </div>
 
-            <div class="ea-brand-content">
+            <div class="ea-brand-copy">
 
-                <a href="index.html" class="ea-brand-logo-link">
+                <span class="ea-brand-eyebrow">
+                    EASTGATE ACADEMY
+                </span>
 
-                    <div class="ea-brand-logo">
-                        <img
-                            src="eastgateLogo.webp"
-                            alt="Eastgate Academy"
-                        >
+                <h1 class="ea-login-school-name">
+                    Eastgate Portal.
+                </h1>
+
+                <p class="ea-login-school-tagline">
+                    Nurturing Future Leaders.
+                </p>
+
+            </div>
+
+
+            <!-- Feature Cards -->
+
+            <div class="ea-login-features">
+
+                <div class="ea-login-feature">
+
+                    <div class="ea-feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
 
-                </a>
+                    <div>
+                        <strong>Academic Excellence</strong>
+                        <span>Built for better learning</span>
+                    </div>
 
-                <div class="ea-brand-copy">
+                </div>
 
-                    <span class="ea-brand-overline">
-                        EASTGATE ACADEMY
-                    </span>
 
-                    <h1>
-                        Your journey<br>
-                        <span>starts here.</span>
-                    </h1>
+                <div class="ea-login-feature">
 
-                    <p>
-                        A secure digital space designed to keep
-                        parents, teachers and school administration
-                        connected.
+                    <div class="ea-feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+
+                    <div>
+                        <strong>Multi-Role Portal</strong>
+                        <span>One secure experience</span>
+                    </div>
+
+                </div>
+
+
+                <div class="ea-login-feature">
+
+                    <div class="ea-feature-icon">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+
+                    <div>
+                        <strong>Secure & Private</strong>
+                        <span>Your information protected</span>
+                    </div>
+
+                </div>
+
+
+                <div class="ea-login-feature">
+
+                    <div class="ea-feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+
+                    <div>
+                        <strong>Track Progress</strong>
+                        <span>Stay connected and informed</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a href="index.html" class="ea-login-back">
+
+                <span class="ea-back-icon">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+
+                <span>Back to Website</span>
+
+            </a>
+
+        </div>
+
+
+        <div class="ea-left-footer">
+            <span>EST. 2023</span>
+            <span></span>
+            <span>Eastgate Academy</span>
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         RIGHT LOGIN PANEL
+    ====================================================== -->
+
+    <main class="ea-login-right">
+
+        <div class="ea-login-box">
+
+            <!-- Security Notice -->
+
+            <div class="ea-security-banner">
+
+                <div class="ea-security-banner-icon">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+
+                <div class="ea-security-banner-text">
+
+                    <p class="ea-security-title">
+                        Official Security Notice
+                    </p>
+
+                    <p class="ea-security-msg">
+                        Eastgate Academy will <strong>never</strong> ask for
+                        payment via WhatsApp or phone call. Payments are made
+                        exclusively through this portal or the school's account
+                        office. Call <strong>0244 506796</strong> to verify
+                        anything suspicious.
                     </p>
 
                 </div>
 
-
-                <!-- Trust Features -->
-
-                <div class="ea-brand-features">
-
-                    <div class="ea-brand-feature">
-
-                        <div class="ea-feature-icon">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-
-                        <div>
-                            <strong>Academic</strong>
-                            <span>Stay connected</span>
-                        </div>
-
-                    </div>
-
-                    <div class="ea-brand-feature">
-
-                        <div class="ea-feature-icon">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-
-                        <div>
-                            <strong>Progress</strong>
-                            <span>Track performance</span>
-                        </div>
-
-                    </div>
-
-                    <div class="ea-brand-feature">
-
-                        <div class="ea-feature-icon">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-
-                        <div>
-                            <strong>Protected</strong>
-                            <span>Secure access</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <a href="index.html" class="ea-back-website">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span>Back to website</span>
-                </a>
-
             </div>
 
-            <div class="ea-brand-footer">
-                <span>© 2026 Eastgate Academy</span>
-                <span>Private Portal</span>
-            </div>
 
-        </section>
+            <!-- Login Card -->
 
+            <section class="ea-login-card">
 
-        <!-- =================================================
-             RIGHT LOGIN PANEL
-        ================================================== -->
+                <div class="ea-login-card-top">
 
-        <section class="ea-login-area">
+                    <span class="ea-login-welcome">
+                        WELCOME BACK
+                    </span>
 
-            <div class="ea-login-container">
-
-                <!-- Top heading -->
-
-                <div class="ea-login-top">
-
-                    <div class="ea-mobile-logo">
-                        <img
-                            src="eastgateLogo.webp"
-                            alt="Eastgate Academy"
-                        >
-                    </div>
-
-                    <div>
-                        <span class="ea-login-eyebrow">
-                            EASTGATE PORTAL
-                        </span>
-
-                        <h2>Welcome back.</h2>
-
-                        <p>
-                            Sign in to continue to your account.
-                        </p>
+                    <div class="ea-login-status">
+                        <span></span>
+                        Portal Online
                     </div>
 
                 </div>
 
 
-                <!-- =================================================
-                     SECURITY NOTICE
-                ================================================== -->
-
-                <div class="ea-security-banner">
-
-                    <div class="ea-security-icon">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-
-                    <div class="ea-security-content">
-
-                        <strong>
-                            Official Eastgate Portal
-                        </strong>
-
-                        <p>
-                            Never make payments through WhatsApp
-                            or personal phone requests. Use only
-                            official Eastgate channels.
-                        </p>
-
-                    </div>
-
-                    <div class="ea-security-status">
-                        <i class="fa-solid fa-check"></i>
-                    </div>
-
-                </div>
-
-
-                <!-- =================================================
-                     ROLE SELECTOR
-                ================================================== -->
+                <!-- Tabs -->
 
                 <div class="ea-login-tabs">
 
                     <button
-                        type="button"
                         class="ea-login-tab active"
                         id="tab-portal"
                         onclick="switchTab('portal')"
+                        type="button"
                     >
-                        <i class="fa-solid fa-users"></i>
-
-                        <span>
-                            Parent / Teacher
-                        </span>
+                        <i class="fas fa-users"></i>
+                        <span>Parent / Teacher</span>
                     </button>
 
                     <button
-                        type="button"
                         class="ea-login-tab"
                         id="tab-admin"
                         onclick="switchTab('admin')"
+                        type="button"
                     >
-                        <i class="fa-solid fa-lock"></i>
-
-                        <span>
-                            Administration
-                        </span>
+                        <i class="fas fa-lock"></i>
+                        <span>Admin</span>
                     </button>
 
                 </div>
 
 
                 <!-- =================================================
-                     PARENT / TEACHER LOGIN
+                     PARENT / TEACHER
                 ================================================== -->
 
                 <div
@@ -344,18 +343,15 @@
                     id="panel-portal"
                 >
 
-                    <div class="ea-panel-heading">
+                    <div class="ea-login-header">
 
-                        <div class="ea-panel-icon">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
+                        <h2>
+                            Parents and Teachers
+                        </h2>
 
-                        <div>
-                            <h3>Portal access</h3>
-                            <p>
-                                Enter your identification details below.
-                            </p>
-                        </div>
+                        <p>
+                            Sign in securely to continue to your portal.
+                        </p>
 
                     </div>
 
@@ -371,17 +367,17 @@
                         <div class="ea-login-group">
 
                             <label for="ea-portal-id">
-                                Student or Staff ID
+                                Student ID or Staff ID
                             </label>
 
-                            <div class="ea-input-wrap">
+                            <div class="ea-login-input-wrap">
 
-                                <i class="fa-regular fa-id-card"></i>
+                                <i class="fas fa-id-card"></i>
 
                                 <input
                                     type="text"
                                     id="ea-portal-id"
-                                    placeholder="EA-2024-001 or EAT-001"
+                                    placeholder="e.g. EA-2024-001 or EAT-001"
                                     autocomplete="username"
                                     required
                                 >
@@ -389,7 +385,7 @@
                             </div>
 
                             <p class="ea-login-hint">
-                                <i class="fa-solid fa-circle-info"></i>
+                                <i class="fas fa-circle-info"></i>
                                 Parents use their child's Student ID.
                                 Teachers use their Staff ID.
                             </p>
@@ -405,9 +401,9 @@
                                 Password
                             </label>
 
-                            <div class="ea-input-wrap">
+                            <div class="ea-login-input-wrap">
 
-                                <i class="fa-solid fa-key"></i>
+                                <i class="fas fa-key"></i>
 
                                 <input
                                     type="password"
@@ -421,33 +417,19 @@
                                     type="button"
                                     class="ea-login-eye"
                                     id="ea-toggle-pin"
-                                    aria-label="Show password"
+                                    aria-label="Toggle password visibility"
                                 >
-                                    <i class="fa-solid fa-eye"></i>
+                                    <i class="fas fa-eye"></i>
                                 </button>
 
                             </div>
 
                             <p class="ea-login-hint">
-                                <i class="fa-solid fa-circle-info"></i>
+                                <i class="fas fa-circle-info"></i>
                                 Parents use their child's family name.
+                                Teachers use their assigned password.
                             </p>
 
-                        </div>
-
-
-                        <!-- Error -->
-
-                        <div
-                            class="ea-login-error"
-                            id="ea-portal-error"
-                            style="display:none;"
-                        >
-                            <i class="fa-solid fa-circle-exclamation"></i>
-
-                            <span id="ea-portal-error-text">
-                                Invalid ID or password.
-                            </span>
                         </div>
 
 
@@ -460,11 +442,11 @@
                         >
 
                             <span id="ea-portal-btn-text">
-                                Sign in
+                                Sign In
                             </span>
 
-                            <span class="ea-btn-arrow">
-                                <i class="fa-solid fa-arrow-right"></i>
+                            <span class="ea-login-btn-icon">
+                                <i class="fas fa-arrow-right"></i>
                             </span>
 
                         </button>
@@ -472,20 +454,15 @@
 
                         <!-- Forgot -->
 
-                        <div class="ea-forgot-row">
+                        <p class="ea-login-forgot">
 
-                            <span>
-                                Forgot your password?
-                            </span>
+                            Forgot your password?
 
-                            <a
-                                href="#"
-                                id="ea-forgot-link"
-                            >
+                            <a href="#" id="ea-forgot-link">
                                 Request a reset
                             </a>
 
-                        </div>
+                        </p>
 
 
                         <!-- Forgot Password -->
@@ -496,65 +473,90 @@
                             style="display:none;"
                         >
 
-                            <div class="ea-forgot-heading">
+                            <p class="ea-forgot-desc">
 
-                                <div class="ea-forgot-icon">
-                                    <i class="fa-solid fa-key"></i>
-                                </div>
+                                <i class="fas fa-circle-info"></i>
 
-                                <div>
-                                    <strong>Password reset</strong>
-                                    <p>
-                                        Tell the school office which
-                                        account needs attention.
-                                    </p>
-                                </div>
+                                <span>
+                                    Enter your Staff ID or Student ID and
+                                    the school administration will be
+                                    notified.
+                                </span>
 
-                            </div>
+                            </p>
+
 
                             <div class="ea-login-group">
 
                                 <label for="ea-forgot-id">
-                                    Student or Staff ID
+                                    Staff ID or Student ID
                                 </label>
 
-                                <div class="ea-input-wrap">
+                                <div class="ea-login-input-wrap">
 
-                                    <i class="fa-regular fa-id-card"></i>
+                                    <i class="fas fa-id-card"></i>
 
                                     <input
                                         type="text"
                                         id="ea-forgot-id"
-                                        placeholder="EA-2024-001 or EAT-001"
+                                        placeholder="e.g. EAT-001 or EA-2024-001"
                                     >
 
                                 </div>
 
                             </div>
 
+
                             <button
                                 type="button"
-                                class="ea-login-btn ea-forgot-submit-btn"
+                                class="ea-login-btn"
                                 id="ea-forgot-submit"
                             >
-                                <span>Request reset</span>
-                                <i class="fa-solid fa-paper-plane"></i>
+
+                                <span>
+                                    Request Password Reset
+                                </span>
+
+                                <span class="ea-login-btn-icon">
+                                    <i class="fas fa-paper-plane"></i>
+                                </span>
+
                             </button>
+
 
                             <div
                                 class="ea-forgot-success"
                                 id="ea-forgot-success"
                                 style="display:none;"
                             >
-                                <i class="fa-solid fa-circle-check"></i>
+
+                                <i class="fas fa-circle-check"></i>
 
                                 <span>
-                                    Request received. Please visit the
-                                    school office or contact the school
-                                    for assistance.
+                                    Request sent! The school admin will
+                                    reset your password shortly. Please
+                                    visit the school office or call
+                                    <strong>0244 512 123</strong>.
                                 </span>
 
                             </div>
+
+                        </div>
+
+
+                        <!-- Error -->
+
+                        <div
+                            class="ea-login-error"
+                            id="ea-portal-error"
+                            style="display:none;"
+                        >
+
+                            <i class="fas fa-circle-exclamation"></i>
+
+                            <span id="ea-portal-error-text">
+                                Invalid ID or password.
+                            </span>
 
                         </div>
 
@@ -564,7 +566,7 @@
 
 
                 <!-- =================================================
-                     ADMIN LOGIN
+                     ADMIN
                 ================================================== -->
 
                 <div
@@ -573,18 +575,15 @@
                     style="display:none;"
                 >
 
-                    <div class="ea-panel-heading">
+                    <div class="ea-login-header">
 
-                        <div class="ea-panel-icon ea-admin-panel-icon">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
+                        <h2>
+                            Administrator Access
+                        </h2>
 
-                        <div>
-                            <h3>Administration</h3>
-                            <p>
-                                Secure administrative access.
-                            </p>
-                        </div>
+                        <p>
+                            Sign in with your administrator credentials.
+                        </p>
 
                     </div>
 
@@ -600,17 +599,17 @@
                         <div class="ea-login-group">
 
                             <label for="ea-admin-email">
-                                Email address
+                                Email Address
                             </label>
 
-                            <div class="ea-input-wrap">
+                            <div class="ea-login-input-wrap">
 
-                                <i class="fa-regular fa-envelope"></i>
+                                <i class="fas fa-envelope"></i>
 
                                 <input
                                     type="email"
                                     id="ea-admin-email"
-                                    placeholder="admin@eastgateacademy.com"
+                                    placeholder="your@email.com"
                                     autocomplete="username"
                                     required
                                 >
@@ -628,9 +627,9 @@
                                 Password
                             </label>
 
-                            <div class="ea-input-wrap">
+                            <div class="ea-login-input-wrap">
 
-                                <i class="fa-solid fa-lock"></i>
+                                <i class="fas fa-lock"></i>
 
                                 <input
                                     type="password"
@@ -644,9 +643,9 @@
                                     type="button"
                                     class="ea-login-eye"
                                     id="ea-toggle-password"
-                                    aria-label="Show password"
+                                    aria-label="Toggle password visibility"
                                 >
-                                    <i class="fa-solid fa-eye"></i>
+                                    <i class="fas fa-eye"></i>
                                 </button>
 
                             </div>
@@ -654,24 +653,7 @@
                         </div>
 
 
-                        <!-- Error -->
-
-                        <div
-                            class="ea-login-error"
-                            id="ea-admin-error"
-                            style="display:none;"
-                        >
-
-                            <i class="fa-solid fa-circle-exclamation"></i>
-
-                            <span id="ea-admin-error-text">
-                                Invalid email or password.
-                            </span>
-
-                        </div>
-
-
-                        <!-- Admin submit -->
+                        <!-- Admin Submit -->
 
                         <button
                             type="submit"
@@ -680,85 +662,86 @@
                         >
 
                             <span id="ea-admin-btn-text">
-                                Sign in securely
+                                Sign In as Admin
                             </span>
 
-                            <span class="ea-btn-arrow">
-                                <i class="fa-solid fa-arrow-right"></i>
+                            <span class="ea-login-btn-icon">
+                                <i class="fas fa-arrow-right"></i>
                             </span>
 
                         </button>
+
+
+                        <!-- Admin Error -->
+
+                        <div
+                            class="ea-login-error"
+                            id="ea-admin-error"
+                            style="display:none;"
+                        >
+
+                            <i class="fas fa-circle-exclamation"></i>
+
+                            <span id="ea-admin-error-text">
+                                Invalid email or password.
+                            </span>
+
+                        </div>
 
                     </form>
 
                 </div>
 
 
-                <!-- =================================================
-                     TRUST AREA
-                ================================================== -->
+                <!-- Security Badges -->
 
-                <div class="ea-trust-area">
+                <div class="ea-security-badges">
 
-                    <div class="ea-trust-item">
-
-                        <i class="fa-solid fa-lock"></i>
-
-                        <div>
-                            <strong>Encrypted</strong>
-                            <span>Secure access</span>
-                        </div>
-
+                    <div class="ea-security-badge">
+                        <i class="fas fa-lock"></i>
+                        <span>Secure Login</span>
                     </div>
 
-                    <div class="ea-trust-divider"></div>
-
-                    <div class="ea-trust-item">
-
-                        <i class="fa-solid fa-circle-check"></i>
-
-                        <div>
-                            <strong>Verified</strong>
-                            <span>Official portal</span>
-                        </div>
-
+                    <div class="ea-security-badge">
+                        <i class="fas fa-circle-check"></i>
+                        <span>Official Portal</span>
                     </div>
 
-                    <div class="ea-trust-divider"></div>
-
-                    <div class="ea-trust-item">
-
-                        <i class="fa-solid fa-building-columns"></i>
-
-                        <div>
-                            <strong>Eastgate</strong>
-                            <span>Academy access</span>
-                        </div>
-
+                    <div class="ea-security-badge">
+                        <i class="fas fa-building-columns"></i>
+                        <span>Verified School</span>
                     </div>
 
                 </div>
 
+            </section>
 
-                <!-- Footer -->
 
-                <div class="ea-login-footer">
+            <!-- Footer -->
 
-                    <span>Need help?</span>
+            <div class="ea-login-footer">
 
+                <p>
+                    Need help?
                     <a href="contact.html">
                         Contact the school office
                     </a>
+                </p>
 
-                </div>
+                <span class="ea-login-footer-copy">
+                    © 2026 Eastgate Academy
+                </span>
 
             </div>
 
-        </section>
+        </div>
 
     </main>
 
-    <script src="login.js"></script>
+</div>
+
+
+<script src="login.js"></script>
 
 </body>
 </html>
