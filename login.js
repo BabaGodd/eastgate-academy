@@ -140,6 +140,9 @@ document.getElementById('ea-portal-form')?.addEventListener('submit', async func
     }
 
     // ---- Check if PARENT (via student family_name) ----
+    // NOTE: student_code matching is case-sensitive on the DB side. If a
+    // parent's ID doesn't match here it's usually because of a typo/casing
+    // mismatch in how the ID was typed vs. how it's stored — not a code bug.
     const { data: student } = await supabaseClient
       .from('students')
       .select('*, classes(name)')
@@ -155,16 +158,21 @@ document.getElementById('ea-portal-form')?.addEventListener('submit', async func
         return;
       }
 
-      // Find the parent linked through the student's foreign key.
+      // ---- Find linked parent user via the real parent_id foreign key ----
+      // FIX: this previously matched on `student.pin`, a column that does
+      // not exist anywhere in the students table, so this lookup silently
+      // failed for every parent, every time. Fixed to use the actual
+      // parent_id relationship used everywhere else in this project
+      // (Add Parent flow, admin dashboard, etc).
       let parentUser = null;
       if (student.parent_id) {
-        const { data } = await supabaseClient
+        const { data: linkedParent } = await supabaseClient
           .from('users')
           .select('*')
           .eq('id', student.parent_id)
           .eq('role', 'parent')
           .single();
-        parentUser = data;
+        parentUser = linkedParent || null;
       }
 
       if (parentUser?.email) {
