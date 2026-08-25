@@ -3300,194 +3300,891 @@ ul { list-style: none; }
   .ea-gallery-filter { padding: 6px 14px; font-size: 0.8rem; }
 }
 
-/* ============================================
-   SPLASH SCREEN
-   ============================================ */
-/* ============================================
-   SPLASH SCREEN — UPGRADED
-   ============================================ */
+
+/* =========================================================
+   EASTGATE ACADEMY
+   PREMIUM SPLASH SCREEN
+   ========================================================= */
 
 .ea-splash {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #4a0a00 0%, #7A1E0A 30%, #D94E2A 70%, #F5916E 100%);
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1rem;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
-  overflow: hidden;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100dvh;
+    padding: 30px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 42%,
+            rgba(218, 93, 59, 0.28) 0%,
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255, 185, 145, 0.12) 0%,
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #360600 0%,
+            #541006 28%,
+            #7a1e0a 58%,
+            #a93218 100%
+        );
+
+    color: #ffffff;
+
+    transition:
+        opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0.75s ease;
 }
 
-/* Vibrant background depth */
-.ea-splash::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,180,100,0.15) 0%, transparent 45%),
-    radial-gradient(circle at 80% 80%, rgba(80,0,0,0.3) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(255,100,50,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
+
+/* =========================================================
+   HIDDEN STATE
+   ========================================================= */
 
 .ea-splash.ea-splash-hide {
-  opacity: 0;
-  visibility: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
-/* Logo wrap */
+
+/* =========================================================
+   AMBIENT BACKGROUND
+   ========================================================= */
+
+.ea-splash::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            transparent 0%,
+            rgba(0, 0, 0, 0.08) 55%,
+            rgba(0, 0, 0, 0.3) 100%
+        );
+
+    pointer-events: none;
+}
+
+
+.ea-splash::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    opacity: 0.055;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.8) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.8) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        black 30%,
+        black 70%,
+        transparent
+    );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BACKGROUND ORBS
+   ========================================================= */
+
+.ea-splash-orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+}
+
+
+.ea-splash-orb-one {
+    width: 420px;
+    height: 420px;
+
+    top: -220px;
+    left: -160px;
+
+    background: rgba(255, 170, 130, 0.08);
+
+    animation: eaOrbFloatOne 10s ease-in-out infinite;
+}
+
+
+.ea-splash-orb-two {
+    width: 300px;
+    height: 300px;
+
+    right: -130px;
+    bottom: -120px;
+
+    background: rgba(255, 100, 60, 0.12);
+
+    animation: eaOrbFloatTwo 12s ease-in-out infinite;
+}
+
+
+.ea-splash-orb-three {
+    width: 180px;
+    height: 180px;
+
+    right: 12%;
+    top: 12%;
+
+    background: rgba(255, 220, 190, 0.055);
+
+    filter: blur(25px);
+
+    animation: eaOrbFloatThree 8s ease-in-out infinite;
+}
+
+
+@keyframes eaOrbFloatOne {
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(35px, 25px);
+    }
+}
+
+
+@keyframes eaOrbFloatTwo {
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-25px, -30px);
+    }
+}
+
+
+@keyframes eaOrbFloatThree {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-20px, 20px) scale(1.15);
+    }
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.ea-splash-content {
+    position: relative;
+    z-index: 5;
+
+    width: min(100%, 520px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   LOGO AREA
+   ========================================================= */
+
 .ea-splash-logo-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 148px;
-  height: 148px;
-  opacity: 0;
-  animation: splashLogoBounce 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+    position: relative;
+
+    width: 190px;
+    height: 190px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+
+    animation:
+        eaSplashLogoEnter 1s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        0.15s forwards;
 }
 
-/* Rotating ring around logo */
+
+.ea-splash-halo {
+    position: absolute;
+
+    width: 155px;
+    height: 155px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    box-shadow:
+        0 0 60px rgba(255, 170, 130, 0.22),
+        inset 0 0 35px rgba(255, 255, 255, 0.08);
+
+    animation: eaHaloPulse 3s ease-in-out infinite;
+}
+
+
+@keyframes eaHaloPulse {
+    0%,
+    100% {
+        transform: scale(0.96);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.04);
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   OUTER RINGS
+   ========================================================= */
+
 .ea-splash-ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 2.5px solid transparent;
-  border-top-color: rgba(255,255,255,0.9);
-  border-right-color: rgba(255,255,255,0.3);
-  border-bottom-color: rgba(255,255,255,0.6);
-  border-left-color: rgba(255,255,255,0.1);
-  animation: ringRotate 2s linear infinite;
-  box-shadow: 0 0 16px rgba(255,255,255,0.2);
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
 }
 
-/* Second ring — opposite direction */
-.ea-splash-ring::after {
-  content: '';
-  position: absolute;
-  inset: 5px;
-  border-radius: 50%;
-  border: 1.5px solid transparent;
-  border-top-color: rgba(255,200,150,0.5);
-  border-bottom-color: rgba(255,200,150,0.2);
-  animation: ringRotate 3s linear infinite reverse;
+
+.ea-splash-ring-one {
+    inset: 4px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    border-top-color: rgba(255, 255, 255, 0.95);
+    border-right-color: rgba(255, 255, 255, 0.15);
+
+    animation:
+        eaRingRotate 7s linear infinite;
 }
 
-@keyframes ringRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+
+.ea-splash-ring-two {
+    inset: 15px;
+
+    border: 1px solid rgba(255, 220, 200, 0.22);
+
+    border-bottom-color: rgba(255, 255, 255, 0.75);
+    border-left-color: rgba(255, 255, 255, 0.05);
+
+    animation:
+        eaRingRotateReverse 10s linear infinite;
 }
 
-/* Logo image */
+
+@keyframes eaRingRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes eaRingRotateReverse {
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+
+/* =========================================================
+   LOGO SHELL
+   ========================================================= */
+
+.ea-splash-logo-shell {
+    position: relative;
+    z-index: 3;
+
+    width: 136px;
+    height: 136px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(255, 245, 240, 0.96)
+        );
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.5),
+        0 0 40px rgba(255, 180, 145, 0.22);
+}
+
+
 .ea-splash-logo {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 50%;
-  background: white;
-  padding: 10px;
-  box-shadow:
-    0 8px 32px rgba(0,0,0,0.3),
-    0 0 0 3px rgba(255,255,255,0.3),
-    0 0 24px rgba(255,150,100,0.4);
-  display: block;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    border-radius: 50%;
 }
 
-/* Shine sweep */
-.ea-splash-logo::after {
-  content: '';
-  position: absolute;
-  top: -10%;
-  left: -100%;
-  width: 55%;
-  height: 120%;
-  background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(255,255,255,0.65) 50%,
-    transparent 80%
-  );
-  animation: shineSweep 2.5s ease 1.2s forwards;
-  border-radius: 50%;
-  z-index: 2;
+
+/* =========================================================
+   LOGO SHINE
+   ========================================================= */
+
+.ea-splash-logo-shell::after {
+    content: "";
+
+    position: absolute;
+
+    top: -30%;
+    left: -100%;
+
+    width: 45%;
+    height: 160%;
+
+    transform: rotate(20deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.65),
+            transparent
+        );
+
+    animation:
+        eaLogoShine 2.8s ease
+        1.2s forwards;
+
+    pointer-events: none;
 }
 
-@keyframes shineSweep {
-  0% { left: -100%; opacity: 1; }
-  100% { left: 160%; opacity: 1; }
+
+@keyframes eaLogoShine {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 160%;
+    }
 }
 
-@keyframes splashLogoBounce {
-  0% { opacity: 0; transform: scale(0.4) translateY(40px); }
-  60% { opacity: 1; transform: scale(1.12) translateY(-10px); }
-  80% { transform: scale(0.95) translateY(5px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+
+/* =========================================================
+   BRANDING
+   ========================================================= */
+
+.ea-splash-brand {
+    margin-top: 24px;
+
+    opacity: 0;
+
+    animation:
+        eaSplashBrandEnter 0.9s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        0.65s forwards;
 }
 
-/* School name with glow */
+
+.ea-splash-eyebrow {
+    margin: 0 0 10px;
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 0.62rem;
+    font-weight: 600;
+
+    letter-spacing: 0.3em;
+
+    color: rgba(255, 235, 225, 0.65);
+
+    text-transform: uppercase;
+}
+
+
 .ea-splash-name {
-  font-family: var(--font-heading);
-  font-size: 2.4rem;
-  color: white;
-  text-align: center;
-  margin: 0.3rem 0 0;
-  opacity: 0;
-  text-shadow:
-    0 2px 8px rgba(0,0,0,0.3),
-    0 0 30px rgba(255,200,150,0.4);
-  animation: splashFadeUp 0.7s ease 0.7s forwards;
-  letter-spacing: 1px;
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(2.5rem, 8vw, 4rem);
+
+    line-height: 1;
+
+    font-weight: 500;
+
+    letter-spacing: -0.035em;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 4px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Tagline */
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.ea-splash-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 17px auto 13px;
+
+    width: 125px;
+}
+
+
+.ea-splash-divider span {
+    width: 42px;
+    height: 1px;
+
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.45)
+    );
+}
+
+
+.ea-splash-divider span:last-child {
+    background: linear-gradient(
+        to left,
+        transparent,
+        rgba(255, 255, 255, 0.45)
+    );
+}
+
+
+.ea-splash-divider i {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 225, 210, 0.9);
+
+    box-shadow:
+        0 0 10px rgba(255, 220, 200, 0.5);
+}
+
+
+/* =========================================================
+   TAGLINE
+   ========================================================= */
+
 .ea-splash-tagline {
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  color: rgba(255,255,255,0.85);
-  text-align: center;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin: 0;
-  opacity: 0;
-  animation: splashFadeUp 0.7s ease 1s forwards;
+    margin: 0;
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 0.75rem;
+
+    font-weight: 400;
+
+    letter-spacing: 0.27em;
+
+    text-transform: uppercase;
+
+    color: rgba(255, 245, 240, 0.78);
 }
 
-/* Progress bar */
-.ea-splash-bar-wrap {
-  width: 160px;
-  height: 3px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 3px;
-  overflow: hidden;
-  opacity: 0;
-  margin-top: 0.5rem;
-  animation: splashFadeUp 0.7s ease 1.1s forwards;
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+.ea-splash-loader {
+    width: min(100%, 260px);
+
+    margin-top: 38px;
+
+    opacity: 0;
+
+    animation:
+        eaLoaderEnter 0.8s ease
+        1s forwards;
 }
 
-.ea-splash-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, rgba(255,255,255,0.6), white, rgba(255,200,150,0.9));
-  border-radius: 3px;
-  animation: splashProgress 2s ease 1.2s forwards;
-  box-shadow: 0 0 10px rgba(255,255,255,0.7);
+
+.ea-splash-loader-track {
+    position: relative;
+
+    width: 100%;
+    height: 3px;
+
+    overflow: hidden;
+
+    border-radius: 100px;
+
+    background: rgba(255, 255, 255, 0.13);
+
+    box-shadow:
+        inset 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-@keyframes splashFadeUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
+
+.ea-splash-loader-progress {
+    width: 0;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 220, 205, 0.65),
+            #ffffff,
+            rgba(255, 190, 160, 0.85)
+        );
+
+    box-shadow:
+        0 0 12px rgba(255, 235, 225, 0.65);
+
+    animation:
+        eaSplashProgress 2.35s
+        cubic-bezier(0.4, 0, 0.2, 1)
+        0.65s forwards;
 }
 
-@keyframes splashProgress {
-  from { width: 0%; }
-  to { width: 100%; }
+
+@keyframes eaSplashProgress {
+    0% {
+        width: 0%;
+    }
+
+    20% {
+        width: 18%;
+    }
+
+    55% {
+        width: 58%;
+    }
+
+    80% {
+        width: 82%;
+    }
+
+    100% {
+        width: 100%;
+    }
 }
+
+
+.ea-splash-loader-info {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 0.62rem;
+
+    letter-spacing: 0.04em;
+
+    color: rgba(255, 255, 255, 0.48);
+}
+
+
+.ea-splash-loader-status {
+    color: rgba(255, 235, 225, 0.72);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.ea-splash-footer {
+    position: absolute;
+
+    bottom: 28px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 0.53rem;
+
+    letter-spacing: 0.18em;
+
+    color: rgba(255, 240, 230, 0.4);
+
+    opacity: 0;
+
+    animation:
+        eaFooterEnter 0.8s ease
+        1.3s forwards;
+}
+
+
+.ea-splash-footer-dot {
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 235, 225, 0.4);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes eaSplashLogoEnter {
+    0% {
+        opacity: 0;
+        transform: scale(0.72) translateY(25px);
+    }
+
+    65% {
+        opacity: 1;
+        transform: scale(1.035) translateY(-3px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+@keyframes eaSplashBrandEnter {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes eaLoaderEnter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes eaFooterEnter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .ea-splash {
+        padding: 22px;
+    }
+
+    .ea-splash-logo-wrap {
+        width: 165px;
+        height: 165px;
+    }
+
+    .ea-splash-logo-shell {
+        width: 118px;
+        height: 118px;
+        padding: 9px;
+    }
+
+    .ea-splash-halo {
+        width: 138px;
+        height: 138px;
+    }
+
+    .ea-splash-name {
+        font-size: clamp(2.25rem, 11vw, 3rem);
+    }
+
+    .ea-splash-eyebrow {
+        font-size: 0.52rem;
+        letter-spacing: 0.22em;
+    }
+
+    .ea-splash-tagline {
+        font-size: 0.62rem;
+        letter-spacing: 0.19em;
+    }
+
+    .ea-splash-loader {
+        width: 220px;
+        margin-top: 32px;
+    }
+
+    .ea-splash-footer {
+        bottom: 20px;
+
+        padding: 0 15px;
+
+        font-size: 0.43rem;
+        letter-spacing: 0.12em;
+
+        white-space: nowrap;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media (max-height: 650px) {
+
+    .ea-splash-logo-wrap {
+        width: 135px;
+        height: 135px;
+    }
+
+    .ea-splash-logo-shell {
+        width: 100px;
+        height: 100px;
+    }
+
+    .ea-splash-halo {
+        width: 115px;
+        height: 115px;
+    }
+
+    .ea-splash-brand {
+        margin-top: 14px;
+    }
+
+    .ea-splash-loader {
+        margin-top: 24px;
+    }
+
+    .ea-splash-footer {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ea-splash *,
+    .ea-splash::before,
+    .ea-splash::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
 
 /* ============================================
    404 PAGE

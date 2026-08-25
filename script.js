@@ -426,37 +426,92 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-// ---- Splash Screen ----
-// ---- Splash Screen ----
-document.addEventListener('DOMContentLoaded', function () {
-  const splash = document.getElementById('ea-splash');
-  if (!splash) return;
+/* =========================================================
+   EASTGATE ACADEMY
+   PREMIUM SPLASH SCREEN
+   ========================================================= */
 
-  // If splash already shown this session hide it instantly
-  if (sessionStorage.getItem('ea-splash-shown')) {
-    splash.style.display = 'none';
-    return;
-  }
+document.addEventListener("DOMContentLoaded", () => {
 
-  // Mark as shown immediately
-  sessionStorage.setItem('ea-splash-shown', 'true');
+    const splash = document.getElementById("ea-splash");
 
-  function hideSplash() {
-    splash.classList.add('ea-splash-hide');
+    if (!splash) return;
+
+
+    /* ---------------------------------------------------------
+       Skip splash if it has already appeared during this session
+       --------------------------------------------------------- */
+
+    if (sessionStorage.getItem("ea-splash-shown")) {
+
+        splash.style.display = "none";
+
+        return;
+    }
+
+
+    /* ---------------------------------------------------------
+       Prevent page scrolling while splash is visible
+       --------------------------------------------------------- */
+
+    document.body.style.overflow = "hidden";
+
+
+    /* ---------------------------------------------------------
+       Mark splash as shown
+       --------------------------------------------------------- */
+
+    sessionStorage.setItem("ea-splash-shown", "true");
+
+
+    let splashClosed = false;
+
+
+    /* ---------------------------------------------------------
+       Hide splash
+       --------------------------------------------------------- */
+
+    const hideSplash = () => {
+
+        if (splashClosed) return;
+
+        splashClosed = true;
+
+        splash.classList.add("ea-splash-hide");
+
+        setTimeout(() => {
+
+            splash.style.display = "none";
+
+            document.body.style.overflow = "";
+
+        }, 750);
+    };
+
+
+    /* ---------------------------------------------------------
+       Normal splash duration
+       --------------------------------------------------------- */
+
+    setTimeout(hideSplash, 2900);
+
+
+    /* ---------------------------------------------------------
+       Safety fallback
+       --------------------------------------------------------- */
+
     setTimeout(() => {
-      splash.style.display = 'none';
-      document.body.style.overflow = '';
-    }, 600);
-  }
 
-  // Hide after 2.8 seconds
-  setTimeout(hideSplash, 2800);
+        if (!splashClosed) {
 
-  // Safety net for PWA — force hide after 4 seconds
-  setTimeout(() => {
-    splash.style.display = 'none';
-    document.body.style.overflow = '';
-  }, 4000);
+            splash.style.display = "none";
+
+            document.body.style.overflow = "";
+
+        }
+
+    }, 4500);
+
 });
 
 // ---- Dropdown Navigation ----
