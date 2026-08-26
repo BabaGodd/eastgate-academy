@@ -1103,6 +1103,11 @@ ul { list-style: none; }
 
   .ea-header-inner { position: relative; }
 
+  .ea-hero {
+    height: 420px;
+    min-height: 0;
+  }
+
   .ea-hero-title { font-size: 2.2rem; }
 
   .ea-facts-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1128,6 +1133,7 @@ ul { list-style: none; }
 }
 
 @media (max-width: 480px) {
+  .ea-hero { height: 320px; }
   .ea-hero-title { font-size: 1.8rem; }
   .ea-hero-btns { flex-direction: column; align-items: center; }
   .ea-facts-grid { grid-template-columns: repeat(2, 1fr); }
