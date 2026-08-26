@@ -660,6 +660,8 @@ ul { list-style: none; }
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
+  top: 64px;
 }
 
 .ea-hero-scroll {
@@ -1135,7 +1137,7 @@ ul { list-style: none; }
 @media (max-width: 480px) {
   .ea-hero { height: 320px; }
   .ea-hero-title { font-size: 1.8rem; }
-  .ea-hero-btns { flex-direction: column; align-items: center; }
+  .ea-hero-btns { flex-direction: column; align-items: center; top: 40px; }
   .ea-facts-grid { grid-template-columns: repeat(2, 1fr); }
   .ea-footer-grid { grid-template-columns: 1fr; }
   .ea-welcome-badge { position: static; margin-top: 1rem; display: inline-block; }
