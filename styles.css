@@ -6355,6 +6355,50 @@ body.dark-mode .ea-ai-typing-dots {
   }
 }
 
+/* Compact header controls on phones */
+@media (max-width: 480px) {
+  .ea-header-inner {
+    gap: 0.25rem !important;
+    padding: 0 0.6rem !important;
+  }
+
+  .ea-header-brand {
+    gap: 8px !important;
+  }
+
+  .ea-header-logo {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .ea-header-name {
+    font-size: 0.82rem !important;
+  }
+
+  .ea-dark-toggle,
+  .ea-portal-btn,
+  .ea-hamburger {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .ea-dark-toggle {
+    font-size: 0.95rem !important;
+  }
+
+  .ea-portal-btn {
+    font-size: 0.9rem !important;
+  }
+
+  .ea-hamburger {
+    gap: 4px !important;
+  }
+
+  .ea-hamburger span {
+    width: 20px !important;
+  }
+}
+
 /* ============================================
    LOADING SKELETON — BRANDED
    ============================================ */
