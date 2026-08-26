@@ -1070,6 +1070,15 @@ ul { list-style: none; }
 @media (max-width: 1024px) {
   .ea-programs-grid { grid-template-columns: repeat(2, 1fr); }
   .ea-footer-grid { grid-template-columns: 1fr 1fr; }
+  .ea-hero-btns {
+    gap: 0.75rem;
+  }
+
+  .ea-hero-btns .ea-btn-primary,
+  .ea-hero-btns .ea-btn-secondary {
+    padding: 9px 18px;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1137,7 +1146,12 @@ ul { list-style: none; }
 @media (max-width: 480px) {
   .ea-hero { height: 320px; }
   .ea-hero-title { font-size: 1.8rem; }
-  .ea-hero-btns { flex-direction: column; align-items: center; top: 40px; }
+  .ea-hero-btns { flex-direction: row; align-items: center; top: 40px; gap: 0.5rem; }
+  .ea-hero-btns .ea-btn-primary,
+  .ea-hero-btns .ea-btn-secondary {
+    padding: 7px 15px;
+    font-size: 0.78rem;
+  }
   .ea-facts-grid { grid-template-columns: repeat(2, 1fr); }
   .ea-footer-grid { grid-template-columns: 1fr; }
   .ea-welcome-badge { position: static; margin-top: 1rem; display: inline-block; }
