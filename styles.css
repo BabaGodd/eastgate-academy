@@ -621,6 +621,23 @@ ul { list-style: none; }
   animation: heroFadeUp 1s ease forwards;
 }
 
+.ea-hero-welcome {
+  display: inline-block;
+  max-width: 620px;
+  margin: 0;
+  padding: 0.6rem 1.35rem 0.7rem;
+  color: #fff;
+  background: rgba(80, 30, 18, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.24);
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2.8vw, 2.35rem);
+  line-height: 1.15;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  transform: translateY(-25vh);
+}
+
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -661,7 +678,7 @@ ul { list-style: none; }
   justify-content: center;
   flex-wrap: wrap;
   position: relative;
-  top: 64px;
+  top: 28px;
 }
 
 .ea-hero-scroll {
@@ -1121,6 +1138,12 @@ ul { list-style: none; }
 
   .ea-hero-title { font-size: 2.2rem; }
 
+  .ea-hero-welcome {
+    max-width: 88vw;
+    padding: 0.5rem 0.85rem 0.55rem;
+    transform: translateY(-19vh);
+  }
+
   .ea-facts-grid { grid-template-columns: repeat(2, 1fr); }
 
   .ea-welcome-grid {
@@ -1146,7 +1169,7 @@ ul { list-style: none; }
 @media (max-width: 480px) {
   .ea-hero { height: 320px; }
   .ea-hero-title { font-size: 1.8rem; }
-  .ea-hero-btns { flex-direction: row; align-items: center; top: 40px; gap: 0.5rem; }
+  .ea-hero-btns { flex-direction: row; align-items: center; top: 20px; gap: 0.5rem; }
   .ea-hero-btns .ea-btn-primary,
   .ea-hero-btns .ea-btn-secondary {
     padding: 7px 15px;
