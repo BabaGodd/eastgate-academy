@@ -1174,7 +1174,7 @@ ul { list-style: none; }
     padding: 0.45rem 0.65rem 0.5rem;
     font-size: 1.15rem;
     white-space: nowrap;
-    transform: translateY(-10px);
+    transform: translateY(-40px);
   }
   .ea-hero-btns { flex-direction: row; align-items: center; top: 20px; gap: 0.5rem; }
   .ea-hero-btns .ea-btn-primary,
