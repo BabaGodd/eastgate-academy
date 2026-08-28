@@ -201,8 +201,8 @@ body.dark-mode .ea-footer-bottom {
 body.dark-mode .ea-page-hero-overlay {
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.65) 0%,
-    rgba(0,0,0,0.8) 100%
+    rgba(0,0,0,0.45) 0%,
+    rgba(30,80,30,0.65) 100%
   );
 }
 
@@ -1192,7 +1192,8 @@ ul { list-style: none; }
    ============================================ */
 .ea-page-hero {
   position: relative;
-  height: 420px;
+  height: 100vh;
+  min-height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1240,6 +1241,19 @@ ul { list-style: none; }
   font-size: 1.1rem;
   opacity: 0.9;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .ea-page-hero {
+    height: 420px;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ea-page-hero {
+    height: 320px;
+  }
 }
 
 /* ============================================
