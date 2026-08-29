@@ -90,6 +90,53 @@ function isPortalSessionActive() {
 
 // ---- Check Auth & Load User ----
 async function checkParentAuth() {
+  if (!supabaseClient) {
+    const pageTitle = document.getElementById('ea-parent-page-title');
+    const userName = document.querySelector('.ea-user-name');
+    const userAvatar = document.querySelector('.ea-user-avatar');
+
+    if (pageTitle) pageTitle.textContent = 'Welcome, Parent';
+    if (userName) userName.textContent = 'Parent';
+    if (userAvatar) userAvatar.textContent = 'P';
+
+    const statsGrid = document.querySelector('.ea-p-stats-grid');
+    const childCard = document.querySelector('.ea-p-child-card');
+
+    if (statsGrid) {
+      statsGrid.innerHTML = `
+        <div class="ea-p-stat-card ea-p-purple">
+          <p class="ea-p-stat-label">Child's Class</p>
+          <p class="ea-p-stat-value">—</p>
+        </div>
+        <div class="ea-p-stat-card ea-p-green">
+          <p class="ea-p-stat-label">Average Grade</p>
+          <p class="ea-p-stat-value">—</p>
+        </div>
+        <div class="ea-p-stat-card ea-p-blue">
+          <p class="ea-p-stat-label">Attendance Rate</p>
+          <p class="ea-p-stat-value">—</p>
+        </div>
+        <div class="ea-p-stat-card ea-p-orange">
+          <p class="ea-p-stat-label">Fees Status</p>
+          <p class="ea-p-stat-value ea-p-fees-due">Pending</p>
+        </div>
+      `;
+    }
+
+    if (childCard) {
+      childCard.innerHTML = `
+        <div class="ea-p-child-avatar">ST</div>
+        <div class="ea-p-child-info">
+          <p class="ea-p-child-name">Student Name</p>
+          <p class="ea-p-child-detail">Class — &nbsp;|&nbsp; Student ID: —</p>
+          <p class="ea-p-child-detail">Class Teacher: —</p>
+        </div>
+      `;
+    }
+
+    return;
+  }
+
   showDashboardSkeleton();
 
   const storedRole = localStorage.getItem('ea-user-role');
@@ -113,7 +160,13 @@ async function checkParentAuth() {
     }
   }
 
-  const { data: { user } } = await supabaseClient.auth.getUser();
+  let user = null;
+  try {
+    const authResult = await supabaseClient.auth.getUser();
+    user = authResult?.data?.user || null;
+  } catch (authError) {
+    console.warn('Parent auth user fetch failed:', authError);
+  }
 
   if (!user) {
     window.location.href = 'login.html';
@@ -354,7 +407,7 @@ async function resolveLinkedStudentRecord(parentId = null, studentId = null) {
   const storedParentId = parentId || localStorage.getItem('ea-user-id');
   const storedUserEmail = localStorage.getItem('ea-user-email');
 
-  const studentQuery = '*, classes (name, teacher_id, users (full_name))';
+  const studentQuery = '*, classes(name)';
 
   if (storedStudentId) {
     const { data: childById, error: childIdError } = await supabaseClient
@@ -469,6 +522,11 @@ async function loadParentData(parentId, studentId = null) {
       `;
     }
 
+    const userName = document.querySelector('.ea-user-name');
+    if (userName && localStorage.getItem('ea-user-name')) {
+      userName.textContent = localStorage.getItem('ea-user-name');
+    }
+
     loadParentAnnouncements(null);
     return;
   }
@@ -554,7 +612,7 @@ async function loadParentData(parentId, studentId = null) {
   }
 
   showResultsSkeleton();
-  loadChildResults(child.id);
+  loadChildResults(child.id, child.student_code);
 
   showAttendanceSkeleton();
   loadChildAttendance(child.id, child.class_id);
@@ -570,11 +628,15 @@ async function loadParentData(parentId, studentId = null) {
 // ---- Load Child Results ----
 // NOTE: Only published results are shown to parents. Results a teacher has
 // entered but admin has not yet approved/published stay hidden here.
-async function loadChildResults(studentId) {
+async function loadChildResults(studentId, studentCode = localStorage.getItem('ea-student-code')) {
+  const identifierFilter = studentCode
+    ? `student_id.eq.${studentId},student_code.eq.${studentCode}`
+    : `student_id.eq.${studentId}`;
+
   const { data: results, error } = await supabaseClient
     .from('results')
     .select(`*, subjects (name)`)
-    .eq('student_id', studentId)
+    .or(identifierFilter)
     .order('created_at', { ascending: false });
 
   if (error) {
@@ -919,28 +981,61 @@ const parentLinks = document.querySelectorAll('.ea-parent-link');
 const parentSections = document.querySelectorAll('.ea-parent-section');
 const parentPageTitle = document.getElementById('ea-parent-page-title');
 
-parentLinks.forEach(link => {
-  link.addEventListener('click', function (e) {
-    e.preventDefault();
-    parentLinks.forEach(l => l.classList.remove('active'));
-    this.classList.add('active');
-    const title = this.getAttribute('data-title');
-    if (title) parentPageTitle.textContent = title;
-    const target = this.getAttribute('data-section');
-    parentSections.forEach(section => {
-      section.style.display = section.id === 'section-' + target ? 'block' : 'none';
-    });
+function switchParentSection(link) {
+  const navLinks = document.querySelectorAll('.ea-parent-link');
+  const sections = document.querySelectorAll('.ea-parent-section');
+  const titleEl = document.getElementById('ea-parent-page-title');
 
-    if (target === 'fees') {
-      renderFeesSummary(currentParentChild);
-    }
+  navLinks.forEach(item => {
+    item.classList.toggle('active', item === link);
   });
-});
+
+  const target = link.getAttribute('data-section');
+  const title = link.getAttribute('data-title');
+  if (titleEl && title) titleEl.textContent = title;
+
+  sections.forEach(section => {
+    section.style.display = section.id === 'section-' + target ? 'block' : 'none';
+  });
+
+  if (typeof closeParentSidebar === 'function' && window.innerWidth <= 768) {
+    closeParentSidebar();
+  }
+
+  if (target === 'fees' && typeof renderFeesSummary === 'function') {
+    renderFeesSummary(currentParentChild);
+  }
+
+  return false;
+}
+
+function bindParentSidebarNavigation() {
+  const navLinks = document.querySelectorAll('.ea-parent-link');
+  const sections = document.querySelectorAll('.ea-parent-section');
+  const titleEl = document.getElementById('ea-parent-page-title');
+
+  if (!navLinks.length || !sections.length || !titleEl) return;
+
+  navLinks.forEach(link => {
+    link.onclick = function (e) {
+      e.preventDefault();
+      return switchParentSection(this);
+    };
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bindParentSidebarNavigation, { once: true });
+} else {
+  bindParentSidebarNavigation();
+}
 
 // ---- Logout ----
-document.getElementById('ea-parent-logout').addEventListener('click', async function (e) {
+document.getElementById('ea-parent-logout')?.addEventListener('click', async function (e) {
   e.preventDefault();
-  await supabaseClient.auth.signOut();
+  if (supabaseClient) {
+    await supabaseClient.auth.signOut();
+  }
   localStorage.clear();
   window.location.href = 'login.html';
 });
@@ -974,7 +1069,7 @@ document.querySelectorAll('.ea-p-network-card').forEach(card => {
   });
 });
 
-document.getElementById('ea-p-cancel-payment').addEventListener('click', function () {
+document.getElementById('ea-p-cancel-payment')?.addEventListener('click', function () {
   document.getElementById('ea-p-payment-form').style.display = 'none';
   document.querySelectorAll('.ea-p-network-card').forEach(c => c.classList.remove('selected'));
   document.getElementById('ea-p-momo-number').value = '';
@@ -982,7 +1077,7 @@ document.getElementById('ea-p-cancel-payment').addEventListener('click', functio
   selectedNetwork = '';
 });
 
-document.getElementById('ea-p-pay-btn').addEventListener('click', async function () {
+document.getElementById('ea-p-pay-btn')?.addEventListener('click', async function () {
   const number = document.getElementById('ea-p-momo-number').value.trim();
   const name = document.getElementById('ea-p-momo-name').value.trim();
 
@@ -1289,7 +1384,8 @@ async function openReportPreview() {
   document.getElementById('ea-preview-term').textContent = academicTerm;
   document.getElementById('ea-preview-parent-name').textContent = parentName;
   document.getElementById('ea-preview-date-issued').textContent = today;
-  document.getElementById('ea-preview-teacher-name')?.textContent = classTeacher;
+  const previewTeacherName = document.getElementById('ea-preview-teacher-name');
+  if (previewTeacherName) previewTeacherName.textContent = classTeacher;
 
   const rows = getReportPreviewRows();
   previewTbody.innerHTML = rows.length

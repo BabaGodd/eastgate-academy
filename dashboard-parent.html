@@ -47,13 +47,13 @@
       <h2 class="ea-parent-logo">Eastgate Academy Parent Portal</h2>
       <nav>
         <ul class="ea-parent-nav">
-          <li><a href="#" class="ea-parent-link active" data-section="dashboard" data-title="Welcome, Parent">Dashboard</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="results" data-title="Child's Results">View Child Results</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="attendance" data-title="Child's Attendance">Attendance</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="fees" data-title="Pay School Fees">Pay School Fees</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="messages" data-title="Messages">Messages</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="events" data-title="School Events">School Events</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="settings" data-title="Account Settings">Settings</a></li>
+          <li><a href="#" class="ea-parent-link active" data-section="dashboard" data-title="Welcome, Parent" onclick="return switchParentSection(this);">Dashboard</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="results" data-title="Child's Results" onclick="return switchParentSection(this);">View Child Results</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="attendance" data-title="Child's Attendance" onclick="return switchParentSection(this);">Attendance</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="fees" data-title="Pay School Fees" onclick="return switchParentSection(this);">Pay School Fees</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="messages" data-title="Messages" onclick="return switchParentSection(this);">Messages</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="events" data-title="School Events" onclick="return switchParentSection(this);">School Events</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="settings" data-title="Account Settings" onclick="return switchParentSection(this);">Settings</a></li>
           <li><a href="#" id="ea-parent-logout">Logout</a></li>
         </ul>
       </nav>
@@ -482,6 +482,37 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
   <script src="dashboard-parent.js"></script>
+
+  <script>
+    function switchParentSection(link) {
+      const navLinks = document.querySelectorAll('.ea-parent-link');
+      const sections = document.querySelectorAll('.ea-parent-section');
+      const titleEl = document.getElementById('ea-parent-page-title');
+
+      navLinks.forEach(item => {
+        item.classList.toggle('active', item === link);
+      });
+
+      const target = link.getAttribute('data-section');
+      const title = link.getAttribute('data-title');
+      if (titleEl && title) titleEl.textContent = title;
+
+      sections.forEach(section => {
+        section.style.display = section.id === 'section-' + target ? 'block' : 'none';
+      });
+
+      return false;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.ea-parent-link').forEach(link => {
+        link.onclick = function (event) {
+          event.preventDefault();
+          return switchParentSection(this);
+        };
+      });
+    });
+  </script>
 
 </body>
 </html>
