@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       .from('results')
       .insert({
         student_id: studentId,
-        subject_id: subjectId,  // ✅ Changed from "subject" to "subject_id" with UUID
+        subject_id: subjectId,
         score: score,
         grade: grade,
         term: term,
@@ -221,6 +221,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         remark: remark || calculateRemark(score),
         class_id: classId,
         teacher_id: teacherData.id,
+        published: true,
         created_at: new Date().toISOString()
       })
       .select();

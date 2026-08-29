@@ -640,10 +640,18 @@ document
                     parentUser?.id || student.id
                 );
 
+                const parentDisplayName =
+                    parentUser?.full_name ||
+                    'Parent';
+
                 localStorage.setItem(
                     'ea-user-name',
-                    parentUser?.full_name ||
-                    student.full_name
+                    parentDisplayName
+                );
+
+                localStorage.setItem(
+                    'ea-parent-name',
+                    parentDisplayName
                 );
 
                 localStorage.setItem(
