@@ -47,13 +47,13 @@
       <h2 class="ea-parent-logo">Eastgate Academy Parent Portal</h2>
       <nav>
         <ul class="ea-parent-nav">
-          <li><a href="#" class="ea-parent-link active" data-section="dashboard" data-title="Welcome, Parent" onclick="return switchParentSection(this);">Dashboard</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="results" data-title="Child's Results" onclick="return switchParentSection(this);">View Child Results</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="attendance" data-title="Child's Attendance" onclick="return switchParentSection(this);">Attendance</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="fees" data-title="Pay School Fees" onclick="return switchParentSection(this);">Pay School Fees</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="messages" data-title="Messages" onclick="return switchParentSection(this);">Messages</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="events" data-title="School Events" onclick="return switchParentSection(this);">School Events</a></li>
-          <li><a href="#" class="ea-parent-link" data-section="settings" data-title="Account Settings" onclick="return switchParentSection(this);">Settings</a></li>
+          <li><a href="#" class="ea-parent-link active" data-section="dashboard" data-title="Welcome, Parent">Dashboard</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="results" data-title="Child's Results">View Child Results</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="attendance" data-title="Child's Attendance">Attendance</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="fees" data-title="Pay School Fees">Pay School Fees</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="messages" data-title="Messages">Messages</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="events" data-title="School Events">School Events</a></li>
+          <li><a href="#" class="ea-parent-link" data-section="settings" data-title="Account Settings">Settings</a></li>
           <li><a href="#" id="ea-parent-logout">Logout</a></li>
         </ul>
       </nav>
@@ -191,62 +191,6 @@
           </table>
         </div>
       </section>
-
-      <div class="ea-report-preview-overlay" id="ea-report-preview-overlay" style="display:none;">
-        <div class="ea-report-preview-modal">
-          <div class="ea-report-preview-header">
-            <div>
-              <p class="ea-report-preview-label">Report Preview</p>
-              <h3>Student Report Card</h3>
-            </div>
-            <button class="ea-report-close-btn" id="ea-report-close-btn" aria-label="Close preview">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-
-          <div class="ea-report-preview-card" id="ea-report-preview-card">
-            <div class="ea-report-preview-topbar">
-              <img src="images/eastgateLogo.webp" alt="Eastgate Academy logo" />
-              <div>
-                <h4>EASTGATE ACADEMY</h4>
-                <p>Dawenya, Tema, Ghana</p>
-              </div>
-            </div>
-
-            <div class="ea-report-preview-title">OFFICIAL ACADEMIC REPORT CARD</div>
-
-            <div class="ea-report-preview-info-grid">
-              <div><span>Student:</span> <strong id="ea-preview-student-name">—</strong></div>
-              <div><span>Student ID:</span> <strong id="ea-preview-student-id">—</strong></div>
-              <div><span>Class:</span> <strong id="ea-preview-student-class">—</strong></div>
-              <div><span>Term:</span> <strong id="ea-preview-term">—</strong></div>
-              <div><span>Parent:</span> <strong id="ea-preview-parent-name">—</strong></div>
-              <div><span>Class Teacher:</span> <strong id="ea-preview-teacher-name">—</strong></div>
-              <div><span>Date Issued:</span> <strong id="ea-preview-date-issued">—</strong></div>
-            </div>
-
-            <table class="ea-report-preview-table">
-              <thead>
-                <tr>
-                  <th>Subject</th>
-                  <th>Score</th>
-                  <th>Grade</th>
-                  <th>Term</th>
-                  <th>Remark</th>
-                </tr>
-              </thead>
-              <tbody id="ea-report-preview-tbody">
-                <tr><td colspan="5">No results available yet.</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="ea-report-preview-actions">
-            <button class="ea-report-cancel-btn" id="ea-report-cancel-btn">Cancel</button>
-            <button class="ea-p-primary-btn" id="ea-report-keep-btn">Keep & Download</button>
-          </div>
-        </div>
-      </div>
 
       <!-- ATTENDANCE -->
       <section class="ea-parent-content ea-parent-section" id="section-attendance" style="display:none;">
@@ -482,37 +426,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
   <script src="dashboard-parent.js"></script>
-
-  <script>
-    function switchParentSection(link) {
-      const navLinks = document.querySelectorAll('.ea-parent-link');
-      const sections = document.querySelectorAll('.ea-parent-section');
-      const titleEl = document.getElementById('ea-parent-page-title');
-
-      navLinks.forEach(item => {
-        item.classList.toggle('active', item === link);
-      });
-
-      const target = link.getAttribute('data-section');
-      const title = link.getAttribute('data-title');
-      if (titleEl && title) titleEl.textContent = title;
-
-      sections.forEach(section => {
-        section.style.display = section.id === 'section-' + target ? 'block' : 'none';
-      });
-
-      return false;
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.ea-parent-link').forEach(link => {
-        link.onclick = function (event) {
-          event.preventDefault();
-          return switchParentSection(this);
-        };
-      });
-    });
-  </script>
 
 </body>
 </html>
