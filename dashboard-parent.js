@@ -386,10 +386,12 @@ async function loadChildAttendance(studentId, classId) {
   const rate = total > 0 ? Math.round((present / total) * 100) : 0;
   if (statValues[2]) statValues[2].textContent = rate + '%';
 
-  const tables = document.querySelectorAll('.ea-p-table');
-  if (tables.length < 1) return;
-
-  const attTable = tables[0].querySelector('tbody');
+  // FIX: previously grabbed the first `.ea-p-table` on the page by position,
+  // which was actually the Results table (it appears earlier in the HTML),
+  // causing this function to silently overwrite real results with the
+  // "No attendance records" message on every page load. Now targets the
+  // attendance tbody directly by its own unique ID instead.
+  const attTable = document.getElementById('ea-p-attendance-tbody');
   if (!attTable) return;
 
   if (attendance.length === 0) {
@@ -1103,7 +1105,7 @@ if (downloadReportBtn) {
       doc.setFontSize(8);
       doc.setFont('helvetica', 'italic');
       doc.text('This is an official report card generated from the Eastgate Academy portal.', 105, footerY + 6, { align: 'center' });
-      doc.text('For queries contact: info@eastgateschool.com  | ', 105, footerY + 11, { align: 'center' });
+      doc.text('For queries contact: info@eastgateschool.com  |  0244 506 796', 105, footerY + 11, { align: 'center' });
       doc.text(`Generated on ${today} by Eastgate Academy Portal`, 105, footerY + 16, { align: 'center' });
 
       // ---- SAVE ----
