@@ -244,7 +244,7 @@ body.dark-mode .ea-adm-apply-section { background: #1e1e2e; }
 body.dark-mode .ea-adm-faq-section { background: #121212; }
 body.dark-mode .ea-adm-faq-item { background: #1e1e2e; border-color: #333; }
 body.dark-mode .faq-toggle { background: #1e1e2e; color: #e8e8e8; }
-body.dark-mode .faq-toggle.active { background: #388E3C; color: white; }
+body.dark-mode .faq-toggle.active { background: #D94E2A; color: white; }
 body.dark-mode .faq-content { background: #2a2a3e; }
 body.dark-mode .faq-content p { color: #aaa; }
 body.dark-mode .ea-adm-schedule-list li { border-bottom-color: #333; }

@@ -7,6 +7,10 @@
   padding: 5rem 0;
 }
 
+body.dark-mode .ea-admission-form-section {
+  background: #121212;
+}
+
 .ea-admission-form-wrap {
   max-width: 860px;
   margin: 0 auto;
