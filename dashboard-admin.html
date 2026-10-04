@@ -32,6 +32,7 @@
           <li><a href="#" class="ea-nav-link" data-section="admissions" data-title="Admissions">Admissions</a></li>
           <li><a href="#" class="ea-nav-link" data-section="assignments" data-title="Manage Assignments">Manage Assignments</a></li>
           <li><a href="#" class="ea-nav-link" data-section="results" data-title="View Results">View Results</a></li>
+          <li><a href="#" class="ea-nav-link" data-section="report-cards" data-title="Generate Report Cards">Generate Report Cards</a></li>
           <li><a href="#" class="ea-nav-link" data-section="announcements" data-title="Announcements">Announcements</a></li>
           <li><a href="#" class="ea-nav-link" data-section="teachers" data-title="Manage Teachers">Manage Teachers</a></li>
           <li>
@@ -536,6 +537,55 @@
         </div>
       </section>
 
+      <!-- GENERATE REPORT CARDS -->
+      <section class="ea-admin-content ea-section" id="section-report-cards" style="display:none;">
+        <div class="ea-users-top">
+          <h2>Generate Report Cards</h2>
+        </div>
+
+        <div class="ea-filter-bar">
+          <select class="ea-filter-select" id="ea-rc-class">
+            <option value="">Loading classes...</option>
+          </select>
+          <select class="ea-filter-select" id="ea-rc-term">
+            <option value="">Select Term</option>
+            <option value="Term 1">Term 1</option>
+            <option value="Term 2">Term 2</option>
+            <option value="Term 3">Term 3</option>
+          </select>
+          <button class="ea-add-user-btn" id="ea-rc-load-btn">
+            <i class="fas fa-list"></i> Load Students
+          </button>
+        </div>
+
+        <div id="ea-rc-summary" style="display:none; margin-bottom:1rem;">
+          <p style="color:#666;">Loaded <strong id="ea-rc-count">0</strong> student(s).</p>
+          <button class="ea-add-user-btn" id="ea-rc-generate-btn" style="background:#388E3C;">
+            <i class="fas fa-file-archive"></i> Generate &amp; Download ZIP
+          </button>
+          <p id="ea-rc-progress" style="color:#666; margin-top:0.7rem;"></p>
+        </div>
+
+        <div class="ea-table-wrap">
+          <table class="ea-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Student ID</th>
+                <th>Subjects</th>
+              </tr>
+            </thead>
+            <tbody id="ea-rc-tbody">
+              <tr>
+                <td colspan="3" style="text-align:center; padding:2rem; color:#aaa;">
+                  Select a class and term, then load students.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       <!-- ANNOUNCEMENTS -->
       <section class="ea-admin-content ea-section" id="section-announcements" style="display:none;">
         <div class="ea-users-top">
@@ -639,6 +689,11 @@
     </main>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="report-card-generator.js"></script>
+  <script src="report-cards-admin.js"></script>
   <script src="dashboard-admin.js"></script>
 </body>
 </html>
